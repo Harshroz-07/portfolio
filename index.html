@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harsh | Creative Frontend Engineer & Designer</title>
+    <meta name="description" content="Portfolio of Harsh, a frontend developer specializing in building highly interactive, visually stunning, and performant web applications.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="intro-active">
+
+    <!-- Ronaldo Bicycle Kick Intro Loader -->
+    <div id="introLoader" class="intro-loader">
+        <button id="skipIntroBtn" class="skip-btn" aria-label="Skip intro animation">
+            <span>Skip Intro</span>
+            <svg class="skip-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+        </button>
+        
+        <div class="intro-content">
+            <svg class="intro-svg" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <!-- Glowing Filters -->
+                    <filter id="glow-teal" x="-30%" y="-30%" width="160%" height="160%">
+                        <feGaussianBlur stdDeviation="8" result="blur" />
+                        <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                    </filter>
+                    <filter id="glow-indigo" x="-30%" y="-30%" width="160%" height="160%">
+                        <feGaussianBlur stdDeviation="10" result="blur" />
+                        <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                    </filter>
+                    <filter id="glow-white" x="-40%" y="-40%" width="180%" height="180%">
+                        <feGaussianBlur stdDeviation="5" result="blur1" />
+                        <feGaussianBlur stdDeviation="15" result="blur2" />
+                        <feMerge>
+                            <feMergeNode in="blur2" />
+                            <feMergeNode in="blur1" />
+                            <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                    </filter>
+                    
+                    <!-- Gradients -->
+                    <radialGradient id="spotlight" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="rgba(99, 102, 241, 0.25)" />
+                        <stop offset="60%" stop-color="rgba(20, 184, 166, 0.08)" />
+                        <stop offset="100%" stop-color="rgba(0, 0, 0, 0)" />
+                    </radialGradient>
+                    
+                    <linearGradient id="neon-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#14b8a6" />
+                        <stop offset="50%" stop-color="#6366f1" />
+                        <stop offset="100%" stop-color="#a855f7" />
+                    </linearGradient>
+                    
+                    <linearGradient id="ball-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#ffffff" />
+                        <stop offset="100%" stop-color="#14b8a6" />
+                    </linearGradient>
+                </defs>
+                
+                <!-- Background Stadium Spotlight -->
+                <ellipse cx="400" cy="300" rx="380" ry="280" fill="url(#spotlight)" class="intro-spotlight" />
+                
+                <!-- Background Pitch Lines (Perspective grid) -->
+                <g class="pitch-grid" stroke="rgba(255, 255, 255, 0.04)" stroke-width="1.5">
+                    <line x1="50" y1="550" x2="750" y2="550" />
+                    <line x1="150" y1="460" x2="650" y2="460" />
+                    <line x1="220" y1="390" x2="580" y2="390" />
+                    <line x1="400" y1="300" x2="400" y2="550" />
+                    <line x1="50" y1="550" x2="300" y2="300" />
+                    <line x1="750" y1="550" x2="500" y2="300" />
+                </g>
+                
+                <!-- "SIUUU" Text Background -->
+                <text x="50%" y="360" text-anchor="middle" class="siuuu-text" fill="none" stroke="url(#neon-grad)" stroke-width="3" filter="url(#glow-indigo)">SIUUU!</text>
+                <text x="50%" y="360" text-anchor="middle" class="siuuu-text-fill" fill="url(#neon-grad)">SIUUU!</text>
+                
+                <!-- Concentric Impact Rings (Shockwaves) -->
+                <circle cx="510" cy="180" r="2" class="shockwave sw-1" stroke="#14b8a6" stroke-width="3" fill="none" />
+                <circle cx="510" cy="180" r="2" class="shockwave sw-2" stroke="#6366f1" stroke-width="2" fill="none" />
+                <circle cx="510" cy="180" r="2" class="shockwave sw-3" stroke="#ffffff" stroke-width="1" fill="none" />
+                
+                <!-- Ball Trail -->
+                <path d="M 750,480 Q 640,320 510,180" class="ball-trail" stroke="url(#neon-grad)" stroke-width="3" stroke-linecap="round" fill="none" />
+                
+                <!-- Soccer Ball -->
+                <g class="soccer-ball" filter="url(#glow-white)">
+                    <!-- Path of Ball flight -->
+                    <circle cx="510" cy="180" r="14" fill="url(#ball-grad)" class="ball-circle" />
+                    <!-- Pentagons design (approximate vector lines) -->
+                    <path d="M 510,166 L 510,172 M 510,172 L 504,176 M 510,172 L 516,176 M 504,176 L 506,183 M 516,176 L 514,183 M 506,183 L 514,183" stroke="#070913" stroke-width="1.5" class="ball-pattern" />
+                </g>
+                
+                <!-- Ronaldo Neon Silhouette -->
+                <g class="ronaldo-player" filter="url(#glow-teal)">
+                    <!-- Left arm (Back) -->
+                    <path d="M 370,285 Q 330,300 300,285" fill="none" stroke="#a855f7" stroke-width="7" stroke-linecap="round" class="player-limb delay-1" />
+                    
+                    <!-- Right arm (Front) -->
+                    <path d="M 370,285 Q 360,240 340,210" fill="none" stroke="#6366f1" stroke-width="7" stroke-linecap="round" class="player-limb delay-2" />
+                    
+                    <!-- Left Leg (Bent) -->
+                    <path d="M 450,290 Q 430,320 445,350 L 420,380" fill="none" stroke="#a855f7" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" class="player-limb delay-3" />
+                    
+                    <!-- Right Leg (Kicking) -->
+                    <path d="M 450,290 L 485,235 L 510,180" fill="none" stroke="#14b8a6" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" class="kicking-leg" />
+                    
+                    <!-- Torso -->
+                    <path d="M 370,285 L 450,290" fill="none" stroke="url(#neon-grad)" stroke-width="14" stroke-linecap="round" class="player-body" />
+                    
+                    <!-- Head -->
+                    <circle cx="352" cy="285" r="9" fill="url(#neon-grad)" class="player-head" />
+                    
+                    <!-- Kicking shoe accent -->
+                    <path d="M 508,183 L 514,177 L 518,182 Z" fill="#ffffff" filter="url(#glow-white)" class="player-shoe" />
+                </g>
+            </svg>
+        </div>
+        
+        <!-- Screen split reveal panels -->
+        <div class="reveal-gate gate-left"></div>
+        <div class="reveal-gate gate-right"></div>
+    </div>
+
+    <!-- Dynamic Cursor (Optional decoration) -->
+    <div class="custom-cursor" id="customCursor"></div>
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <!-- Ambient Background Blobs -->
+    <div class="ambient-blob blob-1"></div>
+    <div class="ambient-blob blob-2"></div>
+    <div class="ambient-blob blob-3"></div>
+
+    <!-- Navigation Header -->
+    <header id="mainHeader" class="main-header">
+        <div class="container nav-container">
+            <a href="#hero" class="logo">
+                <span class="logo-accent">&lt;</span>Harsh Roz<span class="logo-accent">/&gt;</span>
+            </a>
+            
+            <nav class="nav-menu" id="navMenu">
+                <ul class="nav-links">
+                    <li><a href="#hero" class="nav-link active">Home</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#projects" class="nav-link">Projects</a></li>
+                    <li><a href="#experience" class="nav-link">Experience</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="nav-actions">
+                <!-- Theme Switcher Button -->
+                <button id="themeToggleBtn" class="icon-btn theme-toggle" aria-label="Toggle visual theme">
+                    <i data-lucide="sun" class="sun-icon"></i>
+                    <i data-lucide="moon" class="moon-icon"></i>
+                </button>
+                
+                <a href="#contact" class="btn btn-primary nav-cta">Let's Talk</a>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuToggle" class="icon-btn mobile-toggle" aria-label="Toggle menu">
+                    <i data-lucide="menu"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="hero-section">
+            <div class="container hero-container">
+                <div class="hero-content reveal">
+                    <div class="hero-badge">
+                        <span class="badge-dot"></span> Available for Freelance & Full-time
+                    </div>
+                    <h1 class="hero-title">
+                        Designing & Coding <br>
+                        <span class="gradient-text">Interactive Digital</span> Experiences
+                    </h1>
+                    <p class="hero-subtitle">
+                        I am a <span class="typing-text" id="typingText"></span> frontend engineer specializing in crafting premium, high-performance, and visually responsive web experiences.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="#projects" class="btn btn-primary">
+                            <span>View My Work</span>
+                            <i data-lucide="arrow-up-right"></i>
+                        </a>
+                        <a href="#about" class="btn btn-secondary">
+                            <span>About Me</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="hero-graphic reveal">
+                    <div class="avatar-wrapper">
+                        <div class="avatar-glow"></div>
+                        <img src="assets/profile.png" alt="Harsh Profile Avatar" class="profile-img">
+                        <div class="floating-card card-1">
+                            <i data-lucide="code" class="icon-indigo"></i>
+                            <div>
+                                <span class="card-title">Clean Code</span>
+                                <span class="card-desc">React & TypeScript</span>
+                            </div>
+                        </div>
+                        <div class="floating-card card-2">
+                            <i data-lucide="sparkles" class="icon-teal"></i>
+                            <div>
+                                <span class="card-title">Creative UI</span>
+                                <span class="card-desc">Modern & Fluid</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <a href="#about" class="scroll-indicator" aria-label="Scroll to About section">
+                <span class="mouse-icon">
+                    <span class="mouse-wheel"></span>
+                </span>
+                <span class="scroll-text">Scroll Down</span>
+            </a>
+        </section>
+
+        <!-- About & Stats Section -->
+        <section id="about" class="about-section section-padding">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="section-tag">01 // Background</span>
+                    <h2 class="section-title">Beyond the Pixels & Code</h2>
+                </div>
+
+                <div class="about-grid">
+                    <div class="about-bio reveal">
+                        <p class="bio-text-large">
+                            I thrive at the intersection of design aesthetics and clean code. I build web interfaces that are not only visual-rich but highly intuitive and technically optimized.
+                        </p>
+                        <p class="bio-text">
+                            With multiple years of learning and hands-on software design practice, I've developed a rigorous workflow focused on component architecture, performance optimization, and delightful micro-interactions. I design and build everything with a strong focus on accessibility, speed, and smooth user flow.
+                        </p>
+                        <div class="about-personal-info">
+                            <div class="info-item">
+                                <span class="info-label">Based in:</span>
+                                <span class="info-val">San Francisco, CA</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Specialty:</span>
+                                <span class="info-val">Creative Frontends & SaaS UI</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="about-stats reveal">
+                        <div class="stat-card">
+                            <h3 class="stat-number">4+</h3>
+                            <p class="stat-label">Years Learning & Building</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3 class="stat-number">30+</h3>
+                            <p class="stat-label">Completed Projects</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3 class="stat-number">99%</h3>
+                            <p class="stat-label">Client Satisfaction</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3 class="stat-number">10k+</h3>
+                            <p class="stat-label">Lines of Tailwind/CSS</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skills Sub-section -->
+                <div class="skills-wrapper section-padding-top">
+                    <h3 class="skills-heading reveal">My Tech Stack & Expertise</h3>
+                    <div class="skills-grid reveal">
+                        
+                        <!-- Skill Category: Frontend -->
+                        <div class="skill-category-card">
+                            <div class="category-header">
+                                <i data-lucide="layout"></i>
+                                <h4>Frontend Development</h4>
+                            </div>
+                            <div class="skill-list">
+                                <div class="skill-item">
+                                    <span class="skill-name">HTML5 / CSS3 / ES6+</span>
+                                    <div class="skill-bar"><div class="skill-progress" style="width: 95%"></div></div>
+                                </div>
+                                <div class="skill-item">
+                                    <span class="skill-name">React / Next.js / Vue</span>
+                                    <div class="skill-bar"><div class="skill-progress" style="width: 90%"></div></div>
+                                </div>
+                                <div class="skill-item">
+                                    <span class="skill-name">TypeScript</span>
+                                    <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
+                                </div>
+                                <div class="skill-item">
+                                    <span class="skill-name">TailwindCSS / CSS Modules</span>
+                                    <div class="skill-bar"><div class="skill-progress" style="width: 95%"></div></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Skill Category: Backend & Tools -->
+                        <div class="skill-category-card">
+                            <div class="category-header">
+                                <i data-lucide="server"></i>
+                                <h4>Backend & Architecture</h4>
+                            </div>
+                            <div class="skill-list">
+                                <div class="skill-item">
+                                    <span class="skill-name">Node.js / Express</span>
+                                    <div class="skill-bar"><div class="skill-progress" style="width: 75%"></div></div>
+                                </div>
+                                <div class="skill-item">
+                                    <span class="skill-name">GraphQL / REST APIs</span>
+                                    <div class="skill-bar"><div class="skill-progress" style="width: 80%"></div></div>
+                                </div>
+                                <div class="skill-item">
+                                    <span class="skill-name">PostgreSQL / MongoDB</span>
+                                    <div class="skill-bar"><div class="skill-progress" style="width: 70%"></div></div>
+                                </div>
+                                <div class="skill-item">
+                                    <span class="skill-name">Prisma ORM</span>
+                                    <div class="skill-bar"><div class="skill-progress" style="width: 80%"></div></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Skill Category: Creative & Devops -->
+                        <div class="skill-category-card">
+                            <div class="category-header">
+                                <i data-lucide="palette"></i>
+                                <h4>Creative & Workflow</h4>
+                            </div>
+                            <div class="skill-list">
+                                <div class="skill-item">
+                                    <span class="skill-name">Figma UI/UX Design</span>
+                                    <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
+                                </div>
+                                <div class="skill-item">
+                                    <span class="skill-name">Git & Github Actions</span>
+                                    <div class="skill-bar"><div class="skill-progress" style="width: 90%"></div></div>
+                                </div>
+                                <div class="skill-item">
+                                    <span class="skill-name">Vite / Webpack / Bundlers</span>
+                                    <div class="skill-bar"><div class="skill-progress" style="width: 80%"></div></div>
+                                </div>
+                                <div class="skill-item">
+                                    <span class="skill-name">UI Animations (Framer / CSS)</span>
+                                    <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Projects Showcase Section -->
+        <section id="projects" class="projects-section section-padding">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="section-tag">02 // Selected Works</span>
+                    <h2 class="section-title">Built with Passion & Precision</h2>
+                </div>
+
+                <!-- Filter Controls -->
+                <div class="filter-controls reveal">
+                    <button class="filter-btn active" data-filter="all">All Projects</button>
+                    <button class="filter-btn" data-filter="web">Web Apps</button>
+                    <button class="filter-btn" data-filter="design">UI/UX Design</button>
+                    <button class="filter-btn" data-filter="mobile">Mobile Apps</button>
+                </div>
+
+                <!-- Projects Grid -->
+                <div class="projects-grid reveal" id="projectsGrid">
+                    
+                    <!-- Empty Project Box 1 (Web) -->
+                    <div class="project-card empty-project-box" data-category="web">
+                        <div class="empty-box-content">
+                            <div class="empty-icon-wrapper">
+                                <i data-lucide="code-2" class="empty-icon text-indigo"></i>
+                            </div>
+                            <h3 class="empty-box-title">Web Application</h3>
+                            <p class="empty-box-desc">Innovation in progress. A brand new web application is being engineered here.</p>
+                            <span class="empty-badge">Coming Soon</span>
+                        </div>
+                    </div>
+
+                    <!-- Empty Project Box 2 (Mobile) -->
+                    <div class="project-card empty-project-box" data-category="mobile">
+                        <div class="empty-box-content">
+                            <div class="empty-icon-wrapper">
+                                <i data-lucide="smartphone" class="empty-icon text-teal"></i>
+                            </div>
+                            <h3 class="empty-box-title">Mobile Experience</h3>
+                            <p class="empty-box-desc">Sleek mobile app concept. Crafting responsive touch layouts and fluid interactions.</p>
+                            <span class="empty-badge">In Development</span>
+                        </div>
+                    </div>
+
+                    <!-- Empty Project Box 3 (Design) -->
+                    <div class="project-card empty-project-box" data-category="design">
+                        <div class="empty-box-content">
+                            <div class="empty-icon-wrapper">
+                                <i data-lucide="palette" class="empty-icon text-purple"></i>
+                            </div>
+                            <h3 class="empty-box-title">UI/UX Design Concept</h3>
+                            <p class="empty-box-desc">Modern interface blueprint. Shaping pixels and interactive design languages.</p>
+                            <span class="empty-badge">Planning Phase</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Professional Experience Section -->
+        <section id="experience" class="experience-section section-padding">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="section-tag">03 // Timeline</span>
+                    <h2 class="section-title">My Professional Journey</h2>
+                </div>
+
+                <div class="timeline-container">
+                    <div class="timeline-bar">
+                        <div class="timeline-bar-progress" id="timelineProgress"></div>
+                    </div>
+
+                    <!-- Timeline Item 1 -->
+                    <div class="timeline-item reveal">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">2024 - Present</div>
+                        <div class="timeline-content glass-panel">
+                            <span class="role-badge">Lead Role</span>
+                            <h3 class="timeline-role">Lead Frontend Engineer</h3>
+                            <h4 class="timeline-company">Skyline Creative Studio</h4>
+                            <p class="timeline-desc">
+                                Overseeing the architectural decisions of multiple SaaS projects, building custom React component systems, implementing accessibility standards, and mentoring junior engineers. Optimized page load speeds by 40% using SSR.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item 2 -->
+                    <div class="timeline-item reveal">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">2022 - 2024</div>
+                        <div class="timeline-content glass-panel">
+                            <h3 class="timeline-role">Senior UI Engineer</h3>
+                            <h4 class="timeline-company">Helix Fintech Co.</h4>
+                            <p class="timeline-desc">
+                                Engineered real-time dashboard visualization platforms using WebSockets and Canvas libraries. Structured design tokens for dark-mode integrations and handled API performance profiling.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item 3 -->
+                    <div class="timeline-item reveal">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">2020 - 2022</div>
+                        <div class="timeline-content glass-panel">
+                            <h3 class="timeline-role">Frontend Web Developer</h3>
+                            <h4 class="timeline-company">Atom Interactive</h4>
+                            <p class="timeline-desc">
+                                Built pixel-perfect responsive layouts from Figma designs. Managed standard Git workflows, implemented unit testing suites (Jest), and integrated web animations using GSAP and CSS keyframes.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Contact Section -->
+        <section id="contact" class="contact-section section-padding">
+            <div class="container">
+                <div class="contact-grid">
+                    
+                    <div class="contact-info reveal">
+                        <div class="section-header">
+                            <span class="section-tag">04 // Get In Touch</span>
+                            <h2 class="section-title">Let's create something spectacular together.</h2>
+                        </div>
+                        <p class="contact-text">
+                            Whether you have an ambitious design idea, an upcoming web application, or just want to grab a coffee and chat tech, feel free to reach out. I'm always open to discussing new opportunities.
+                        </p>
+                        
+                        <div class="contact-details">
+                            <div class="contact-card glass-panel">
+                                <div class="contact-card-icon"><i data-lucide="mail"></i></div>
+                                <div>
+                                    <span class="card-label">Email Me</span>
+                                    <a href="mailto:harsh.roz1234@gmail.com" class="card-link">harsh.roz1234@gmail.com</a>
+                                </div>
+                            </div>
+                            <div class="contact-card glass-panel">
+                                <div class="contact-card-icon"><i data-lucide="phone"></i></div>
+                                <div>
+                                    <span class="card-label">Call / Text</span>
+                                    <a href="tel:+91 123456789" class="card-link">+91 6351647068</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="social-links-wrapper">
+                            <span class="social-title">Follow My Channels:</span>
+                            <div class="social-links">
+                                <a href="https://www.linkedin.com/in/harsh-roz-b06100286?utm_source=share_via&utm_content=profile&utm_medium=member_andrboid" class="social-btn" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><i data-lucide="linkedin"></i></a>
+                                <a href="#" class="social-btn" aria-label="GitHub"><i data-lucide="github"></i></a>
+                                <a href="#" class="social-btn" aria-label="Facebook"><i data-lucide="facebook"></i></a>
+                                <a href="#" class="social-btn" aria-label="Instagram"><i data-lucide="instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <div class="contact-form-panel glass-panel reveal" id="contactFormContainer">
+                        <form id="contactForm" class="contact-form" novalidate>
+                            <div class="form-row">
+                                <div class="input-group">
+                                    <input type="text" id="contactName" required autocomplete="name" placeholder=" ">
+                                    <label for="contactName">Your Name</label>
+                                    <span class="input-line"></span>
+                                    <span class="error-msg">Name is required</span>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="input-group">
+                                    <input type="email" id="contactEmail" required autocomplete="email" placeholder=" ">
+                                    <label for="contactEmail">Email Address</label>
+                                    <span class="input-line"></span>
+                                    <span class="error-msg">Enter a valid email address</span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="input-group">
+                                    <input type="text" id="contactSubject" required placeholder=" ">
+                                    <label for="contactSubject">Subject</label>
+                                    <span class="input-line"></span>
+                                    <span class="error-msg">Subject is required</span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="input-group">
+                                    <textarea id="contactMessage" required rows="5" placeholder=" "></textarea>
+                                    <label for="contactMessage">Tell me about your project</label>
+                                    <span class="input-line"></span>
+                                    <span class="error-msg">Message cannot be empty</span>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-submit" id="submitBtn">
+                                <span class="btn-text">Send Message</span>
+                                <i data-lucide="send" class="btn-icon"></i>
+                            </button>
+                        </form>
+                        
+                        <!-- Form Success Overlay -->
+                        <div class="form-success-overlay" id="formSuccessOverlay">
+                            <div class="success-content">
+                                <div class="success-icon-badge">
+                                    <i data-lucide="check-circle-2"></i>
+                                </div>
+                                <h3>Message Transmitted!</h3>
+                                <p>Thank you for reaching out. I've received your request and will get back to you within 24 hours.</p>
+                                <button type="button" class="btn btn-secondary" id="resetFormBtn">Send Another Message</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container footer-container">
+            <div class="footer-left">
+                <a href="#hero" class="footer-logo">&lt;Harsh/&gt;</a>
+                <p class="footer-copy">&copy; 2026 Harsh. Handcrafted with passion.</p>
+            </div>
+            
+            <ul class="footer-links">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+
+            <button id="scrollToTop" class="icon-btn scroll-to-top" aria-label="Scroll back to top">
+                <i data-lucide="arrow-up"></i>
+            </button>
+        </div>
+    </footer>
+
+    <!-- Project Detailed Modal Overlay -->
+    <div class="project-modal" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-backdrop" id="modalBackdrop"></div>
+        <div class="modal-content glass-panel">
+            <button class="modal-close icon-btn" id="modalClose" aria-label="Close modal">
+                <i data-lucide="x"></i>
+            </button>
+            
+            <div class="modal-grid">
+                <div class="modal-gallery">
+                    <img id="modalImg" src="" alt="Project view" class="modal-main-img">
+                </div>
+                
+                <div class="modal-info-panel">
+                    <span class="modal-badge" id="modalBadge">Web App</span>
+                    <h3 class="modal-title" id="modalTitle">Project Title</h3>
+                    <p class="modal-desc" id="modalDesc">Detailed description of project goes here...</p>
+                    
+                    <div class="modal-detail-section">
+                        <h4>Key Accomplishments:</h4>
+                        <ul class="modal-bullets" id="modalBullets">
+                            <li>Implemented SSR resulting in 40% SEO score upgrade.</li>
+                            <li>Integrated drag-and-drop backend services.</li>
+                        </ul>
+                    </div>
+
+                    <div class="modal-detail-section">
+                        <h4>Technologies Applied:</h4>
+                        <div class="project-tags" id="modalTags">
+                            <!-- Dynamic Tags -->
+                        </div>
+                    </div>
+
+                    <div class="modal-actions">
+                        <a href="#" class="btn btn-primary" id="modalLiveLink" target="_blank">
+                            <span>Launch Live Project</span>
+                            <i data-lucide="external-link"></i>
+                        </a>
+                        <a href="#" class="btn btn-secondary" id="modalRepoLink" target="_blank">
+                            <i data-lucide="github"></i>
+                            <span>Source Code</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Script -->
+    <script src="script.js"></script>
+</body>
+</html>
