@@ -304,36 +304,8 @@ button {
 }
 
 /* Custom cursor elements */
-.custom-cursor {
-    width: 8px;
-    height: 8px;
-    background-color: var(--accent-teal);
-    border-radius: var(--radius-full);
-    position: fixed;
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -50%);
-    transition: width 0.15s, height 0.15s;
-    display: none; /* Hidden on mobile automatically, toggleable by class */
-}
-
-.cursor-glow {
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, var(--accent-gradient-glow) 0%, rgba(0,0,0,0) 70%);
-    border-radius: var(--radius-full);
-    position: fixed;
-    pointer-events: none;
-    z-index: 9998;
-    transform: translate(-50%, -50%);
-    opacity: var(--glow-opacity);
-    transition: opacity var(--transition-normal);
-}
-
-@media (pointer: fine) {
-    .custom-cursor {
-        display: block;
-    }
+.custom-cursor, .cursor-glow {
+    display: none !important;
 }
 
 /* ----------------------------------------------------

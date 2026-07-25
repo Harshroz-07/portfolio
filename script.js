@@ -60,39 +60,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ==========================================
-       2. INTERACTIVE CUSTOM CURSOR
+       2. INTERACTIVE CUSTOM CURSOR (DISABLED)
     ========================================== */
     const cursor = document.getElementById('customCursor');
     const cursorGlow = document.getElementById('cursorGlow');
-
-    if (cursor && cursorGlow) {
-        document.addEventListener('mousemove', (e) => {
-            // Precise cursor dot
-            cursor.style.left = `${e.clientX}px`;
-            cursor.style.top = `${e.clientY}px`;
-            
-            // Lagged ambient cursor glow
-            cursorGlow.animate({
-                left: `${e.clientX}px`,
-                top: `${e.clientY}px`
-            }, { duration: 500, fill: 'forwards' });
-        });
-
-        // Add interactive hover states for cursors
-        const interactiveElements = document.querySelectorAll('a, button, input, textarea, .project-card');
-        interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
-                cursor.style.backgroundColor = 'var(--accent-indigo)';
-                cursorGlow.style.opacity = 'calc(var(--glow-opacity) * 1.5)';
-            });
-            el.addEventListener('mouseleave', () => {
-                cursor.style.transform = 'translate(-50%, -50%) scale(1)';
-                cursor.style.backgroundColor = 'var(--accent-teal)';
-                cursorGlow.style.opacity = 'var(--glow-opacity)';
-            });
-        });
-    }
 
     /* ==========================================
        3. DARK / LIGHT THEME TOGGLE
