@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Joe Greyson | Creative Frontend Developer</title>
-    <meta name="description" content="Portfolio of Joe Greyson, a frontend developer specializing in building highly interactive, visually stunning, and performant web applications.">
+    <meta name="description"
+        content="Portfolio of Joe Greyson, a frontend developer specializing in building highly interactive, visually stunning, and performant web applications.">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="intro-active">
 
     <!-- 3D WebGL Background Canvas -->
@@ -21,11 +25,12 @@
     <div id="introLoader" class="intro-loader">
         <button id="skipIntroBtn" class="skip-btn" aria-label="Skip intro animation">
             <span>Skip Intro</span>
-            <svg class="skip-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <svg class="skip-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2"
+                fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="9 18 15 12 9 6"></polyline>
             </svg>
         </button>
-        
+
         <div class="intro-content">
             <svg class="intro-svg" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
@@ -47,29 +52,29 @@
                             <feMergeNode in="SourceGraphic" />
                         </feMerge>
                     </filter>
-                    
+
                     <!-- Gradients -->
                     <radialGradient id="spotlight" cx="50%" cy="50%" r="50%">
                         <stop offset="0%" stop-color="rgba(99, 102, 241, 0.25)" />
                         <stop offset="60%" stop-color="rgba(20, 184, 166, 0.08)" />
                         <stop offset="100%" stop-color="rgba(0, 0, 0, 0)" />
                     </radialGradient>
-                    
+
                     <linearGradient id="neon-grad" x1="0%" y1="0%" x2="100%" y2="100%">
                         <stop offset="0%" stop-color="#14b8a6" />
                         <stop offset="50%" stop-color="#6366f1" />
                         <stop offset="100%" stop-color="#a855f7" />
                     </linearGradient>
-                    
+
                     <linearGradient id="ball-grad" x1="0%" y1="0%" x2="100%" y2="100%">
                         <stop offset="0%" stop-color="#ffffff" />
                         <stop offset="100%" stop-color="#14b8a6" />
                     </linearGradient>
                 </defs>
-                
+
                 <!-- Background Stadium Spotlight -->
                 <ellipse cx="400" cy="300" rx="380" ry="280" fill="url(#spotlight)" class="intro-spotlight" />
-                
+
                 <!-- Background Pitch Lines (Perspective grid) -->
                 <g class="pitch-grid" stroke="rgba(255, 255, 255, 0.04)" stroke-width="1.5">
                     <line x1="50" y1="550" x2="750" y2="550" />
@@ -79,53 +84,63 @@
                     <line x1="50" y1="550" x2="300" y2="300" />
                     <line x1="750" y1="550" x2="500" y2="300" />
                 </g>
-                
+
                 <!-- "SIUUU" Text Background -->
-                <text x="50%" y="360" text-anchor="middle" class="siuuu-text" fill="none" stroke="url(#neon-grad)" stroke-width="3" filter="url(#glow-indigo)">SIUUU!</text>
+                <text x="50%" y="360" text-anchor="middle" class="siuuu-text" fill="none" stroke="url(#neon-grad)"
+                    stroke-width="3" filter="url(#glow-indigo)">SIUUU!</text>
                 <text x="50%" y="360" text-anchor="middle" class="siuuu-text-fill" fill="url(#neon-grad)">SIUUU!</text>
-                
+
                 <!-- Concentric Impact Rings (Shockwaves) -->
                 <circle cx="510" cy="180" r="2" class="shockwave sw-1" stroke="#14b8a6" stroke-width="3" fill="none" />
                 <circle cx="510" cy="180" r="2" class="shockwave sw-2" stroke="#6366f1" stroke-width="2" fill="none" />
                 <circle cx="510" cy="180" r="2" class="shockwave sw-3" stroke="#ffffff" stroke-width="1" fill="none" />
-                
+
                 <!-- Ball Trail -->
-                <path d="M 750,480 Q 640,320 510,180" class="ball-trail" stroke="url(#neon-grad)" stroke-width="3" stroke-linecap="round" fill="none" />
-                
+                <path d="M 750,480 Q 640,320 510,180" class="ball-trail" stroke="url(#neon-grad)" stroke-width="3"
+                    stroke-linecap="round" fill="none" />
+
                 <!-- Soccer Ball -->
                 <g class="soccer-ball" filter="url(#glow-white)">
                     <!-- Path of Ball flight -->
                     <circle cx="510" cy="180" r="14" fill="url(#ball-grad)" class="ball-circle" />
                     <!-- Pentagons design (approximate vector lines) -->
-                    <path d="M 510,166 L 510,172 M 510,172 L 504,176 M 510,172 L 516,176 M 504,176 L 506,183 M 516,176 L 514,183 M 506,183 L 514,183" stroke="#070913" stroke-width="1.5" class="ball-pattern" />
+                    <path
+                        d="M 510,166 L 510,172 M 510,172 L 504,176 M 510,172 L 516,176 M 504,176 L 506,183 M 516,176 L 514,183 M 506,183 L 514,183"
+                        stroke="#070913" stroke-width="1.5" class="ball-pattern" />
                 </g>
-                
+
                 <!-- Ronaldo Neon Silhouette -->
                 <g class="ronaldo-player" filter="url(#glow-teal)">
                     <!-- Left arm (Back) -->
-                    <path d="M 370,285 Q 330,300 300,285" fill="none" stroke="#a855f7" stroke-width="7" stroke-linecap="round" class="player-limb delay-1" />
-                    
+                    <path d="M 370,285 Q 330,300 300,285" fill="none" stroke="#a855f7" stroke-width="7"
+                        stroke-linecap="round" class="player-limb delay-1" />
+
                     <!-- Right arm (Front) -->
-                    <path d="M 370,285 Q 360,240 340,210" fill="none" stroke="#6366f1" stroke-width="7" stroke-linecap="round" class="player-limb delay-2" />
-                    
+                    <path d="M 370,285 Q 360,240 340,210" fill="none" stroke="#6366f1" stroke-width="7"
+                        stroke-linecap="round" class="player-limb delay-2" />
+
                     <!-- Left Leg (Bent) -->
-                    <path d="M 450,290 Q 430,320 445,350 L 420,380" fill="none" stroke="#a855f7" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" class="player-limb delay-3" />
-                    
+                    <path d="M 450,290 Q 430,320 445,350 L 420,380" fill="none" stroke="#a855f7" stroke-width="8"
+                        stroke-linecap="round" stroke-linejoin="round" class="player-limb delay-3" />
+
                     <!-- Right Leg (Kicking) -->
-                    <path d="M 450,290 L 485,235 L 510,180" fill="none" stroke="#14b8a6" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" class="kicking-leg" />
-                    
+                    <path d="M 450,290 L 485,235 L 510,180" fill="none" stroke="#14b8a6" stroke-width="9"
+                        stroke-linecap="round" stroke-linejoin="round" class="kicking-leg" />
+
                     <!-- Torso -->
-                    <path d="M 370,285 L 450,290" fill="none" stroke="url(#neon-grad)" stroke-width="14" stroke-linecap="round" class="player-body" />
-                    
+                    <path d="M 370,285 L 450,290" fill="none" stroke="url(#neon-grad)" stroke-width="14"
+                        stroke-linecap="round" class="player-body" />
+
                     <!-- Head -->
                     <circle cx="352" cy="285" r="9" fill="url(#neon-grad)" class="player-head" />
-                    
+
                     <!-- Kicking shoe accent -->
-                    <path d="M 508,183 L 514,177 L 518,182 Z" fill="#ffffff" filter="url(#glow-white)" class="player-shoe" />
+                    <path d="M 508,183 L 514,177 L 518,182 Z" fill="#ffffff" filter="url(#glow-white)"
+                        class="player-shoe" />
                 </g>
             </svg>
         </div>
-        
+
         <!-- Screen split reveal panels -->
         <div class="reveal-gate gate-left"></div>
         <div class="reveal-gate gate-right"></div>
@@ -146,7 +161,7 @@
             <a href="#hero" class="logo">
                 <span class="logo-accent">&lt;</span>Joe Greyson<span class="logo-accent">/&gt;</span>
             </a>
-            
+
             <nav class="nav-menu" id="navMenu">
                 <ul class="nav-links">
                     <li><a href="#hero" class="nav-link active">Home</a></li>
@@ -169,7 +184,7 @@
                     <i data-lucide="sun" class="sun-icon"></i>
                     <i data-lucide="moon" class="moon-icon"></i>
                 </button>
-                
+
                 <a href="#contact" class="btn btn-primary nav-cta">Let's Talk</a>
 
                 <!-- Mobile Menu Button -->
@@ -194,9 +209,10 @@
                     </h1>
                     <h2 class="hero-role-title">Frontend Developer</h2>
                     <p class="hero-subtitle">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore et officiis suscipit ut assumenda libero tenetur expedita eaque, quaerat quasi.
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore et officiis suscipit ut
+                        assumenda libero tenetur expedita eaque, quaerat quasi.
                     </p>
-                    
+
                     <div class="hero-actions">
                         <a href="#projects" class="btn btn-primary">
                             <span>View My Work</span>
@@ -227,14 +243,14 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Right Graphic Showcase: 3D Robot Avatar & Glass Cards -->
                 <div class="hero-graphic reveal">
                     <div class="avatar-wrapper" data-tilt-3d>
                         <div class="avatar-glow"></div>
                         <div id="hero3dCanvas" class="hero-3d-canvas" title="Drag to rotate 3D object"></div>
                         <img src="assets/profile.png" alt="Joe Greyson Profile Avatar" class="profile-img">
-                        
+
                         <div class="floating-card card-1" data-tilt-3d>
                             <i data-lucide="code" class="icon-indigo"></i>
                             <div>
@@ -242,7 +258,7 @@
                                 <span class="card-desc">React & TypeScript</span>
                             </div>
                         </div>
-                        
+
                         <div class="floating-card card-2" data-tilt-3d>
                             <i data-lucide="sparkles" class="icon-teal"></i>
                             <div>
@@ -261,7 +277,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <a href="#about" class="scroll-indicator" aria-label="Scroll to About section">
                 <span class="mouse-icon">
                     <span class="mouse-wheel"></span>
@@ -281,10 +297,14 @@
                 <div class="about-grid">
                     <div class="about-bio reveal">
                         <p class="bio-text-large">
-                            I thrive at the intersection of design aesthetics and clean code. I build web interfaces that are not only visual-rich but highly intuitive and technically optimized.
+                            I thrive at the intersection of design aesthetics and clean code. I build web interfaces
+                            that are not only visual-rich but highly intuitive and technically optimized.
                         </p>
                         <p class="bio-text">
-                            With multiple years of learning and hands-on software design practice, I've developed a rigorous workflow focused on component architecture, performance optimization, and delightful micro-interactions. I design and build everything with a strong focus on accessibility, speed, and smooth user flow.
+                            With multiple years of learning and hands-on software design practice, I've developed a
+                            rigorous workflow focused on component architecture, performance optimization, and
+                            delightful micro-interactions. I design and build everything with a strong focus on
+                            accessibility, speed, and smooth user flow.
                         </p>
                         <div class="about-personal-info">
                             <div class="info-item">
@@ -322,7 +342,7 @@
                 <div class="skills-wrapper section-padding-top">
                     <h3 class="skills-heading reveal">My Tech Stack & Expertise</h3>
                     <div class="skills-grid reveal">
-                        
+
                         <!-- Skill Category: Frontend -->
                         <div class="skill-category-card">
                             <div class="category-header">
@@ -332,19 +352,27 @@
                             <div class="skill-list">
                                 <div class="skill-item">
                                     <span class="skill-name">HTML5 / CSS3 / ES6+</span>
-                                    <div class="skill-bar"><div class="skill-progress" style="width: 95%"></div></div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" style="width: 95%"></div>
+                                    </div>
                                 </div>
                                 <div class="skill-item">
                                     <span class="skill-name">React / Next.js / Vue</span>
-                                    <div class="skill-bar"><div class="skill-progress" style="width: 90%"></div></div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" style="width: 90%"></div>
+                                    </div>
                                 </div>
                                 <div class="skill-item">
                                     <span class="skill-name">TypeScript</span>
-                                    <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" style="width: 85%"></div>
+                                    </div>
                                 </div>
                                 <div class="skill-item">
                                     <span class="skill-name">TailwindCSS / CSS Modules</span>
-                                    <div class="skill-bar"><div class="skill-progress" style="width: 95%"></div></div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" style="width: 95%"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -358,19 +386,27 @@
                             <div class="skill-list">
                                 <div class="skill-item">
                                     <span class="skill-name">Node.js / Express</span>
-                                    <div class="skill-bar"><div class="skill-progress" style="width: 75%"></div></div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" style="width: 75%"></div>
+                                    </div>
                                 </div>
                                 <div class="skill-item">
                                     <span class="skill-name">GraphQL / REST APIs</span>
-                                    <div class="skill-bar"><div class="skill-progress" style="width: 80%"></div></div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" style="width: 80%"></div>
+                                    </div>
                                 </div>
                                 <div class="skill-item">
                                     <span class="skill-name">PostgreSQL / MongoDB</span>
-                                    <div class="skill-bar"><div class="skill-progress" style="width: 70%"></div></div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" style="width: 70%"></div>
+                                    </div>
                                 </div>
                                 <div class="skill-item">
                                     <span class="skill-name">Prisma ORM</span>
-                                    <div class="skill-bar"><div class="skill-progress" style="width: 80%"></div></div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" style="width: 80%"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -384,19 +420,27 @@
                             <div class="skill-list">
                                 <div class="skill-item">
                                     <span class="skill-name">Figma UI/UX Design</span>
-                                    <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" style="width: 85%"></div>
+                                    </div>
                                 </div>
                                 <div class="skill-item">
                                     <span class="skill-name">Git & Github Actions</span>
-                                    <div class="skill-bar"><div class="skill-progress" style="width: 90%"></div></div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" style="width: 90%"></div>
+                                    </div>
                                 </div>
                                 <div class="skill-item">
                                     <span class="skill-name">Vite / Webpack / Bundlers</span>
-                                    <div class="skill-bar"><div class="skill-progress" style="width: 80%"></div></div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" style="width: 80%"></div>
+                                    </div>
                                 </div>
                                 <div class="skill-item">
                                     <span class="skill-name">UI Animations (Framer / CSS)</span>
-                                    <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
+                                    <div class="skill-bar">
+                                        <div class="skill-progress" style="width: 85%"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -425,7 +469,7 @@
 
                 <!-- Projects Grid -->
                 <div class="projects-grid reveal" id="projectsGrid">
-                    
+
                     <!-- Project 1: Apex E-Commerce Platform -->
                     <div class="project-card" data-category="web" data-tilt-3d>
                         <div class="project-img-wrapper">
@@ -437,17 +481,20 @@
                                 </button>
                             </div>
                         </div>
-                        
+
                         <div class="project-info">
                             <div class="project-meta">
                                 <span class="project-cat">Web Application</span>
                                 <div class="project-links">
-                                    <a href="https://github.com" class="proj-link" aria-label="GitHub Repository" target="_blank" rel="noopener"><i data-lucide="github"></i></a>
-                                    <a href="https://example.com" class="proj-link" aria-label="Live Demo" target="_blank" rel="noopener"><i data-lucide="external-link"></i></a>
+                                    <a href="https://github.com" class="proj-link" aria-label="GitHub Repository"
+                                        target="_blank" rel="noopener"><i data-lucide="github"></i></a>
+                                    <a href="https://example.com" class="proj-link" aria-label="Live Demo"
+                                        target="_blank" rel="noopener"><i data-lucide="external-link"></i></a>
                                 </div>
                             </div>
                             <h3 class="project-card-title">Apex E-Commerce Platform</h3>
-                            <p class="project-card-desc">Next-generation digital storefront engineered with static site generation, high-speed API route caching, and Stripe payment webhooks.</p>
+                            <p class="project-card-desc">Next-generation digital storefront engineered with static site
+                                generation, high-speed API route caching, and Stripe payment webhooks.</p>
                             <div class="project-tags">
                                 <span class="tag">Next.js</span>
                                 <span class="tag">React</span>
@@ -468,17 +515,20 @@
                                 </button>
                             </div>
                         </div>
-                        
+
                         <div class="project-info">
                             <div class="project-meta">
                                 <span class="project-cat">Mobile & Analytics</span>
                                 <div class="project-links">
-                                    <a href="https://github.com" class="proj-link" aria-label="GitHub Repository" target="_blank" rel="noopener"><i data-lucide="github"></i></a>
-                                    <a href="https://example.com" class="proj-link" aria-label="Live Demo" target="_blank" rel="noopener"><i data-lucide="external-link"></i></a>
+                                    <a href="https://github.com" class="proj-link" aria-label="GitHub Repository"
+                                        target="_blank" rel="noopener"><i data-lucide="github"></i></a>
+                                    <a href="https://example.com" class="proj-link" aria-label="Live Demo"
+                                        target="_blank" rel="noopener"><i data-lucide="external-link"></i></a>
                                 </div>
                             </div>
                             <h3 class="project-card-title">Pulse Real-Time Analytics</h3>
-                            <p class="project-card-desc">Performant mobile dashboard tracking multi-channel marketing campaigns, WebSocket streaming data, and 60fps chart visualizations.</p>
+                            <p class="project-card-desc">Performant mobile dashboard tracking multi-channel marketing
+                                campaigns, WebSocket streaming data, and 60fps chart visualizations.</p>
                             <div class="project-tags">
                                 <span class="tag">React Native</span>
                                 <span class="tag">Node.js</span>
@@ -499,17 +549,20 @@
                                 </button>
                             </div>
                         </div>
-                        
+
                         <div class="project-info">
                             <div class="project-meta">
                                 <span class="project-cat">UI/UX & Web SaaS</span>
                                 <div class="project-links">
-                                    <a href="https://github.com" class="proj-link" aria-label="GitHub Repository" target="_blank" rel="noopener"><i data-lucide="github"></i></a>
-                                    <a href="https://example.com" class="proj-link" aria-label="Live Demo" target="_blank" rel="noopener"><i data-lucide="external-link"></i></a>
+                                    <a href="https://github.com" class="proj-link" aria-label="GitHub Repository"
+                                        target="_blank" rel="noopener"><i data-lucide="github"></i></a>
+                                    <a href="https://example.com" class="proj-link" aria-label="Live Demo"
+                                        target="_blank" rel="noopener"><i data-lucide="external-link"></i></a>
                                 </div>
                             </div>
                             <h3 class="project-card-title">Zenith Collaboration Board</h3>
-                            <p class="project-card-desc">Real-time team collaboration platform with custom drag-and-drop task boards, glassmorphic panels, and instant database syncing.</p>
+                            <p class="project-card-desc">Real-time team collaboration platform with custom drag-and-drop
+                                task boards, glassmorphic panels, and instant database syncing.</p>
                             <div class="project-tags">
                                 <span class="tag">Figma</span>
                                 <span class="tag">React</span>
@@ -545,7 +598,9 @@
                             <h3 class="timeline-role">Lead Backend & Systems Architect</h3>
                             <h4 class="timeline-company">Skyline Cloud Infrastructure</h4>
                             <p class="timeline-desc">
-                                Leading backend system architecture and cloud database orchestration across distributed SaaS projects. Architecting secure OAuth2/JWT authentication, gRPC RPC routing, serverless AWS Lambda functions, and automated CI/CD pipelines.
+                                Leading backend system architecture and cloud database orchestration across distributed
+                                SaaS projects. Architecting secure OAuth2/JWT authentication, gRPC RPC routing,
+                                serverless AWS Lambda functions, and automated CI/CD pipelines.
                             </p>
                         </div>
                     </div>
@@ -558,7 +613,10 @@
                             <h3 class="timeline-role">Senior Backend Systems Developer</h3>
                             <h4 class="timeline-company">Helix Cloud Systems</h4>
                             <p class="timeline-desc">
-                                Architected high-throughput microservices and scalable REST & GraphQL APIs processing 10M+ daily events. Engineered Redis caching layers, optimized PostgreSQL query indexing, managed Docker container clusters, and built real-time WebSocket event streaming pipelines using Node.js and Express.
+                                Architected high-throughput microservices and scalable REST & GraphQL APIs processing
+                                10M+ daily events. Engineered Redis caching layers, optimized PostgreSQL query indexing,
+                                managed Docker container clusters, and built real-time WebSocket event streaming
+                                pipelines using Node.js and Express.
                             </p>
                         </div>
                     </div>
@@ -571,7 +629,9 @@
                             <h3 class="timeline-role">Backend Web Developer</h3>
                             <h4 class="timeline-company">Atom Data Systems</h4>
                             <p class="timeline-desc">
-                                Developed robust Node.js server endpoints, relational database schemas, and external API integrations. Implemented SQL database migrations, automated unit testing suites (Jest), API rate-limiting middleware, and third-party webhook processors.
+                                Developed robust Node.js server endpoints, relational database schemas, and external API
+                                integrations. Implemented SQL database migrations, automated unit testing suites (Jest),
+                                API rate-limiting middleware, and third-party webhook processors.
                             </p>
                         </div>
                     </div>
@@ -583,29 +643,31 @@
         <section id="contact" class="contact-section section-padding">
             <div class="container">
                 <div class="contact-grid">
-                    
+
                     <div class="contact-info reveal">
                         <div class="section-header">
                             <span class="section-tag">04 // Get In Touch</span>
                             <h2 class="section-title">Let's create something spectacular together.</h2>
                         </div>
                         <p class="contact-text">
-                            Whether you have an ambitious design idea, an upcoming web application, or just want to grab a coffee and chat tech, feel free to reach out. I'm always open to discussing new opportunities.
+                            Whether you have an ambitious design idea, an upcoming web application, or just want to grab
+                            a coffee and chat tech, feel free to reach out. I'm always open to discussing new
+                            opportunities.
                         </p>
-                        
+
                         <div class="contact-details">
                             <div class="contact-card glass-panel">
                                 <div class="contact-card-icon"><i data-lucide="mail"></i></div>
                                 <div>
                                     <span class="card-label">Email Me</span>
-                                    <a href="mailto:joe.greyson@gmail.com" class="card-link">joe.greyson@gmail.com</a>
+                                    <a href="mailto:harsh.roz1234@gmail.com" class="card-link">harsh.roz1234@gmail.com</a>
                                 </div>
                             </div>
                             <div class="contact-card glass-panel">
                                 <div class="contact-card-icon"><i data-lucide="phone"></i></div>
                                 <div>
                                     <span class="card-label">Call / Text</span>
-                                    <a href="tel:+1 123456789" class="card-link">+1 (555) 019-2834</a>
+                                    <a href="tel:+1 123456789" class="card-link">+91 6351647068</a>
                                 </div>
                             </div>
                         </div>
@@ -613,26 +675,36 @@
                         <div class="social-links-wrapper">
                             <span class="social-title">Follow My Channels:</span>
                             <div class="social-links">
-                                <a href="https://www.linkedin.com" class="social-btn social-linkedin" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer" title="Follow on LinkedIn">
+                                <a href="https://www.linkedin.com" class="social-btn social-linkedin"
+                                    aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"
+                                    title="Follow on LinkedIn">
                                     <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
-                                        <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.78a1.63 1.63 0 1 0 0 3.26 1.63 1.63 0 0 0 0-3.26Z"/>
+                                        <path
+                                            d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.78a1.63 1.63 0 1 0 0 3.26 1.63 1.63 0 0 0 0-3.26Z" />
                                     </svg>
                                 </a>
-                                <a href="https://github.com" class="social-btn social-github" aria-label="GitHub" target="_blank" rel="noopener noreferrer" title="Follow on GitHub">
+                                <a href="https://github.com" class="social-btn social-github" aria-label="GitHub"
+                                    target="_blank" rel="noopener noreferrer" title="Follow on GitHub">
                                     <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
-                                        <path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z"/>
+                                        <path
+                                            d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2Z" />
                                     </svg>
                                 </a>
-                                <a href="https://facebook.com" class="social-btn social-facebook" aria-label="Facebook" target="_blank" rel="noopener noreferrer" title="Follow on Facebook">
+                                <a href="https://facebook.com" class="social-btn social-facebook" aria-label="Facebook"
+                                    target="_blank" rel="noopener noreferrer" title="Follow on Facebook">
                                     <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
-                                        <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H7.5v-3H10V9.5C10 7.01 11.49 5.65 13.75 5.65c1.08 0 2.25.19 2.25.19v2.47h-1.27c-1.23 0-1.61.77-1.61 1.56V12h2.77l-.44 3h-2.33v6.8c4.56-.93 8-4.96 8-9.8z"/>
+                                        <path
+                                            d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H7.5v-3H10V9.5C10 7.01 11.49 5.65 13.75 5.65c1.08 0 2.25.19 2.25.19v2.47h-1.27c-1.23 0-1.61.77-1.61 1.56V12h2.77l-.44 3h-2.33v6.8c4.56-.93 8-4.96 8-9.8z" />
                                     </svg>
                                 </a>
-                                <a href="https://instagram.com" class="social-btn social-instagram" aria-label="Instagram" target="_blank" rel="noopener noreferrer" title="Follow on Instagram">
-                                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
-                                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-                                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                                <a href="https://instagram.com" class="social-btn social-instagram"
+                                    aria-label="Instagram" target="_blank" rel="noopener noreferrer"
+                                    title="Follow on Instagram">
+                                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
                                     </svg>
                                 </a>
                             </div>
@@ -650,7 +722,7 @@
                                     <span class="error-msg">Name is required</span>
                                 </div>
                             </div>
-                            
+
                             <div class="form-row">
                                 <div class="input-group">
                                     <input type="email" id="contactEmail" required autocomplete="email" placeholder=" ">
@@ -683,7 +755,7 @@
                                 <i data-lucide="send" class="btn-icon"></i>
                             </button>
                         </form>
-                        
+
                         <!-- Form Success Overlay -->
                         <div class="form-success-overlay" id="formSuccessOverlay">
                             <div class="success-content">
@@ -691,8 +763,10 @@
                                     <i data-lucide="check-circle-2"></i>
                                 </div>
                                 <h3>Message Transmitted!</h3>
-                                <p>Thank you for reaching out. I've received your request and will get back to you within 24 hours.</p>
-                                <button type="button" class="btn btn-secondary" id="resetFormBtn">Send Another Message</button>
+                                <p>Thank you for reaching out. I've received your request and will get back to you
+                                    within 24 hours.</p>
+                                <button type="button" class="btn btn-secondary" id="resetFormBtn">Send Another
+                                    Message</button>
                             </div>
                         </div>
                     </div>
@@ -709,7 +783,7 @@
                 <a href="#hero" class="footer-logo">&lt;Joe/&gt;</a>
                 <p class="footer-copy">&copy; 2026 Joe Greyson. Handcrafted with passion.</p>
             </div>
-            
+
             <ul class="footer-links">
                 <li><a href="#hero">Home</a></li>
                 <li><a href="#about">About</a></li>
@@ -731,17 +805,17 @@
             <button class="modal-close icon-btn" id="modalClose" aria-label="Close modal">
                 <i data-lucide="x"></i>
             </button>
-            
+
             <div class="modal-grid">
                 <div class="modal-gallery">
                     <img id="modalImg" src="" alt="Project view" class="modal-main-img">
                 </div>
-                
+
                 <div class="modal-info-panel">
                     <span class="modal-badge" id="modalBadge">Web App</span>
                     <h3 class="modal-title" id="modalTitle">Project Title</h3>
                     <p class="modal-desc" id="modalDesc">Detailed description of project goes here...</p>
-                    
+
                     <div class="modal-detail-section">
                         <h4>Key Accomplishments:</h4>
                         <ul class="modal-bullets" id="modalBullets">
@@ -852,9 +926,11 @@
                                     <!-- Messages and Replies -->
                                 </div>
                                 <form class="thread-reply-box" id="adminReplyForm">
-                                    <textarea id="adminReplyText" placeholder="Write your reply to the user..." rows="3" required></textarea>
+                                    <textarea id="adminReplyText" placeholder="Write your reply to the user..." rows="3"
+                                        required></textarea>
                                     <div class="reply-box-actions">
-                                        <span class="reply-tip"><i data-lucide="info"></i> Reply will appear in user's chat widget</span>
+                                        <span class="reply-tip"><i data-lucide="info"></i> Reply will appear in user's
+                                            chat widget</span>
                                         <button type="submit" class="btn btn-primary btn-sm">
                                             <i data-lucide="send"></i>
                                             <span>Send Reply</span>
@@ -951,7 +1027,8 @@
                 <!-- User message bubbles and admin replies -->
             </div>
             <form class="chat-window-input-form" id="userChatForm">
-                <input type="text" id="userChatInput" placeholder="Send a quick message to Admin..." required autocomplete="off">
+                <input type="text" id="userChatInput" placeholder="Send a quick message to Admin..." required
+                    autocomplete="off">
                 <button type="submit" class="btn btn-primary icon-only-btn" aria-label="Send">
                     <i data-lucide="send"></i>
                 </button>
@@ -966,4 +1043,5 @@
     <!-- Script -->
     <script src="script.js"></script>
 </body>
+
 </html>
