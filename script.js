@@ -1185,7 +1185,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 timestamp: 'Today 09:30 AM',
                 status: 'pending',
                 messages: [
-                    { id: 'm-1', sender: 'user', text: 'Hi Joe! We loved your portfolio and would like to discuss a custom web application project for our team.', time: '09:30 AM' }
+                    { id: 'm-1', sender: 'user', text: 'Hi Harsh! We loved your portfolio and would like to discuss a custom web application project for our team.', time: '09:30 AM' }
                 ]
             },
             {
@@ -1197,7 +1197,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 timestamp: 'Yesterday 04:15 PM',
                 status: 'replied',
                 messages: [
-                    { id: 'm-2', sender: 'user', text: 'Hey Joe, are you available for freelance shader or 3D canvas work next month?', time: 'Yesterday 04:15 PM' },
+                    { id: 'm-2', sender: 'user', text: 'Hey Harsh, are you available for freelance shader or 3D canvas work next month?', time: 'Yesterday 04:15 PM' },
                     { id: 'm-3', sender: 'admin', text: 'Hi Marcus! Thanks for reaching out. Yes, I have bandwidth for WebGL consulting. Let us set up a call!', time: 'Yesterday 05:00 PM' }
                 ]
             }
@@ -1343,7 +1343,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 threadChatBody.innerHTML = targetMsg.messages.map(item => {
                     const isUser = item.sender === 'user';
                     const bubbleClass = isUser ? 'user-msg' : 'admin-msg';
-                    const senderLabel = isUser ? targetMsg.senderName : 'Joe Greyson (Admin)';
+                    const senderLabel = isUser ? targetMsg.senderName : 'Harsh Roz (Admin)';
                     return `
                         <div class="chat-bubble ${bubbleClass}">
                             <div class="chat-bubble-sender">${escapeHtml(senderLabel)}</div>
@@ -1478,7 +1478,7 @@ document.addEventListener('DOMContentLoaded', () => {
             userChatMessages.innerHTML = threadMsgs.map(m => {
                 const isUser = m.sender === 'user';
                 const bubbleClass = isUser ? 'user-msg' : 'admin-msg';
-                const senderLabel = isUser ? 'You' : 'Joe Greyson (Admin)';
+                const senderLabel = isUser ? 'You' : 'Harsh Roz (Admin)';
                 return `
                     <div class="chat-bubble ${bubbleClass}">
                         <div class="chat-bubble-sender">${escapeHtml(senderLabel)}</div>
