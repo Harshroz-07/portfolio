@@ -274,49 +274,49 @@ document.addEventListener('DOMContentLoaded', () => {
     // Detailed projects data
     const projectsData = {
         project1: {
-            title: "Apex E-Commerce Platform",
-            category: "Web Application",
-            img: "assets/project1.png",
-            desc: "Apex is a full-featured e-commerce solution engineered for next-generation digital storefronts. It utilizes modern static rendering engines and optimization strategies to secure a Google Lighthouse performance score near 100.",
+            title: "Car Dealership Inventory System",
+            category: "Full-Stack Web App",
+            img: "assets/car_dealership_inventory_system.png",
+            desc: "Car Dealership Inventory System is a full-stack web application designed for automotive dealerships to manage car inventory, track vehicle specifications, organize price listings, and manage customer leads efficiently.",
             bullets: [
-                "Constructed high-speed API route caching to shrink response latencies by 60%.",
-                "Incorporated Stripe payment gateways, utilizing secure webhooks for transaction tracking.",
-                "Engineered fully customized CSS micro-animations for shopping cart and filtering panels.",
-                "Designed custom analytical dashboards monitoring page-views, orders, and sales demographics."
+                "Engineered RESTful API endpoints with Node.js and Express for car inventory CRUD operations.",
+                "Implemented MongoDB schema architecture storing vehicle specifications, availability, and pricing stats.",
+                "Built responsive search and filtering controls for make, model, year, and price ranges.",
+                "Designed clean glassmorphic admin dashboards for updating vehicle status and tracking leads."
             ],
-            tags: ["Next.js", "React", "TypeScript", "Stripe", "Framer Motion", "TailwindCSS"],
-            liveLink: "https://example.com/apex-demo",
-            repoLink: "https://github.com/example/apex-ecom"
+            tags: ["Node.js", "Express.js", "MongoDB", "React.js", "REST API", "CSS3"],
+            liveLink: "https://github.com/Harshroz-07",
+            repoLink: "https://github.com/Harshroz-07"
         },
         project2: {
-            title: "Pulse Real-Time Analytics App",
-            category: "Mobile & Analytics",
-            img: "assets/project2.png",
-            desc: "Pulse is a dashboard-oriented mobile application tracking user growth trends and multi-channel marketing campaigns in real-time. Built specifically to deliver granular chart analyses in a performant design.",
+            title: "Notes App",
+            category: "React Web Application",
+            img: "assets/notes_app.png",
+            desc: "Notes App is a fast, interactive note-taking web application built with React and Vite. It provides vibrant note color categorization, instant text search, interactive task checklists, and confetti micro-animations on completion.",
             bullets: [
-                "Utilized React Native Reanimated to process chart transitions smoothly at 60fps.",
-                "Designed responsive flex layouts to ensure design fidelity on both iOS tablets and mobile screens.",
-                "Wrote asynchronous caching models enabling fully functional offline dashboard rendering.",
-                "Implemented localized notifications signaling spikes or crashes in client marketing metrics."
+                "Developed modular React 19 components with instant local storage state synchronization.",
+                "Added interactive task checklists with confetti animation celebrations upon completing tasks.",
+                "Engineered responsive dark glassmorphism layout with smooth category filtering and search.",
+                "Optimized bundle performance with Vite, delivering fast sub-second load times."
             ],
-            tags: ["React Native", "Expo", "ChartJS", "Node.js", "WebSockets", "Redux"],
-            liveLink: "https://example.com/pulse-demo",
-            repoLink: "https://github.com/example/pulse-analytics"
+            tags: ["React.js", "Vite", "JavaScript", "LocalStorage", "Confetti", "CSS3"],
+            liveLink: "http://localhost:5173",
+            repoLink: "https://github.com/Harshroz-07"
         },
         project3: {
-            title: "Zenith Collaboration Board",
-            category: "UI/UX & Web SaaS",
-            img: "assets/project3.png",
-            desc: "Zenith is a real-time team collaboration platform modeling complex agile workflows. Features include custom project drag-and-drop cards, integrated chats, and comprehensive task assignments.",
+            title: "Personal Portfolio",
+            category: "Creative 3D Portfolio",
+            img: "assets/personal_portfolio.png",
+            desc: "Personal Portfolio is an interactive, high-performance developer portfolio built with Vanilla JS, HTML5, CSS3, and Three.js 3D WebGL animations. It incorporates an integrated Admin Control Panel, live messaging system, and custom glassmorphic aesthetics.",
             bullets: [
-                "Initiated full UX research loops including wireframing, high-fidelity mockups, and interactive prototypes.",
-                "Designed lightweight glassmorphic panels ensuring high readability in dark mode.",
-                "Integrated real-time database syncing, triggering instant board changes across concurrent team members.",
-                "Wrote comprehensive unit testing routines ensuring clean draggable task lanes."
+                "Built interactive 3D WebGL background canvas and tilt card physics utilizing Three.js.",
+                "Designed full-featured Admin Control Panel featuring user management, message inbox, and reply threads.",
+                "Engineered floating live chat support widget allowing real-time communication between users and Admin.",
+                "Optimized response times, zero external framework overhead, and automated Git deployment workflows."
             ],
-            tags: ["Figma", "UX Design", "React", "TailwindCSS", "Firebase"],
-            liveLink: "https://example.com/zenith-demo",
-            repoLink: "https://github.com/example/zenith-board"
+            tags: ["JavaScript", "HTML5", "CSS3", "Three.js", "WebGL", "Admin Portal"],
+            liveLink: "http://localhost:8080",
+            repoLink: "https://github.com/Harshroz-07/portfolio"
         }
     };
 
