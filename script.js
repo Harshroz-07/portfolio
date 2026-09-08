@@ -1552,6 +1552,180 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    /* ====================================================
+       CORE CONCEPT — “MY DIGITAL JOURNEY” 3D DESTINATION PATH
+    ==================================================== */
+    const initDigitalJourneyFooter = () => {
+        const viewport = document.getElementById('journey3dViewport');
+        const canvas = document.getElementById('journeyPathCanvas');
+        const nodesTrack = document.getElementById('journeyNodesTrack');
+        const hudBadge = document.getElementById('hudStationBadge');
+        const hudTitle = document.getElementById('hudStationTitle');
+        const hudDesc = document.getElementById('hudStationDesc');
+        const hudWarpBtn = document.getElementById('hudWarpBtn');
+        const destBtns = document.querySelectorAll('.journey-dest-btn');
+
+        if (!canvas || !viewport) return;
+
+        const ctx = canvas.getContext('2d');
+        let width = 0, height = 0;
+
+        const resizeCanvas = () => {
+            width = canvas.width = viewport.offsetWidth;
+            height = canvas.height = viewport.offsetHeight;
+        };
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        const stations = [
+            { id: "0", name: "Launch Station", badge: "STATION 01 // 🚀 LAUNCH PLATFORM", icon: "🚀", target: "#hero", desc: "Starting point of my digital world. Developer intro, bio, and mission parameters." },
+            { id: "1", name: "Developer Zone", badge: "STATION 02 // 👨‍💻 DEVELOPER ZONE", icon: "👨‍💻", target: "#about", desc: "Futuristic workstation featuring core development pillars & engineering philosophies." },
+            { id: "2", name: "Skill Universe", badge: "STATION 03 // ⚡ SKILL UNIVERSE", icon: "⚡", target: "#about", desc: "3D floating technological ecosystem & interactive continuous skill orbit." },
+            { id: "3", name: "AI Lab", badge: "STATION 04 // 🧠 AI LAB", icon: "🧠", target: "#projects", desc: "Artificial intelligence research laboratory, neural network models & machine learning apps." },
+            { id: "4", name: "Project City", badge: "STATION 05 // 🔥 PROJECT CITY", icon: "🔥", target: "#projects", desc: "Miniature city of project towers representing fullstack web applications & systems." },
+            { id: "5", name: "Achievement Mountain", badge: "STATION 06 // 🏆 ACHIEVEMENT MOUNTAIN", icon: "🏆", target: "#experience", desc: "Milestone peak of competitive wins, academic honors, and certifications." },
+            { id: "6", name: "Experience Station", badge: "STATION 07 // 💼 EXPERIENCE STATION", icon: "💼", target: "#experience", desc: "Space station career train journey highlighting internships and timeline milestones." },
+            { id: "7", name: "Career Destination", badge: "STATION 08 // 🎯 CAREER DESTINATION", icon: "🎯", target: "#about", desc: "Future roadmap of active builds, new technology horizons, and vision." },
+            { id: "8", name: "Contact Portal", badge: "STATION 09 // 📩 CONTACT PORTAL", icon: "📩", target: "#contact", desc: "Wormhole portal to connect, initiate projects, and collaborate." }
+        ];
+
+        let activeStationIndex = 0;
+        const nodeElements = [];
+
+        // Generate Node Pins along 3D Perspective Curve
+        if (nodesTrack) {
+            nodesTrack.innerHTML = '';
+            stations.forEach((st, idx) => {
+                const pin = document.createElement('div');
+                pin.className = `journey-node-pin ${idx === 0 ? 'active' : ''}`;
+                pin.setAttribute('data-index', idx);
+                pin.innerHTML = st.icon;
+                pin.title = st.name;
+
+                pin.addEventListener('click', () => {
+                    setActiveStation(idx);
+                });
+
+                nodesTrack.appendChild(pin);
+                nodeElements.push(pin);
+            });
+        }
+
+        // Calculate 3D Curve Coordinates along S-curve
+        const getPointOnCurve = (t) => {
+            // S-curve from bottom-left to top-right in 3D perspective
+            const x = width * (0.08 + 0.84 * t);
+            const y = height * (0.75 - 0.5 * Math.sin(t * Math.PI));
+            const z = 0.5 + 0.5 * Math.sin(t * Math.PI); // Depth factor
+            return { x, y, z };
+        };
+
+        // Energy pulses traveling along the road
+        let pulses = [];
+        for (let i = 0; i < 20; i++) {
+            pulses.push({
+                t: Math.random(),
+                speed: 0.002 + Math.random() * 0.002,
+                size: Math.random() * 3 + 2,
+                color: Math.random() > 0.5 ? '#c084fc' : '#38bdf8'
+            });
+        }
+
+        // Main 3D Highway Canvas Loop
+        const renderPath = () => {
+            ctx.clearRect(0, 0, width, height);
+
+            // Draw glowing 3D cyber road curve
+            ctx.beginPath();
+            const steps = 100;
+            for (let i = 0; i <= steps; i++) {
+                const t = i / steps;
+                const pt = getPointOnCurve(t);
+                if (i === 0) ctx.moveTo(pt.x, pt.y);
+                else ctx.lineTo(pt.x, pt.y);
+            }
+            ctx.strokeStyle = 'rgba(192, 132, 252, 0.4)';
+            ctx.lineWidth = 4;
+            ctx.stroke();
+
+            // Inner cyan beam
+            ctx.strokeStyle = 'rgba(56, 189, 248, 0.8)';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+
+            // Render Traveling Energy Pulses
+            pulses.forEach(p => {
+                p.t = (p.t + p.speed) % 1;
+                const pt = getPointOnCurve(p.t);
+
+                ctx.beginPath();
+                ctx.arc(pt.x, pt.y, p.size * pt.z, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.shadowColor = p.color;
+                ctx.shadowBlur = 10;
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            });
+
+            // Position HTML Node Pins over 3D coordinates
+            nodeElements.forEach((pin, idx) => {
+                const t = idx / (stations.length - 1);
+                const pt = getPointOnCurve(t);
+                pin.style.left = `${pt.x}px`;
+                pin.style.top = `${pt.y}px`;
+            });
+
+            requestAnimationFrame(renderPath);
+        };
+        renderPath();
+
+        // Update active station HUD & triggers
+        const setActiveStation = (index) => {
+            activeStationIndex = index;
+            const st = stations[index];
+
+            // Update pins
+            nodeElements.forEach((pin, i) => {
+                if (i === index) pin.classList.add('active');
+                else pin.classList.remove('active');
+            });
+
+            // Update station buttons
+            destBtns.forEach((btn, i) => {
+                if (i === index) btn.classList.add('active');
+                else btn.classList.remove('active');
+            });
+
+            // Update HUD card content
+            if (hudBadge) hudBadge.textContent = st.badge;
+            if (hudTitle) hudTitle.textContent = st.name;
+            if (hudDesc) hudDesc.textContent = st.desc;
+        };
+
+        // Station button clicks
+        destBtns.forEach((btn) => {
+            btn.addEventListener('click', () => {
+                const idx = parseInt(btn.getAttribute('data-station'), 10);
+                setActiveStation(idx);
+            });
+        });
+
+        // Warp button click
+        if (hudWarpBtn) {
+            hudWarpBtn.addEventListener('click', () => {
+                const st = stations[activeStationIndex];
+                if (st && st.target) {
+                    const targetEl = document.querySelector(st.target);
+                    if (targetEl) {
+                        targetEl.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        }
+    };
+
     init3DTechOrbit();
+    initDigitalJourneyFooter();
 
 });
+
