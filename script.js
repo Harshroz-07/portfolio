@@ -1214,79 +1214,106 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-        // Technology dataset
+        // Technology dataset with all 11 requested technologies
         const technologies = [
             {
-                id: "react",
-                name: "React",
+                id: "html",
+                name: "HTML5",
                 category: "Frontend",
-                description: "Building dynamic and scalable user interfaces with component-based architecture.",
-                icon: "layout",
-                color: "#06b6d4",
-                glow: "rgba(6, 182, 212, 0.55)"
+                description: "Semantic Web standards, accessible structures, modern markup, and web core foundations.",
+                color: "#e34f26",
+                glow: "rgba(227, 79, 38, 0.6)",
+                svg: `<svg viewBox="0 0 24 24" class="tech-icon-svg" width="32" height="32"><path fill="#E34F26" d="M1.5 0h21l-1.91 21.563L11.97 24 2.41 21.563z"/><path fill="#EF652A" d="M12 2.182v19.61l7.85-2.14 1.57-17.47z"/><path fill="#FFF" d="M12 9.682H8.38l-.25-2.82H12V4.545H5.82l.75 8.455H12zm0 8.018l-3.95-1.07-.26-2.91H5.45l.49 5.56L12 20.91z"/><path fill="#EEE" d="M12 9.682v2.318h3.37l-.32 3.59-3.05.83v2.318l5.35-1.46.7-7.59zM12 4.545v2.318h6.14l.2-2.318z"/></svg>`
             },
             {
-                id: "next",
-                name: "Next.js",
-                category: "Fullstack",
-                description: "Building production-ready applications with server-side rendering and modern routing.",
-                icon: "layers",
-                color: "#ffffff",
-                glow: "rgba(255, 255, 255, 0.45)"
+                id: "css",
+                name: "CSS3",
+                category: "Styling",
+                description: "Responsive layouts, Flexbox, Grid systems, keyframe animations, dynamic theme styling, and modern CSS variables.",
+                color: "#1572b6",
+                glow: "rgba(21, 114, 182, 0.6)",
+                svg: `<svg viewBox="0 0 24 24" class="tech-icon-svg" width="32" height="32"><path fill="#1572B6" d="M1.5 0h21l-1.91 21.563L11.97 24 2.41 21.563z"/><path fill="#33A9DC" d="M12 2.182v19.61l7.85-2.14 1.57-17.47z"/><path fill="#FFF" d="M12 9.682H7.07l.2 2.318H12v2.318H7.48l.4 4.5 4.12 1.13v2.318l-6.41-1.77-.73-8.177h7.14z"/><path fill="#EEE" d="M12 4.545h6.35l.2-2.318H12v2.318zm0 5.137h5.92l-.62 7.045-5.3 1.46v2.318l7.6-2.1.9-10.051H12z"/></svg>`
             },
             {
-                id: "node",
-                name: "Node.js",
-                category: "Backend",
-                description: "Building scalable backend APIs and high-performance microservices using Express.",
-                icon: "server",
-                color: "#22c55e",
-                glow: "rgba(34, 197, 94, 0.55)"
+                id: "js",
+                name: "JavaScript",
+                category: "Language",
+                description: "Dynamic ES6+ programming, DOM manipulation, asynchronous promises, event loops, and core frontend/backend logic.",
+                color: "#f7df1e",
+                glow: "rgba(247, 223, 30, 0.6)",
+                svg: `<svg viewBox="0 0 24 24" class="tech-icon-svg" width="32" height="32"><rect width="24" height="24" rx="4" fill="#F7DF1E"/><path d="M6.5 18.5l2-1.2c.4.7.8 1.2 1.6 1.2.8 0 1.3-.3 1.3-1 0-.7-.5-1-1.6-1.5l-.6-.3c-1.7-.7-2.8-1.6-2.8-3.5 0-2 1.6-3.4 3.9-3.4 1.7 0 2.9.6 3.7 2.1l-1.9 1.2c-.4-.7-.9-1-1.7-1-.8 0-1.3.4-1.3.9 0 .6.4.9 1.5 1.4l.6.3c2 1 3 1.9 3 3.6 0 2.2-1.7 3.6-4.3 3.6-2.1 0-3.6-.9-4.4-2.4zm10.3.3c.7 0 1.3-.4 1.5-1.1h2.2c-.4 2-2 3.5-4.2 3.5-2.6 0-4.3-1.6-4.3-4.3v-4.1h2.4v4.1c0 1.2.9 1.9 2.4 1.9z" fill="#000"/></svg>`
             },
             {
-                id: "cpp",
-                name: "C++",
-                category: "Programming",
-                description: "Strong foundation in DSA, object-oriented programming, and performance design.",
-                icon: "code",
-                color: "#3b82f6",
-                glow: "rgba(59, 130, 246, 0.55)"
-            },
-            {
-                id: "python",
-                name: "Python",
-                category: "Programming",
-                description: "Used for backend development, script automation, data processing, and AI applications.",
-                icon: "terminal",
-                color: "#eab308",
-                glow: "rgba(234, 179, 8, 0.55)"
+                id: "react",
+                name: "React.js",
+                category: "Frontend",
+                description: "Building dynamic, high-performance, component-driven user interfaces and reactive applications.",
+                color: "#61dafb",
+                glow: "rgba(97, 218, 251, 0.6)",
+                svg: `<svg viewBox="0 0 24 24" class="tech-icon-svg" width="32" height="32" fill="none"><ellipse cx="12" cy="12" rx="9.5" ry="4" stroke="#61DAFB" stroke-width="1.6"/><ellipse cx="12" cy="12" rx="9.5" ry="4" stroke="#61DAFB" stroke-width="1.6" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9.5" ry="4" stroke="#61DAFB" stroke-width="1.6" transform="rotate(120 12 12)"/><circle cx="12" cy="12" r="2.2" fill="#61DAFB"/></svg>`
             },
             {
                 id: "tailwind",
                 name: "Tailwind CSS",
                 category: "Styling",
-                description: "Building ultra-responsive, highly aesthetic interfaces with utility-first design.",
-                icon: "palette",
+                description: "Building ultra-responsive, highly aesthetic UI design systems with utility-first CSS frameworks.",
                 color: "#38bdf8",
-                glow: "rgba(56, 189, 248, 0.55)"
+                glow: "rgba(56, 189, 248, 0.6)",
+                svg: `<svg viewBox="0 0 24 24" class="tech-icon-svg" width="32" height="32" fill="#38BDF8"><path d="M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C13.666 10.618 15.027 12 18.001 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C16.336 6.182 14.975 4.8 12.001 4.8zm-6 7.2c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C7.666 17.818 9.027 19.2 12.001 19.2c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C10.336 13.382 8.975 12 6.001 12z"/></svg>`
             },
             {
-                id: "aws",
-                name: "AWS",
-                category: "Cloud",
-                description: "Cloud deployment, serverless infrastructure, and auto-scaling production hosting.",
-                icon: "cloud",
-                color: "#f97316",
-                glow: "rgba(249, 115, 22, 0.55)"
+                id: "node",
+                name: "Node.js",
+                category: "Backend",
+                description: "Building fast, non-blocking asynchronous backend APIs, event loops, and server architectures using Express.",
+                color: "#339933",
+                glow: "rgba(51, 153, 51, 0.6)",
+                svg: `<svg viewBox="0 0 24 24" class="tech-icon-svg" width="32" height="32"><path d="M12 2l9 5.2v10.4L12 22.8 3 17.6V7.2z" fill="#339933"/><path d="M12 6.5l5 2.9v5.8l-5 2.9-5-2.9V9.4z" fill="#141a30"/><circle cx="12" cy="12" r="2.5" fill="#66BB66"/></svg>`
             },
             {
-                id: "redis",
-                name: "Redis",
+                id: "next",
+                name: "Next.js",
+                category: "Fullstack",
+                description: "Building production-ready applications with server-side rendering, App Router, static generation, and modern routing.",
+                color: "#ffffff",
+                glow: "rgba(255, 255, 255, 0.5)",
+                svg: `<svg viewBox="0 0 24 24" class="tech-icon-svg" width="32" height="32" fill="none"><circle cx="12" cy="12" r="10.5" fill="#000" stroke="#FFF" stroke-width="1.5"/><path d="M7.5 16.5V7.5l9 10.5" stroke="#FFF" stroke-width="1.8" stroke-linecap="round"/><path d="M16.5 7.5v6" stroke="#FFF" stroke-width="1.8" stroke-linecap="round"/></svg>`
+            },
+            {
+                id: "sql",
+                name: "SQL",
                 category: "Database",
-                description: "High-performance in-memory data storage, pub/sub queues, and ultra-fast session caching.",
-                icon: "database",
-                color: "#ef4444",
-                glow: "rgba(239, 68, 68, 0.55)"
+                description: "Relational database architecture, normalized schemas, complex joins, data indexing, and high-performance querying.",
+                color: "#00758f",
+                glow: "rgba(0, 117, 143, 0.6)",
+                svg: `<svg viewBox="0 0 24 24" class="tech-icon-svg" width="32" height="32" fill="none" stroke="#00758F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8.5" ry="2.8"/><path d="M20.5 12c0 1.5-3.8 2.8-8.5 2.8s-8.5-1.3-8.5-2.8"/><path d="M3.5 5v14c0 1.5 3.8 2.8 8.5 2.8s8.5-1.3 8.5-2.8V5"/><text x="12" y="13.2" font-family="sans-serif" font-size="5.5" font-weight="900" fill="#00758F" text-anchor="middle" stroke="none">SQL</text></svg>`
+            },
+            {
+                id: "postgresql",
+                name: "PostgreSQL",
+                category: "Database",
+                description: "Enterprise-grade relational database management with ACID compliance, JSONB support, and robust indexing.",
+                color: "#4169e1",
+                glow: "rgba(65, 105, 225, 0.6)",
+                svg: `<svg viewBox="0 0 24 24" class="tech-icon-svg" width="32" height="32" fill="#4169E1"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14.5h-2V13H9v-2h2V9h2v2h2v2h-2v3.5z"/><ellipse cx="12" cy="7.5" rx="3.5" ry="2.5" fill="none" stroke="#FFF" stroke-width="1.5"/><path d="M8.5 10c0 3.5 1.5 6.5 3.5 6.5s3.5-3 3.5-6.5" fill="none" stroke="#FFF" stroke-width="1.5"/></svg>`
+            },
+            {
+                id: "mongodb",
+                name: "MongoDB",
+                category: "Database",
+                description: "High-throughput NoSQL document database managing flexible JSON/BSON schemas and aggregation pipelines.",
+                color: "#47a248",
+                glow: "rgba(71, 162, 72, 0.6)",
+                svg: `<svg viewBox="0 0 24 24" class="tech-icon-svg" width="32" height="32" fill="#47A248"><path d="M12 1.5s-6.5 5.2-6.5 11.8c0 4.2 3.2 7.7 6.5 9.2 3.3-1.5 6.5-5 6.5-9.2C18.5 6.7 12 1.5 12 1.5zm.7 18.2V4.3c3.8 2.8 4.3 7 3.5 9-.7 1.8-2.2 3.3-3.5 3.9v2.5z"/></svg>`
+            },
+            {
+                id: "github",
+                name: "GitHub",
+                category: "DevOps & Tools",
+                description: "Version control management, CI/CD automated deployments, collaborative code review, and repository security.",
+                color: "#f0f6fc",
+                glow: "rgba(240, 246, 252, 0.5)",
+                svg: `<svg viewBox="0 0 24 24" class="tech-icon-svg" width="32" height="32" fill="#F0F6FC"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>`
             }
         ];
 
@@ -1302,7 +1329,7 @@ document.addEventListener('DOMContentLoaded', () => {
             node.style.setProperty('--node-glow', tech.glow);
 
             node.innerHTML = `
-                <i data-lucide="${tech.icon}"></i>
+                ${tech.svg ? tech.svg : `<i data-lucide="${tech.icon}"></i>`}
                 <span class="orbit-node-tooltip">${tech.name}</span>
             `;
 
@@ -1318,7 +1345,7 @@ document.addEventListener('DOMContentLoaded', () => {
             nodeEls.push(node);
         });
 
-        // Initialize Lucide icons on injected nodes
+        // Initialize Lucide icons if fallback icon used
         if (window.lucide) lucide.createIcons();
 
         // --------------------------------------------------

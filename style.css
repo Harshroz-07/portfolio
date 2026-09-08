@@ -1395,10 +1395,19 @@ html[data-theme="light"] .theme-toggle .moon-icon {
     will-change: transform, opacity;
 }
 
-.orbit-node-3d i {
-    width: 32px;
-    height: 32px;
+.orbit-node-3d i,
+.orbit-node-3d svg,
+.tech-icon-svg {
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
     pointer-events: none;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.orbit-node-3d:hover i,
+.orbit-node-3d:hover svg {
+    transform: scale(1.12);
 }
 
 .orbit-node-3d.active-orbit-node {
