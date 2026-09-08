@@ -1409,6 +1409,15 @@ html[data-theme="light"] .theme-toggle .moon-icon {
     letter-spacing: 0.01em;
 }
 
+.skill-percentage-3d {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #c084fc;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.5px;
+    opacity: 0.9;
+}
+
 .skill-bar-3d {
     width: 100%;
     height: 7px;
