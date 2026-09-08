@@ -115,8 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const words = [
             'Full Stack Web Apps',
             'Responsive Web Apps',
-            'React & Node Architectures',
-            'Aesthetic Digital Experiences'
+            'React & Node Architectures'
         ];
         let wordIdx = 0;
         let charIdx = 0;
