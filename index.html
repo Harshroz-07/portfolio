@@ -10,16 +10,19 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
         rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body class="intro-active">
 
-    <!-- 3D WebGL Background Canvas -->
-    <canvas id="bg3dCanvas"></canvas>
+    <!-- Custom Cyber Cursor -->
+    <div class="custom-cursor-dot" id="cursorDot"></div>
+    <div class="custom-cursor-ring" id="cursorRing"></div>
 
     <!-- Ronaldo Bicycle Kick Intro Loader -->
     <div id="introLoader" class="intro-loader">
@@ -155,6 +158,7 @@
 
     <!-- Navigation Header -->
     <header id="mainHeader" class="main-header">
+        <div class="scroll-progress-bar" id="scrollProgress"></div>
         <div class="container nav-container">
             <a href="#hero" class="logo">
                 <span class="logo-accent">&lt;</span>Harsh Roz<span class="logo-accent">/&gt;</span>
@@ -205,72 +209,71 @@
                     <h1 class="hero-title">
                         Hi, I'm <span class="gradient-text">Harsh Roz</span>
                     </h1>
-                    <h2 class="hero-role-title">Full Stack Web Developer</h2>
+                    <h2 class="hero-role-title">I craft <span class="typing-text gradient-text-alt" id="typewriterText">Full Stack Web Apps</span><span class="typewriter-cursor">|</span></h2>
                     <p class="hero-subtitle">
-                        Full Stack Web Developer with hands-on experience in React.js, Node.js, Express.js, and MongoDB. I enjoy building responsive, scalable, and user-friendly web applications. Passionate about writing clean code, solving real-world problems, and continuously learning new technologies.
+                        Full Stack Web Developer crafting high-performance React.js and Node.js digital experiences. Dedicated to aesthetic visual polish, responsive design, and robust full-stack architecture.
                     </p>
 
                     <div class="hero-actions">
-                        <a href="#projects" class="btn btn-primary">
-                            <span>View My Work</span>
+                        <a href="#projects" class="btn btn-primary magnetic-btn">
+                            <span>Explore Projects</span>
                             <i data-lucide="arrow-up-right"></i>
                         </a>
-                        <a href="#about" class="btn btn-secondary">
-                            <span>About Me</span>
+                        <a href="#contact" class="btn btn-secondary magnetic-btn">
+                            <span>Get In Touch</span>
+                            <i data-lucide="sparkles"></i>
                         </a>
                     </div>
 
-                    <!-- Mini Interactive Code IDE Window -->
-                    <div class="hero-code-terminal glass-panel" data-tilt-3d>
+                    <!-- Mini Interactive Code IDE Window with Tabs -->
+                    <div class="hero-code-terminal glass-panel">
                         <div class="terminal-header">
-                            <span class="dot dot-red"></span>
-                            <span class="dot dot-yellow"></span>
-                            <span class="dot dot-green"></span>
-                            <span class="terminal-title">Harsh.config.ts</span>
+                            <div class="terminal-dots">
+                                <span class="dot dot-red"></span>
+                                <span class="dot dot-yellow"></span>
+                                <span class="dot dot-green"></span>
+                            </div>
+                            <div class="terminal-tabs">
+                                <button class="term-tab active" data-term-tab="config">Harsh.config.ts</button>
+                                <button class="term-tab" data-term-tab="stack">Stack.json</button>
+                                <button class="term-tab" data-term-tab="contact">Contact.env</button>
+                            </div>
+                            <button id="copyTerminalCode" class="terminal-copy-btn" title="Copy code snippet">
+                                <i data-lucide="copy"></i>
+                            </button>
                         </div>
-                        <div class="terminal-body">
-                            <code>
+                        <div class="terminal-body" id="terminalBody">
+                            <code class="term-pane active" id="termPaneConfig">
                                 <span class="code-keyword">const</span> <span class="code-var">developer</span> = {<br>
                                 &nbsp;&nbsp;<span class="code-key">name</span>: <span class="code-str">'Harsh Roz'</span>,<br>
                                 &nbsp;&nbsp;<span class="code-key">role</span>: <span class="code-str">'Full Stack Web Developer'</span>,<br>
-                                &nbsp;&nbsp;<span class="code-key">stack</span>: [<span class="code-str">'React'</span>, <span class="code-str">'Three.js'</span>, <span class="code-str">'TypeScript'</span>, <span class="code-str">'WebGL'</span>],<br>
-                                &nbsp;&nbsp;<span class="code-key">status</span>: <span class="code-str">'Building Aesthetic Web Apps 🚀'</span><br>
+                                &nbsp;&nbsp;<span class="code-key">stack</span>: [<span class="code-str">'React'</span>, <span class="code-str">'Node.js'</span>, <span class="code-str">'TypeScript'</span>, <span class="code-str">'MongoDB'</span>],<br>
+                                &nbsp;&nbsp;<span class="code-key">status</span>: <span class="code-str">'Building Modern Aesthetic Web Apps 🚀'</span><br>
                                 };
+                            </code>
+                            <code class="term-pane hidden" id="termPaneStack">
+                                {<br>
+                                &nbsp;&nbsp;<span class="code-key">"frontend"</span>: [<span class="code-str">"React.js"</span>, <span class="code-str">"Next.js"</span>, <span class="code-str">"TypeScript"</span>, <span class="code-str">"TailwindCSS"</span>],<br>
+                                &nbsp;&nbsp;<span class="code-key">"ui & animations"</span>: [<span class="code-str">"Framer Motion"</span>, <span class="code-str">"CSS3 Keyframes"</span>, <span class="code-str">"GSAP"</span>],<br>
+                                &nbsp;&nbsp;<span class="code-key">"backend"</span>: [<span class="code-str">"Node.js"</span>, <span class="code-str">"Express.js"</span>, <span class="code-str">"MongoDB"</span>, <span class="code-str">"REST APIs"</span>]<br>
+                                }
+                            </code>
+                            <code class="term-pane hidden" id="termPaneContact">
+                                <span class="code-comment"># Contact Credentials</span><br>
+                                <span class="code-key">EMAIL</span>=<span class="code-str">"harsh.roz1234@gmail.com"</span><br>
+                                <span class="code-key">PHONE</span>=<span class="code-str">"+91 6351647068"</span><br>
+                                <span class="code-key">GITHUB</span>=<span class="code-str">"https://github.com/Harshroz-07"</span><br>
+                                <span class="code-key">LOCATION</span>=<span class="code-str">"San Francisco, CA / India"</span>
                             </code>
                         </div>
                     </div>
                 </div>
 
-                <!-- Right Graphic Showcase: 3D Robot Avatar & Glass Cards -->
+                <!-- Right Graphic Showcase: Profile Avatar -->
                 <div class="hero-graphic reveal">
-                    <div class="avatar-wrapper" data-tilt-3d>
+                    <div class="avatar-wrapper">
                         <div class="avatar-glow"></div>
-                        <div id="hero3dCanvas" class="hero-3d-canvas" title="Drag to rotate 3D object"></div>
-                        <img src="assets/profile.png" alt="Harsh Roz Profile Avatar" class="profile-img">
-
-                        <div class="floating-card card-1" data-tilt-3d>
-                            <i data-lucide="code" class="icon-indigo"></i>
-                            <div>
-                                <span class="card-title">Clean Code</span>
-                                <span class="card-desc">React & TypeScript</span>
-                            </div>
-                        </div>
-
-                        <div class="floating-card card-2" data-tilt-3d>
-                            <i data-lucide="sparkles" class="icon-teal"></i>
-                            <div>
-                                <span class="card-title">Creative UI</span>
-                                <span class="card-desc">Modern & Fluid</span>
-                            </div>
-                        </div>
-
-                        <div class="floating-card card-3" data-tilt-3d>
-                            <i data-lucide="box" class="icon-purple"></i>
-                            <div>
-                                <span class="card-title">3D WebGL</span>
-                                <span class="card-desc">Three.js & Shaders</span>
-                            </div>
-                        </div>
+                        <img src="assets/profile.jpg" alt="Harsh Roz Profile Photo" class="profile-img">
                     </div>
                 </div>
             </div>
@@ -283,61 +286,16 @@
             </a>
         </section>
 
-        <!-- About & Stats Section -->
+        <!-- About & Tech Stack Section -->
         <section id="about" class="about-section section-padding">
             <div class="container">
                 <div class="section-header reveal">
-                    <span class="section-tag">01 // Background</span>
-                    <h2 class="section-title">Beyond the Pixels & Code</h2>
-                </div>
-
-                <div class="about-grid">
-                    <div class="about-bio reveal">
-                        <p class="bio-text-large">
-                            I thrive at the intersection of design aesthetics and clean code. I build web interfaces
-                            that are not only visual-rich but highly intuitive and technically optimized.
-                        </p>
-                        <p class="bio-text">
-                            With multiple years of learning and hands-on software design practice, I've developed a
-                            rigorous workflow focused on component architecture, performance optimization, and
-                            delightful micro-interactions. I design and build everything with a strong focus on
-                            accessibility, speed, and smooth user flow.
-                        </p>
-                        <div class="about-personal-info">
-                            <div class="info-item">
-                                <span class="info-label">Based in:</span>
-                                <span class="info-val">San Francisco, CA</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">Specialty:</span>
-                                <span class="info-val">Creative Frontends & SaaS UI</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="about-stats reveal">
-                        <div class="stat-card" data-tilt-3d>
-                            <h3 class="stat-number">4+</h3>
-                            <p class="stat-label">Years Learning & Building</p>
-                        </div>
-                        <div class="stat-card" data-tilt-3d>
-                            <h3 class="stat-number">30+</h3>
-                            <p class="stat-label">Completed Projects</p>
-                        </div>
-                        <div class="stat-card" data-tilt-3d>
-                            <h3 class="stat-number">99%</h3>
-                            <p class="stat-label">Client Satisfaction</p>
-                        </div>
-                        <div class="stat-card" data-tilt-3d>
-                            <h3 class="stat-number">10k+</h3>
-                            <p class="stat-label">Lines of Tailwind/CSS</p>
-                        </div>
-                    </div>
+                    <span class="section-tag">01 // Technical Expertise</span>
+                    <h2 class="section-title">My Tech Stack & Expertise</h2>
                 </div>
 
                 <!-- Skills Sub-section -->
-                <div class="skills-wrapper section-padding-top">
-                    <h3 class="skills-heading reveal">My Tech Stack & Expertise</h3>
+                <div class="skills-wrapper">
                     <div class="skills-grid reveal">
 
                         <!-- Skill Category: Frontend -->
@@ -468,7 +426,7 @@
                 <div class="projects-grid reveal" id="projectsGrid">
 
                     <!-- Project 1: Car Dealership Inventory System -->
-                    <div class="project-card" data-category="web" data-tilt-3d>
+                    <div class="project-card" data-category="web">
                         <div class="project-img-wrapper">
                             <img src="assets/car_dealership_inventory_system.png" alt="Car Dealership Inventory System" class="project-img">
                             <div class="project-overlay">
@@ -501,7 +459,7 @@
                     </div>
 
                     <!-- Project 2: Notes App -->
-                    <div class="project-card" data-category="web" data-tilt-3d>
+                    <div class="project-card" data-category="web">
                         <div class="project-img-wrapper">
                             <img src="assets/notes_app.png" alt="Notes App" class="project-img">
                             <div class="project-overlay">
@@ -534,7 +492,7 @@
                     </div>
 
                     <!-- Project 3: Personal Portfolio -->
-                    <div class="project-card" data-category="design" data-tilt-3d>
+                    <div class="project-card" data-category="design">
                         <div class="project-img-wrapper">
                             <img src="assets/personal_portfolio.png" alt="Personal Portfolio" class="project-img">
                             <div class="project-overlay">
@@ -547,7 +505,7 @@
 
                         <div class="project-info">
                             <div class="project-meta">
-                                <span class="project-cat">Creative 3D Portfolio</span>
+                                <span class="project-cat">Creative Portfolio</span>
                                 <div class="project-links">
                                     <a href="https://github.com/Harshroz-07/portfolio" class="proj-link" aria-label="GitHub Repository"
                                         target="_blank" rel="noopener"><i data-lucide="github"></i></a>
@@ -556,12 +514,12 @@
                                 </div>
                             </div>
                             <h3 class="project-card-title">Personal Portfolio</h3>
-                            <p class="project-card-desc">Interactive developer portfolio featuring 3D WebGL engine, glassmorphic design, integrated Admin Control Panel, and live messaging system.</p>
+                            <p class="project-card-desc">Interactive developer portfolio featuring modern glassmorphic design, integrated Admin Control Panel, and live messaging system.</p>
                             <div class="project-tags">
                                 <span class="tag">JavaScript</span>
                                 <span class="tag">HTML5</span>
                                 <span class="tag">CSS3</span>
-                                <span class="tag">Three.js</span>
+                                <span class="tag">Admin Panel</span>
                             </div>
                         </div>
                     </div>
@@ -587,7 +545,7 @@
                     <div class="timeline-item reveal">
                         <div class="timeline-dot"></div>
                         <div class="timeline-date">2024 - Present</div>
-                        <div class="timeline-content glass-panel" data-tilt-3d>
+                        <div class="timeline-content glass-panel">
                             <span class="role-badge">Lead Role</span>
                             <h3 class="timeline-role">Lead Backend & Systems Architect</h3>
                             <h4 class="timeline-company">Skyline Cloud Infrastructure</h4>
@@ -603,7 +561,7 @@
                     <div class="timeline-item reveal">
                         <div class="timeline-dot"></div>
                         <div class="timeline-date">2022 - 2024</div>
-                        <div class="timeline-content glass-panel" data-tilt-3d>
+                        <div class="timeline-content glass-panel">
                             <h3 class="timeline-role">Senior Backend Systems Developer</h3>
                             <h4 class="timeline-company">Helix Cloud Systems</h4>
                             <p class="timeline-desc">
@@ -619,7 +577,7 @@
                     <div class="timeline-item reveal">
                         <div class="timeline-dot"></div>
                         <div class="timeline-date">2020 - 2022</div>
-                        <div class="timeline-content glass-panel" data-tilt-3d>
+                        <div class="timeline-content glass-panel">
                             <h3 class="timeline-role">Backend Web Developer</h3>
                             <h4 class="timeline-company">Atom Data Systems</h4>
                             <p class="timeline-desc">
@@ -1032,8 +990,6 @@
 
     <!-- Lucide Icons CDN -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Three.js 3D Engine CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <!-- Script -->
     <script src="script.js"></script>
 </body>

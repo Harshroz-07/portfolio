@@ -60,10 +60,137 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ==========================================
-       2. INTERACTIVE CUSTOM CURSOR (DISABLED)
+       2. INTERACTIVE CUSTOM CYBER CURSOR & SCROLL BAR
     ========================================== */
-    const cursor = document.getElementById('customCursor');
-    const cursorGlow = document.getElementById('cursorGlow');
+    const cursorDot = document.getElementById('cursorDot');
+    const cursorRing = document.getElementById('cursorRing');
+    const scrollProgress = document.getElementById('scrollProgress');
+
+    if (cursorDot && cursorRing) {
+        let mouseX = 0, mouseY = 0;
+        let ringX = 0, ringY = 0;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursorDot.style.left = `${mouseX}px`;
+            cursorDot.style.top = `${mouseY}px`;
+        });
+
+        const renderCursor = () => {
+            ringX += (mouseX - ringX) * 0.18;
+            ringY += (mouseY - ringY) * 0.18;
+            cursorRing.style.left = `${ringX}px`;
+            cursorRing.style.top = `${ringY}px`;
+            requestAnimationFrame(renderCursor);
+        };
+        renderCursor();
+
+        // Hover expand elements
+        const bindCursorEvents = () => {
+            const hoverTargets = document.querySelectorAll('a, button, .project-card, .stat-card, .floating-card, .term-tab, .contact-card, .social-btn, .avatar-wrapper');
+            hoverTargets.forEach(el => {
+                el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+                el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+            });
+        };
+        bindCursorEvents();
+    }
+
+    // Scroll Progress Indicator
+    window.addEventListener('scroll', () => {
+        if (scrollProgress) {
+            const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            scrollProgress.style.width = scrolled + '%';
+        }
+    });
+
+    /* ==========================================
+       DYNAMIC TYPEWRITER EFFECT
+    ========================================== */
+    const typewriterEl = document.getElementById('typewriterText');
+    if (typewriterEl) {
+        const words = [
+            'Full Stack Web Apps',
+            'Responsive Web Apps',
+            'React & Node Architectures',
+            'Aesthetic Digital Experiences'
+        ];
+        let wordIdx = 0;
+        let charIdx = 0;
+        let isDeleting = false;
+
+        const typeEffect = () => {
+            const currentWord = words[wordIdx];
+            if (isDeleting) {
+                typewriterEl.textContent = currentWord.substring(0, charIdx - 1);
+                charIdx--;
+            } else {
+                typewriterEl.textContent = currentWord.substring(0, charIdx + 1);
+                charIdx++;
+            }
+
+            let typeSpeed = isDeleting ? 40 : 80;
+
+            if (!isDeleting && charIdx === currentWord.length) {
+                typeSpeed = 2200; // Pause at end of word
+                isDeleting = true;
+            } else if (isDeleting && charIdx === 0) {
+                isDeleting = false;
+                wordIdx = (wordIdx + 1) % words.length;
+                typeSpeed = 400; // Pause before typing next word
+            }
+
+            setTimeout(typeEffect, typeSpeed);
+        };
+
+        typeEffect();
+    }
+
+    /* ==========================================
+       HERO CODE TERMINAL TABS & COPY FUNCTIONALITY
+    ========================================== */
+    const termTabs = document.querySelectorAll('.term-tab');
+    const copyBtn = document.getElementById('copyTerminalCode');
+
+    termTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            termTabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            const targetTab = tab.dataset.termTab;
+            const panes = document.querySelectorAll('.term-pane');
+            panes.forEach(pane => {
+                pane.classList.add('hidden');
+                pane.classList.remove('active');
+            });
+
+            const activePane = document.getElementById(`termPane${targetTab.charAt(0).toUpperCase() + targetTab.slice(1)}`);
+            if (activePane) {
+                activePane.classList.remove('hidden');
+                activePane.classList.add('active');
+            }
+        });
+    });
+
+    if (copyBtn) {
+        copyBtn.addEventListener('click', () => {
+            const activePane = document.querySelector('.term-pane.active');
+            if (activePane) {
+                const textToCopy = activePane.innerText;
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    copyBtn.innerHTML = '<i data-lucide="check" style="color:#14b8a6"></i>';
+                    if (typeof lucide !== 'undefined') lucide.createIcons();
+                    setTimeout(() => {
+                        copyBtn.innerHTML = '<i data-lucide="copy"></i>';
+                        if (typeof lucide !== 'undefined') lucide.createIcons();
+                    }, 2000);
+                });
+            }
+        });
+    }
 
     /* ==========================================
        3. DARK / LIGHT THEME TOGGLE
@@ -276,16 +403,16 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         project3: {
             title: "Personal Portfolio",
-            category: "Creative 3D Portfolio",
+            category: "Creative Portfolio",
             img: "assets/personal_portfolio.png",
-            desc: "Personal Portfolio is an interactive, high-performance developer portfolio built with Vanilla JS, HTML5, CSS3, and Three.js 3D WebGL animations. It incorporates an integrated Admin Control Panel, live messaging system, and custom glassmorphic aesthetics.",
+            desc: "Personal Portfolio is an interactive, high-performance developer portfolio built with Vanilla JS, HTML5, and CSS3. It incorporates an integrated Admin Control Panel, live messaging system, and custom glassmorphic aesthetics.",
             bullets: [
-                "Built interactive 3D WebGL background canvas and tilt card physics utilizing Three.js.",
+                "Built responsive layout, CSS micro-animations, and dynamic glassmorphism design system.",
                 "Designed full-featured Admin Control Panel featuring user management, message inbox, and reply threads.",
                 "Engineered floating live chat support widget allowing real-time communication between users and Admin.",
                 "Optimized response times, zero external framework overhead, and automated Git deployment workflows."
             ],
-            tags: ["JavaScript", "HTML5", "CSS3", "Three.js", "WebGL", "Admin Portal"],
+            tags: ["JavaScript", "HTML5", "CSS3", "Admin Portal", "REST API"],
             liveLink: "http://localhost:8080",
             repoLink: "https://github.com/Harshroz-07/portfolio"
         }
@@ -559,583 +686,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ==========================================
-       13. 3D WEBGL ENGINE & THREE.JS SCENE
-    ========================================== */
-    const init3D = () => {
-        if (typeof THREE === 'undefined') return;
-
-        /* --- 1. Fullscreen WebGL Background Scene --- */
-        const bgCanvas = document.getElementById('bg3dCanvas');
-        if (bgCanvas) {
-            const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.position.z = 30;
-
-            const renderer = new THREE.WebGLRenderer({
-                canvas: bgCanvas,
-                alpha: true,
-                antialias: true
-            });
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-            // Particles Starfield
-            const particleCount = 1200;
-            const geometry = new THREE.BufferGeometry();
-            const positions = new Float32Array(particleCount * 3);
-            const colors = new Float32Array(particleCount * 3);
-
-            const palette = [
-                new THREE.Color('#14b8a6'), // teal
-                new THREE.Color('#6366f1'), // indigo
-                new THREE.Color('#a855f7'), // purple
-                new THREE.Color('#38bdf8'), // sky blue
-                new THREE.Color('#ffffff')  // white
-            ];
-
-            for (let i = 0; i < particleCount * 3; i += 3) {
-                positions[i] = (Math.random() - 0.5) * 80;
-                positions[i + 1] = (Math.random() - 0.5) * 80;
-                positions[i + 2] = (Math.random() - 0.5) * 60;
-
-                const c = palette[Math.floor(Math.random() * palette.length)];
-                colors[i] = c.r;
-                colors[i + 1] = c.g;
-                colors[i + 2] = c.b;
-            }
-
-            geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-            geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-
-            const particleMaterial = new THREE.PointsMaterial({
-                size: 0.25,
-                vertexColors: true,
-                transparent: true,
-                opacity: 0.7,
-                blending: THREE.AdditiveBlending
-            });
-
-            const particles = new THREE.Points(geometry, particleMaterial);
-            scene.add(particles);
-
-            // Floating Wireframe Geometric Objects
-            const shapeGroup = new THREE.Group();
-
-            // Large Wireframe Icosahedron
-            const icoGeo = new THREE.IcosahedronGeometry(12, 1);
-            const icoMat = new THREE.MeshBasicMaterial({
-                color: 0x6366f1,
-                wireframe: true,
-                transparent: true,
-                opacity: 0.12
-            });
-            const icoMesh = new THREE.Mesh(icoGeo, icoMat);
-            shapeGroup.add(icoMesh);
-
-            // Inner Octahedron
-            const octGeo = new THREE.OctahedronGeometry(6, 0);
-            const octMat = new THREE.MeshBasicMaterial({
-                color: 0x14b8a6,
-                wireframe: true,
-                transparent: true,
-                opacity: 0.2
-            });
-            const octMesh = new THREE.Mesh(octGeo, octMat);
-            shapeGroup.add(octMesh);
-
-            // Floating Torus Rings
-            const torusGeo = new THREE.TorusGeometry(18, 0.1, 16, 100);
-            const torusMat = new THREE.MeshBasicMaterial({
-                color: 0xa855f7,
-                wireframe: true,
-                transparent: true,
-                opacity: 0.15
-            });
-            const torusMesh = new THREE.Mesh(torusGeo, torusMat);
-            torusMesh.rotation.x = Math.PI / 4;
-            shapeGroup.add(torusMesh);
-
-            scene.add(shapeGroup);
-
-            // Dynamic Lights
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
-            scene.add(ambientLight);
-
-            const pointLight1 = new THREE.PointLight(0x14b8a6, 2, 50);
-            scene.add(pointLight1);
-
-            const pointLight2 = new THREE.PointLight(0x6366f1, 2, 50);
-            scene.add(pointLight2);
-
-            // Mouse Interaction
-            let mouseX = 0, mouseY = 0;
-            let targetX = 0, targetY = 0;
-
-            document.addEventListener('mousemove', (e) => {
-                mouseX = (e.clientX - window.innerWidth / 2) * 0.01;
-                mouseY = (e.clientY - window.innerHeight / 2) * 0.01;
-
-                pointLight1.position.x = mouseX * 10;
-                pointLight1.position.y = -mouseY * 10;
-                pointLight1.position.z = 15;
-
-                pointLight2.position.x = -mouseX * 10;
-                pointLight2.position.y = mouseY * 10;
-                pointLight2.position.z = 10;
-            });
-
-            // Scroll Animation Morph
-            let scrollY = 0;
-            window.addEventListener('scroll', () => {
-                scrollY = window.scrollY;
-            });
-
-            // Animation Loop
-            const animateBg = () => {
-                requestAnimationFrame(animateBg);
-
-                targetX += (mouseX - targetX) * 0.05;
-                targetY += (mouseY - targetY) * 0.05;
-
-                camera.position.x = targetX * 1.5;
-                camera.position.y = -targetY * 1.5 + (scrollY * 0.01);
-                camera.lookAt(scene.position);
-
-                // Rotations
-                particles.rotation.y += 0.0008;
-                particles.rotation.x += 0.0003;
-
-                icoMesh.rotation.x += 0.002;
-                icoMesh.rotation.y += 0.003;
-
-                octMesh.rotation.x -= 0.004;
-                octMesh.rotation.y -= 0.002;
-
-                torusMesh.rotation.z += 0.001;
-
-                renderer.render(scene, camera);
-            };
-
-            animateBg();
-
-            // Resize handler
-            window.addEventListener('resize', () => {
-                camera.aspect = window.innerWidth / window.innerHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(window.innerWidth, window.innerHeight);
-            });
-        }
-
-        /* --- 2. Interactive 3D Hero Canvas --- */
-        const heroContainer = document.getElementById('hero3dCanvas');
-        if (heroContainer) {
-            const width = heroContainer.clientWidth || 300;
-            const height = heroContainer.clientHeight || 300;
-
-            const heroScene = new THREE.Scene();
-            const heroCamera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
-            heroCamera.position.z = 5.5;
-
-            const heroRenderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-            heroRenderer.setSize(width, height);
-            heroRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-            heroContainer.appendChild(heroRenderer.domElement);
-
-            // 3D Glassmorphic TorusKnot
-            const knotGeo = new THREE.TorusKnotGeometry(1.1, 0.35, 128, 32);
-            const knotMat = new THREE.MeshStandardMaterial({
-                color: 0x6366f1,
-                roughness: 0.15,
-                metalness: 0.85,
-                wireframe: false
-            });
-            const knotMesh = new THREE.Mesh(knotGeo, knotMat);
-            heroScene.add(knotMesh);
-
-            // Orbiting Mini Spheres
-            const orbitGroup = new THREE.Group();
-            const sphereGeo = new THREE.SphereGeometry(0.12, 16, 16);
-            const sphereMat = new THREE.MeshBasicMaterial({ color: 0x14b8a6 });
-
-            for (let i = 0; i < 6; i++) {
-                const sphere = new THREE.Mesh(sphereGeo, sphereMat);
-                const angle = (i / 6) * Math.PI * 2;
-                sphere.position.x = Math.cos(angle) * 2.2;
-                sphere.position.y = Math.sin(angle) * 2.2;
-                orbitGroup.add(sphere);
-            }
-            heroScene.add(orbitGroup);
-
-            // Lights
-            const pLight1 = new THREE.PointLight(0x14b8a6, 4, 20);
-            pLight1.position.set(3, 3, 4);
-            heroScene.add(pLight1);
-
-            const pLight2 = new THREE.PointLight(0xa855f7, 3, 20);
-            pLight2.position.set(-3, -3, 2);
-            heroScene.add(pLight2);
-
-            const hAmbient = new THREE.AmbientLight(0xffffff, 0.6);
-            heroScene.add(hAmbient);
-
-            // Drag to Rotate Interactive Controller
-            let isDragging = false;
-            let previousMousePosition = { x: 0, y: 0 };
-            let targetRotationX = 0;
-            let targetRotationY = 0;
-
-            const onMouseDown = (e) => {
-                isDragging = true;
-                previousMousePosition = { x: e.clientX, y: e.clientY };
-            };
-
-            const onMouseMove = (e) => {
-                if (!isDragging) return;
-                const deltaX = e.clientX - previousMousePosition.x;
-                const deltaY = e.clientY - previousMousePosition.y;
-
-                targetRotationY += deltaX * 0.01;
-                targetRotationX += deltaY * 0.01;
-
-                previousMousePosition = { x: e.clientX, y: e.clientY };
-            };
-
-            const onMouseUp = () => {
-                isDragging = false;
-            };
-
-            heroContainer.addEventListener('mousedown', onMouseDown);
-            window.addEventListener('mousemove', onMouseMove);
-            window.addEventListener('mouseup', onMouseUp);
-
-            // Touch events for mobile
-            heroContainer.addEventListener('touchstart', (e) => {
-                if (e.touches.length === 1) {
-                    isDragging = true;
-                    previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-                }
-            });
-            window.addEventListener('touchmove', (e) => {
-                if (!isDragging || e.touches.length === 0) return;
-                const deltaX = e.touches[0].clientX - previousMousePosition.x;
-                const deltaY = e.touches[0].clientY - previousMousePosition.y;
-
-                targetRotationY += deltaX * 0.01;
-                targetRotationX += deltaY * 0.01;
-
-                previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-            });
-            window.addEventListener('touchend', () => { isDragging = false; });
-
-            // Hover scale interaction on Three.js 3D Mesh
-            const avatarWrapper = document.querySelector('.avatar-wrapper');
-            let isHovered = false;
-            if (avatarWrapper) {
-                avatarWrapper.addEventListener('mouseenter', () => { isHovered = true; });
-                avatarWrapper.addEventListener('mouseleave', () => { isHovered = false; });
-            }
-
-            // Hero Model Render Loop
-            let targetScale = 1.0;
-            const animateHero = () => {
-                requestAnimationFrame(animateHero);
-
-                if (!isDragging) {
-                    targetRotationY += isHovered ? 0.02 : 0.008;
-                    targetRotationX += isHovered ? 0.01 : 0.003;
-                }
-
-                targetScale = isHovered ? 1.25 : 1.0;
-                knotMesh.scale.x += (targetScale - knotMesh.scale.x) * 0.1;
-                knotMesh.scale.y += (targetScale - knotMesh.scale.y) * 0.1;
-                knotMesh.scale.z += (targetScale - knotMesh.scale.z) * 0.1;
-
-                knotMesh.rotation.y += (targetRotationY - knotMesh.rotation.y) * 0.1;
-                knotMesh.rotation.x += (targetRotationX - knotMesh.rotation.x) * 0.1;
-
-                orbitGroup.rotation.z -= isHovered ? 0.03 : 0.01;
-                pLight1.intensity = isHovered ? 7 : 4;
-
-                heroRenderer.render(heroScene, heroCamera);
-            };
-
-            animateHero();
-
-            // Resize Hero Canvas
-            window.addEventListener('resize', () => {
-                const w = heroContainer.clientWidth || 300;
-                const h = heroContainer.clientHeight || 300;
-                heroCamera.aspect = w / h;
-                heroCamera.updateProjectionMatrix();
-                heroRenderer.setSize(w, h);
-            });
-        }
-
-        /* --- 3D Holographic Cyan Globe & UI UX Cube Engine --- */
-        const globeContainer = document.getElementById('hero3dGlobeContainer');
-        if (globeContainer) {
-            const width = globeContainer.clientWidth || 600;
-            const height = globeContainer.clientHeight || 500;
-
-            const globeScene = new THREE.Scene();
-            const globeCamera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
-            globeCamera.position.z = 6.2;
-
-            const globeRenderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-            globeRenderer.setSize(width, height);
-            globeRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-            globeContainer.appendChild(globeRenderer.domElement);
-
-            // Group for all central objects
-            const mainGroup = new THREE.Group();
-            globeScene.add(mainGroup);
-
-            // 1. Cyan Particle Sphere
-            const particleCount = 2800;
-            const sphereRadius = 1.8;
-            const pGeometry = new THREE.BufferGeometry();
-            const pPositions = new Float32Array(particleCount * 3);
-            const pColors = new Float32Array(particleCount * 3);
-
-            const cyanColor = new THREE.Color('#00f2fe');
-            const tealColor = new THREE.Color('#14b8a6');
-            const whiteColor = new THREE.Color('#ffffff');
-
-            for (let i = 0; i < particleCount; i++) {
-                const u = Math.random();
-                const v = Math.random();
-                const theta = u * 2.0 * Math.PI;
-                const phi = Math.acos(2.0 * v - 1.0);
-                const r = sphereRadius + (Math.random() - 0.5) * 0.15;
-
-                const x = r * Math.sin(phi) * Math.cos(theta);
-                const y = r * Math.sin(phi) * Math.sin(theta);
-                const z = r * Math.cos(phi);
-
-                pPositions[i * 3] = x;
-                pPositions[i * 3 + 1] = y;
-                pPositions[i * 3 + 2] = z;
-
-                const mixedColor = Math.random() > 0.3 ? cyanColor : (Math.random() > 0.5 ? tealColor : whiteColor);
-                pColors[i * 3] = mixedColor.r;
-                pColors[i * 3 + 1] = mixedColor.g;
-                pColors[i * 3 + 2] = mixedColor.b;
-            }
-
-            pGeometry.setAttribute('position', new THREE.BufferAttribute(pPositions, 3));
-            pGeometry.setAttribute('color', new THREE.BufferAttribute(pColors, 3));
-
-            const pMaterial = new THREE.PointsMaterial({
-                size: 0.042,
-                vertexColors: true,
-                transparent: true,
-                opacity: 0.85,
-                blending: THREE.AdditiveBlending
-            });
-
-            const particleSphere = new THREE.Points(pGeometry, pMaterial);
-            mainGroup.add(particleSphere);
-
-            // 2. Central Rotating "UI UX" Cube with Custom Canvas Texture
-            const createTextTexture = (text) => {
-                const canvas = document.createElement('canvas');
-                canvas.width = 256;
-                canvas.height = 256;
-                const ctx = canvas.getContext('2d');
-
-                ctx.fillStyle = '#ffffff';
-                ctx.fillRect(0, 0, 256, 256);
-
-                ctx.lineWidth = 14;
-                ctx.strokeStyle = '#00f2fe';
-                ctx.strokeRect(10, 10, 236, 236);
-
-                ctx.font = '900 64px "Plus Jakarta Sans", sans-serif';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                ctx.fillStyle = '#070913';
-                ctx.fillText(text, 128, 128);
-
-                return new THREE.CanvasTexture(canvas);
-            };
-
-            const uiUxTexture = createTextTexture('UI UX');
-            const devTexture = createTextTexture('DEV');
-            const webTexture = createTextTexture('3D');
-
-            const materials = [
-                new THREE.MeshStandardMaterial({ map: uiUxTexture, roughness: 0.2, metalness: 0.8 }),
-                new THREE.MeshStandardMaterial({ map: devTexture, roughness: 0.2, metalness: 0.8 }),
-                new THREE.MeshStandardMaterial({ map: webTexture, roughness: 0.2, metalness: 0.8 }),
-                new THREE.MeshStandardMaterial({ map: uiUxTexture, roughness: 0.2, metalness: 0.8 }),
-                new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.2, metalness: 0.8 }),
-                new THREE.MeshStandardMaterial({ color: 0x00f2fe, roughness: 0.2, metalness: 0.8 })
-            ];
-
-            const cubeGeo = new THREE.BoxGeometry(0.85, 0.85, 0.85);
-            const uiCube = new THREE.Mesh(cubeGeo, materials);
-            mainGroup.add(uiCube);
-
-            // 3. Orbiting Satellite Trails & Orbs
-            const orbitGroup = new THREE.Group();
-            
-            const ringGeo1 = new THREE.TorusGeometry(2.3, 0.012, 16, 100);
-            const ringMat1 = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.4 });
-            const ringMesh1 = new THREE.Mesh(ringGeo1, ringMat1);
-            ringMesh1.rotation.x = Math.PI / 3;
-            ringMesh1.rotation.y = Math.PI / 6;
-            orbitGroup.add(ringMesh1);
-
-            const orbGeo1 = new THREE.SphereGeometry(0.08, 16, 16);
-            const orbMat1 = new THREE.MeshBasicMaterial({ color: 0xffffff });
-            const orb1 = new THREE.Mesh(orbGeo1, orbMat1);
-            orbitGroup.add(orb1);
-
-            const orbGeo2 = new THREE.SphereGeometry(0.07, 16, 16);
-            const orbMat2 = new THREE.MeshBasicMaterial({ color: 0xef4444 });
-            const orb2 = new THREE.Mesh(orbGeo2, orbMat2);
-            orbitGroup.add(orb2);
-
-            mainGroup.add(orbitGroup);
-
-            // 4. Secondary Floating Striped Planet
-            const planetGroup = new THREE.Group();
-            const planetGeo = new THREE.SphereGeometry(0.42, 32, 32);
-            const planetMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.3, metalness: 0.7, wireframe: true });
-            const planet = new THREE.Mesh(planetGeo, planetMat);
-            planetGroup.add(planet);
-
-            // Red Core Dot inside Planet
-            const coreGeo = new THREE.SphereGeometry(0.12, 16, 16);
-            const coreMat = new THREE.MeshBasicMaterial({ color: 0xef4444 });
-            const coreDot = new THREE.Mesh(coreGeo, coreMat);
-            planetGroup.add(coreDot);
-
-            planetGroup.position.set(2.1, 1.2, -0.4);
-            mainGroup.add(planetGroup);
-
-            // Lights
-            const cyanLight = new THREE.PointLight(0x00f2fe, 5, 20);
-            cyanLight.position.set(3, 3, 5);
-            globeScene.add(cyanLight);
-
-            const redLight = new THREE.PointLight(0xef4444, 3, 20);
-            redLight.position.set(-3, -2, 3);
-            globeScene.add(redLight);
-
-            const ambLight = new THREE.AmbientLight(0xffffff, 0.7);
-            globeScene.add(ambLight);
-
-            // Interactive Drag to Rotate
-            let isDraggingGlobe = false;
-            let prevMousePos = { x: 0, y: 0 };
-            let targetRotX = 0;
-            let targetRotY = 0;
-
-            globeContainer.addEventListener('mousedown', (e) => {
-                isDraggingGlobe = true;
-                prevMousePos = { x: e.clientX, y: e.clientY };
-            });
-
-            window.addEventListener('mousemove', (e) => {
-                if (!isDraggingGlobe) return;
-                const deltaX = e.clientX - prevMousePos.x;
-                const deltaY = e.clientY - prevMousePos.y;
-
-                targetRotY += deltaX * 0.008;
-                targetRotX += deltaY * 0.008;
-
-                prevMousePos = { x: e.clientX, y: e.clientY };
-            });
-
-            window.addEventListener('mouseup', () => { isDraggingGlobe = false; });
-
-            // Render Loop
-            let orbitAngle = 0;
-            const animateGlobe = () => {
-                requestAnimationFrame(animateGlobe);
-
-                if (!isDraggingGlobe) {
-                    targetRotY += 0.006;
-                    targetRotX += 0.002;
-                }
-
-                mainGroup.rotation.y += (targetRotY - mainGroup.rotation.y) * 0.08;
-                mainGroup.rotation.x += (targetRotX - mainGroup.rotation.x) * 0.08;
-
-                uiCube.rotation.y += 0.012;
-                uiCube.rotation.x += 0.006;
-
-                // Orbiting satellites
-                orbitAngle += 0.02;
-                orb1.position.x = Math.cos(orbitAngle) * 2.3;
-                orb1.position.y = Math.sin(orbitAngle) * 1.2;
-                orb1.position.z = Math.sin(orbitAngle) * 2.3;
-
-                orb2.position.x = Math.cos(orbitAngle + Math.PI) * 2.3;
-                orb2.position.y = Math.sin(orbitAngle + Math.PI) * -1.2;
-                orb2.position.z = Math.sin(orbitAngle + Math.PI) * 2.3;
-
-                planetGroup.rotation.y += 0.01;
-
-                globeRenderer.render(globeScene, globeCamera);
-            };
-
-            animateGlobe();
-
-            // Resize
-            window.addEventListener('resize', () => {
-                const w = globeContainer.clientWidth || 600;
-                const h = globeContainer.clientHeight || 500;
-                globeCamera.aspect = w / h;
-                globeCamera.updateProjectionMatrix();
-                globeRenderer.setSize(w, h);
-            });
-        }
-    };
-
-    /* ==========================================
-       14. INTERACTIVE CSS 3D TILT ENGINE
-    ========================================== */
-    const init3DTiltEngine = () => {
-        const tiltCards = document.querySelectorAll('[data-tilt-3d]');
-
-        tiltCards.forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-
-                const percentX = (x - centerX) / centerX;
-                const percentY = (y - centerY) / centerY;
-
-                const maxTilt = 12; // Maximum tilt angle in degrees
-
-                const rotateX = (-percentY * maxTilt).toFixed(2);
-                const rotateY = (percentX * maxTilt).toFixed(2);
-
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-                
-                // Update 3D Glare Position
-                card.style.setProperty('--shine-x', `${(x / rect.width) * 100}%`);
-                card.style.setProperty('--shine-y', `${(y / rect.height) * 100}%`);
-            });
-
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-            });
-        });
-    };
-
-    // Initialize 3D Systems
-    init3D();
-    init3DTiltEngine();
-
-    /* ==========================================
-       15. ADMIN PORTAL & USER MESSAGING MODULE
+       13. ADMIN PORTAL & USER MESSAGING MODULE
     ========================================== */
     const initAdminPortal = () => {
         // Initial Seed Users
@@ -1164,12 +715,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 userId: 'usr-2',
                 senderName: 'Marcus Chen',
                 email: 'marcus@devstudio.com',
-                subject: 'React & WebGL Collaboration',
+                subject: 'React & Web App Collaboration',
                 timestamp: 'Yesterday 04:15 PM',
                 status: 'replied',
                 messages: [
-                    { id: 'm-2', sender: 'user', text: 'Hey Harsh, are you available for freelance shader or 3D canvas work next month?', time: 'Yesterday 04:15 PM' },
-                    { id: 'm-3', sender: 'admin', text: 'Hi Marcus! Thanks for reaching out. Yes, I have bandwidth for WebGL consulting. Let us set up a call!', time: 'Yesterday 05:00 PM' }
+                    { id: 'm-2', sender: 'user', text: 'Hey Harsh, are you available for freelance React or web development work next month?', time: 'Yesterday 04:15 PM' },
+                    { id: 'm-3', sender: 'admin', text: 'Hi Marcus! Thanks for reaching out. Yes, I have bandwidth for web development consulting. Let us set up a call!', time: 'Yesterday 05:00 PM' }
                 ]
             }
         ];
