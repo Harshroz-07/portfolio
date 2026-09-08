@@ -1196,4 +1196,270 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initAdminPortal();
 
+    /* ====================================================
+       CINEMATIC 3D TECH STACK & EXPERTISE ENGINE
+    ==================================================== */
+    const init3DTechStack = () => {
+        const section = document.getElementById('about');
+        const cardsGrid = document.getElementById('techCardsGrid');
+        const cards = document.querySelectorAll('.tech-card-3d');
+        const canvas = document.getElementById('techParticlesCanvas');
+
+        if (!cardsGrid || !cards.length) return;
+
+        // --------------------------------------------------
+        // 1. FLOATING 3D PARTICLES CANVAS BACKGROUND
+        // --------------------------------------------------
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            let width = 0, height = 0;
+            let mousePos = { x: 0, y: 0, targetX: 0, targetY: 0 };
+
+            const resizeCanvas = () => {
+                if (!canvas) return;
+                width = canvas.width = section ? section.offsetWidth : window.innerWidth;
+                height = canvas.height = section ? section.offsetHeight : 600;
+            };
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            class Particle {
+                constructor() {
+                    this.reset();
+                }
+                reset() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.z = Math.random() * 0.8 + 0.2;
+                    this.radius = Math.random() * 2 + 1;
+                    this.vx = (Math.random() - 0.5) * 0.4;
+                    this.vy = (Math.random() - 0.5) * 0.4;
+                    this.color = Math.random() > 0.5 ? 'rgba(168, 85, 247, ' : 'rgba(6, 182, 212, ';
+                    this.alpha = Math.random() * 0.4 + 0.1;
+                }
+                update() {
+                    this.x += this.vx * this.z + (mousePos.x * 0.05 * this.z);
+                    this.y += this.vy * this.z + (mousePos.y * 0.05 * this.z);
+
+                    if (this.x < 0) this.x = width;
+                    if (this.x > width) this.x = 0;
+                    if (this.y < 0) this.y = height;
+                    if (this.y > height) this.y = 0;
+                }
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius * this.z, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color + (this.alpha * this.z) + ')';
+                    ctx.shadowColor = this.color + '0.8)';
+                    ctx.shadowBlur = 8 * this.z;
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                }
+            }
+
+            for (let i = 0; i < 35; i++) {
+                particles.push(new Particle());
+            }
+
+            const renderParticles = () => {
+                ctx.clearRect(0, 0, width, height);
+                mousePos.x += (mousePos.targetX - mousePos.x) * 0.05;
+                mousePos.y += (mousePos.targetY - mousePos.y) * 0.05;
+
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+                requestAnimationFrame(renderParticles);
+            };
+            renderParticles();
+
+            if (section) {
+                section.addEventListener('mousemove', (e) => {
+                    const rect = section.getBoundingClientRect();
+                    mousePos.targetX = (e.clientX - rect.left - rect.width / 2) * 0.05;
+                    mousePos.targetY = (e.clientY - rect.top - rect.height / 2) * 0.05;
+                });
+            }
+        }
+
+        // --------------------------------------------------
+        // 2. REAL-TIME MOUSE 3D TILT & PARALLAX TRACKER
+        // --------------------------------------------------
+        let hoveredIndex = null;
+
+        cards.forEach((card, idx) => {
+            card.addEventListener('mousemove', (e) => {
+                hoveredIndex = idx;
+                const rect = card.getBoundingClientRect();
+                const cardWidth = rect.width;
+                const cardHeight = rect.height;
+
+                const mouseX = (e.clientX - rect.left - cardWidth / 2) / (cardWidth / 2);
+                const mouseY = (e.clientY - rect.top - cardHeight / 2) / (cardHeight / 2);
+
+                const rotateX = -mouseY * 8;
+                const rotateY = mouseX * 8;
+
+                const spotX = e.clientX - rect.left;
+                const spotY = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${spotX}px`);
+                card.style.setProperty('--mouse-y', `${spotY}px`);
+
+                if (window.gsap) {
+                    gsap.to(card, {
+                        rotateX: rotateX,
+                        rotateY: rotateY,
+                        scale3d: 1.03,
+                        transformPerspective: 1200,
+                        duration: 0.35,
+                        ease: "power2.out"
+                    });
+                } else {
+                    card.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03, 1.03, 1.03)`;
+                }
+            });
+
+            card.addEventListener('mouseleave', () => {
+                hoveredIndex = null;
+                if (window.gsap) {
+                    gsap.to(card, {
+                        rotateX: 0,
+                        rotateY: 0,
+                        scale3d: 1,
+                        duration: 0.6,
+                        ease: "power3.out"
+                    });
+                } else {
+                    card.style.transform = `perspective(1200px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+                }
+            });
+        });
+
+        // --------------------------------------------------
+        // 3. LIVE SEQUENTIAL ROTATION & SPOTLIGHT TIMELINE
+        // --------------------------------------------------
+        const presets = [
+            { rotateX: -4, rotateY: 7, translateY: -8, scale: 1.03 },
+            { rotateX: 4, rotateY: -7, translateY: -8, scale: 1.03 },
+            { rotateX: -3, rotateY: 6, translateY: -8, scale: 1.03 }
+        ];
+
+        let activeCardIndex = 0;
+
+        const animateProgressBars = (card) => {
+            const bars = card.querySelectorAll('.skill-progress-3d');
+            bars.forEach((bar, i) => {
+                const targetWidth = bar.getAttribute('data-progress') || '85';
+                setTimeout(() => {
+                    bar.style.width = targetWidth + '%';
+                }, i * 100);
+            });
+        };
+
+        const triggerCardSpotlight = (index) => {
+            if (hoveredIndex !== null) return;
+
+            cards.forEach((card, idx) => {
+                const preset = presets[idx] || presets[0];
+
+                if (idx === index) {
+                    card.classList.add('active-3d-card');
+                    animateProgressBars(card);
+
+                    if (window.gsap) {
+                        gsap.to(card, {
+                            rotateX: preset.rotateX,
+                            rotateY: preset.rotateY,
+                            y: preset.translateY,
+                            scale3d: preset.scale,
+                            duration: 1.8,
+                            ease: "power3.inOut"
+                        });
+                    } else {
+                        card.style.transform = `perspective(1200px) rotateX(${preset.rotateX}deg) rotateY(${preset.rotateY}deg) translateY(${preset.translateY}px) scale3d(${preset.scale}, ${preset.scale}, ${preset.scale})`;
+                    }
+                } else {
+                    card.classList.remove('active-3d-card');
+                    if (window.gsap) {
+                        gsap.to(card, {
+                            rotateX: 0,
+                            rotateY: 0,
+                            y: 0,
+                            scale3d: 1,
+                            duration: 1.2,
+                            ease: "power3.out"
+                        });
+                    } else {
+                        card.style.transform = `perspective(1200px) rotateX(0deg) rotateY(0deg) translateY(0px) scale3d(1, 1, 1)`;
+                    }
+                }
+            });
+        };
+
+        triggerCardSpotlight(0);
+
+        setInterval(() => {
+            if (hoveredIndex === null) {
+                activeCardIndex = (activeCardIndex + 1) % cards.length;
+                triggerCardSpotlight(activeCardIndex);
+            }
+        }, 2800);
+
+        // --------------------------------------------------
+        // 4. GSAP SCROLLTRIGGER ENTRANCE ANIMATION
+        // --------------------------------------------------
+        if (window.gsap && window.ScrollTrigger) {
+            gsap.registerPlugin(ScrollTrigger);
+
+            gsap.fromTo('.tech-section-header', 
+                { opacity: 0, y: 50, filter: 'blur(10px)' },
+                {
+                    opacity: 1,
+                    y: 0,
+                    filter: 'blur(0px)',
+                    duration: 1,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: '#about',
+                        start: 'top 80%',
+                        toggleActions: 'play none none reverse'
+                    }
+                }
+            );
+
+            gsap.fromTo(cards,
+                { opacity: 0, y: 70, rotateX: -15 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    rotateX: 0,
+                    duration: 1.1,
+                    stagger: 0.2,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: '.skills-wrapper-3d',
+                        start: 'top 85%',
+                        onEnter: () => {
+                            if (window.lucide) lucide.createIcons();
+                        }
+                    }
+                }
+            );
+        } else {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        triggerCardSpotlight(0);
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            observer.observe(cardsGrid);
+        }
+    };
+
+    init3DTechStack();
+
 });
