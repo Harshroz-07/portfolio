@@ -286,175 +286,50 @@
             </a>
         </section>
 
-        <!-- About & 3D Tech Stack Section -->
-        <section id="about" class="about-section tech-stack-3d-section section-padding">
-            <!-- 3D Floating Particles Background Canvas & Ambient Lighting -->
-            <div class="tech-stack-bg">
-                <canvas id="techParticlesCanvas" class="tech-particles-canvas"></canvas>
+        <!-- About & 3D Tech Orbit Section -->
+        <section id="about" class="about-section tech-orbit-section section-padding">
+            <!-- 3D Orbit Background Canvas & Ambient Lighting -->
+            <div class="tech-orbit-bg">
+                <canvas id="orbitParticlesCanvas" class="orbit-particles-canvas"></canvas>
+                <div class="orbit-center-light" id="orbitCenterLight"></div>
                 <div class="tech-ambient-glow glow-purple"></div>
                 <div class="tech-ambient-glow glow-cyan"></div>
             </div>
 
-            <div class="container tech-container-3d">
+            <div class="container tech-orbit-container">
                 <div class="section-header tech-section-header">
-                    <span class="section-tag tech-tag-badge">01 // TECHNICAL EXPERTISE</span>
-                    <h2 class="section-title tech-title">My Tech Stack &amp; <span class="gradient-text tech-gradient-text">Expertise</span></h2>
+                    <span class="section-tag tech-tag-badge">01 // CONTINUOUS 3D TECH ORBIT</span>
+                    <h2 class="section-title tech-title">My Tech Stack &amp; <span class="gradient-text tech-gradient-text">Ecosystem</span></h2>
                 </div>
 
-                <!-- 3D Skills Cards Grid -->
-                <div class="skills-wrapper-3d">
-                    <div class="tech-cards-grid3d" id="techCardsGrid">
+                <!-- 3D Orbital Ecosystem Canvas/Track -->
+                <div class="orbit-ecosystem-3d" id="orbitEcosystem">
 
-                        <!-- Card 1: Frontend Development -->
-                        <div class="tech-card-3d" data-card-index="0">
-                            <div class="card-spotlight"></div>
-                            <div class="card-glass-border"></div>
-                            <div class="card-inner-3d">
-                                <div class="card-header-3d">
-                                    <div class="icon-wrapper-3d">
-                                        <i data-lucide="layout"></i>
-                                    </div>
-                                    <h4>Frontend Development</h4>
-                                </div>
-                                <div class="card-divider-3d"></div>
-                                <div class="skill-list-3d">
-                                    <div class="skill-item-3d">
-                                        <div class="skill-info-3d">
-                                            <span class="skill-name-3d">HTML5 / CSS3 / ES6+</span>
-                                        </div>
-                                        <div class="skill-bar-3d">
-                                            <div class="skill-progress-3d" data-progress="95" style="width: 0%;"></div>
-                                        </div>
-                                    </div>
-                                    <div class="skill-item-3d">
-                                        <div class="skill-info-3d">
-                                            <span class="skill-name-3d">React / Next.js / Vue</span>
-                                        </div>
-                                        <div class="skill-bar-3d">
-                                            <div class="skill-progress-3d" data-progress="90" style="width: 0%;"></div>
-                                        </div>
-                                    </div>
-                                    <div class="skill-item-3d">
-                                        <div class="skill-info-3d">
-                                            <span class="skill-name-3d">TypeScript</span>
-                                        </div>
-                                        <div class="skill-bar-3d">
-                                            <div class="skill-progress-3d" data-progress="85" style="width: 0%;"></div>
-                                        </div>
-                                    </div>
-                                    <div class="skill-item-3d">
-                                        <div class="skill-info-3d">
-                                            <span class="skill-name-3d">Tailwind CSS / CSS Modules</span>
-                                        </div>
-                                        <div class="skill-bar-3d">
-                                            <div class="skill-progress-3d" data-progress="95" style="width: 0%;"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 2: Backend & Architecture -->
-                        <div class="tech-card-3d" data-card-index="1">
-                            <div class="card-spotlight"></div>
-                            <div class="card-glass-border"></div>
-                            <div class="card-inner-3d">
-                                <div class="card-header-3d">
-                                    <div class="icon-wrapper-3d">
-                                        <i data-lucide="server"></i>
-                                    </div>
-                                    <h4>Backend &amp; Architecture</h4>
-                                </div>
-                                <div class="card-divider-3d"></div>
-                                <div class="skill-list-3d">
-                                    <div class="skill-item-3d">
-                                        <div class="skill-info-3d">
-                                            <span class="skill-name-3d">Node.js / Express</span>
-                                        </div>
-                                        <div class="skill-bar-3d">
-                                            <div class="skill-progress-3d" data-progress="75" style="width: 0%;"></div>
-                                        </div>
-                                    </div>
-                                    <div class="skill-item-3d">
-                                        <div class="skill-info-3d">
-                                            <span class="skill-name-3d">GraphQL / REST APIs</span>
-                                        </div>
-                                        <div class="skill-bar-3d">
-                                            <div class="skill-progress-3d" data-progress="80" style="width: 0%;"></div>
-                                        </div>
-                                    </div>
-                                    <div class="skill-item-3d">
-                                        <div class="skill-info-3d">
-                                            <span class="skill-name-3d">PostgreSQL / MongoDB</span>
-                                        </div>
-                                        <div class="skill-bar-3d">
-                                            <div class="skill-progress-3d" data-progress="70" style="width: 0%;"></div>
-                                        </div>
-                                    </div>
-                                    <div class="skill-item-3d">
-                                        <div class="skill-info-3d">
-                                            <span class="skill-name-3d">Prisma ORM</span>
-                                        </div>
-                                        <div class="skill-bar-3d">
-                                            <div class="skill-progress-3d" data-progress="80" style="width: 0%;"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 3: Creative & Workflow -->
-                        <div class="tech-card-3d" data-card-index="2">
-                            <div class="card-spotlight"></div>
-                            <div class="card-glass-border"></div>
-                            <div class="card-inner-3d">
-                                <div class="card-header-3d">
-                                    <div class="icon-wrapper-3d">
-                                        <i data-lucide="palette"></i>
-                                    </div>
-                                    <h4>Creative &amp; Workflow</h4>
-                                </div>
-                                <div class="card-divider-3d"></div>
-                                <div class="skill-list-3d">
-                                    <div class="skill-item-3d">
-                                        <div class="skill-info-3d">
-                                            <span class="skill-name-3d">Figma UI/UX Design</span>
-                                        </div>
-                                        <div class="skill-bar-3d">
-                                            <div class="skill-progress-3d" data-progress="85" style="width: 0%;"></div>
-                                        </div>
-                                    </div>
-                                    <div class="skill-item-3d">
-                                        <div class="skill-info-3d">
-                                            <span class="skill-name-3d">Git &amp; Github Actions</span>
-                                        </div>
-                                        <div class="skill-bar-3d">
-                                            <div class="skill-progress-3d" data-progress="90" style="width: 0%;"></div>
-                                        </div>
-                                    </div>
-                                    <div class="skill-item-3d">
-                                        <div class="skill-info-3d">
-                                            <span class="skill-name-3d">Vite / Webpack / Bundlers</span>
-                                        </div>
-                                        <div class="skill-bar-3d">
-                                            <div class="skill-progress-3d" data-progress="85" style="width: 0%;"></div>
-                                        </div>
-                                    </div>
-                                    <div class="skill-item-3d">
-                                        <div class="skill-info-3d">
-                                            <span class="skill-name-3d">UI Animations (Framer / CSS)</span>
-                                        </div>
-                                        <div class="skill-bar-3d">
-                                            <div class="skill-progress-3d" data-progress="85" style="width: 0%;"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+                    <!-- Elliptical Orbit Path SVG -->
+                    <div class="orbit-ring-wrapper">
+                        <svg class="orbit-ring-svg" viewBox="0 0 1000 500" preserveAspectRatio="none">
+                            <ellipse cx="500" cy="250" rx="430" ry="175" class="orbit-ellipse-path" />
+                            <ellipse cx="500" cy="250" rx="430" ry="175" class="orbit-ellipse-glow" />
+                        </svg>
                     </div>
-                </div>
 
+                    <!-- Center Fixed Information Display Card -->
+                    <div class="orbit-center-card" id="orbitCenterCard">
+                        <div class="center-card-glass"></div>
+                        <div class="center-card-content" id="centerCardContent">
+                            <span class="center-tech-badge" id="centerTechCategory">Frontend</span>
+                            <h3 class="center-tech-name" id="centerTechName">React</h3>
+                            <div class="center-tech-divider"></div>
+                            <p class="center-tech-desc" id="centerTechDesc">Building dynamic and scalable user interfaces with component-based architecture.</p>
+                        </div>
+                    </div>
+
+                    <!-- Orbiting Technology Logos Container -->
+                    <div class="orbit-logos-track" id="orbitLogosTrack">
+                        <!-- Dynamically populated and positioned by 3D Orbit Engine -->
+                    </div>
+
+                </div>
             </div>
         </section>
 

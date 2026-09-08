@@ -1197,21 +1197,132 @@ document.addEventListener('DOMContentLoaded', () => {
     initAdminPortal();
 
     /* ====================================================
-       CINEMATIC 3D TECH STACK & EXPERTISE ENGINE
+       CONTINUOUS 3D TECH ORBIT ECOSYSTEM ENGINE
     ==================================================== */
-    const init3DTechStack = () => {
+    const init3DTechOrbit = () => {
         const section = document.getElementById('about');
-        const cardsGrid = document.getElementById('techCardsGrid');
-        const cards = document.querySelectorAll('.tech-card-3d');
-        const canvas = document.getElementById('techParticlesCanvas');
+        const orbitTrack = document.getElementById('orbitLogosTrack');
+        const ecosystem = document.getElementById('orbitEcosystem');
+        const centerBadge = document.getElementById('centerTechCategory');
+        const centerName = document.getElementById('centerTechName');
+        const centerDesc = document.getElementById('centerTechDesc');
+        const centerLight = document.getElementById('orbitCenterLight');
+        const centerCardContent = document.getElementById('centerCardContent');
+        const canvas = document.getElementById('orbitParticlesCanvas');
 
-        if (!cardsGrid || !cards.length) return;
+        if (!orbitTrack || !ecosystem) return;
 
-        // Accessibility: Check reduced motion preference
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+        // Technology dataset
+        const technologies = [
+            {
+                id: "react",
+                name: "React",
+                category: "Frontend",
+                description: "Building dynamic and scalable user interfaces with component-based architecture.",
+                icon: "layout",
+                color: "#06b6d4",
+                glow: "rgba(6, 182, 212, 0.55)"
+            },
+            {
+                id: "next",
+                name: "Next.js",
+                category: "Fullstack",
+                description: "Building production-ready applications with server-side rendering and modern routing.",
+                icon: "layers",
+                color: "#ffffff",
+                glow: "rgba(255, 255, 255, 0.45)"
+            },
+            {
+                id: "node",
+                name: "Node.js",
+                category: "Backend",
+                description: "Building scalable backend APIs and high-performance microservices using Express.",
+                icon: "server",
+                color: "#22c55e",
+                glow: "rgba(34, 197, 94, 0.55)"
+            },
+            {
+                id: "cpp",
+                name: "C++",
+                category: "Programming",
+                description: "Strong foundation in DSA, object-oriented programming, and performance design.",
+                icon: "code",
+                color: "#3b82f6",
+                glow: "rgba(59, 130, 246, 0.55)"
+            },
+            {
+                id: "python",
+                name: "Python",
+                category: "Programming",
+                description: "Used for backend development, script automation, data processing, and AI applications.",
+                icon: "terminal",
+                color: "#eab308",
+                glow: "rgba(234, 179, 8, 0.55)"
+            },
+            {
+                id: "tailwind",
+                name: "Tailwind CSS",
+                category: "Styling",
+                description: "Building ultra-responsive, highly aesthetic interfaces with utility-first design.",
+                icon: "palette",
+                color: "#38bdf8",
+                glow: "rgba(56, 189, 248, 0.55)"
+            },
+            {
+                id: "aws",
+                name: "AWS",
+                category: "Cloud",
+                description: "Cloud deployment, serverless infrastructure, and auto-scaling production hosting.",
+                icon: "cloud",
+                color: "#f97316",
+                glow: "rgba(249, 115, 22, 0.55)"
+            },
+            {
+                id: "redis",
+                name: "Redis",
+                category: "Database",
+                description: "High-performance in-memory data storage, pub/sub queues, and ultra-fast session caching.",
+                icon: "database",
+                color: "#ef4444",
+                glow: "rgba(239, 68, 68, 0.55)"
+            }
+        ];
+
+        // Create HTML nodes for each technology
+        orbitTrack.innerHTML = '';
+        const nodeEls = [];
+
+        technologies.forEach((tech, index) => {
+            const node = document.createElement('div');
+            node.className = 'orbit-node-3d';
+            node.setAttribute('data-tech-id', tech.id);
+            node.setAttribute('data-index', index);
+            node.style.setProperty('--node-glow', tech.glow);
+
+            node.innerHTML = `
+                <i data-lucide="${tech.icon}"></i>
+                <span class="orbit-node-tooltip">${tech.name}</span>
+            `;
+
+            // Node click to focus
+            node.addEventListener('click', () => {
+                const numTechs = technologies.length;
+                let targetGlobalAngle = (3 * Math.PI / 2) - (index / numTechs) * 2 * Math.PI;
+                const diff = (targetGlobalAngle - globalAngle) % (2 * Math.PI);
+                globalAngle += diff;
+            });
+
+            orbitTrack.appendChild(node);
+            nodeEls.push(node);
+        });
+
+        // Initialize Lucide icons on injected nodes
+        if (window.lucide) lucide.createIcons();
+
         // --------------------------------------------------
-        // 1. FLOATING 3D PARTICLES CANVAS BACKGROUND
+        // 1. FLOATING PARTICLES CANVAS BACKGROUND
         // --------------------------------------------------
         if (canvas && !prefersReducedMotion) {
             const ctx = canvas.getContext('2d');
@@ -1228,23 +1339,20 @@ document.addEventListener('DOMContentLoaded', () => {
             window.addEventListener('resize', resizeCanvas);
 
             class Particle {
-                constructor() {
-                    this.reset();
-                }
+                constructor() { this.reset(); }
                 reset() {
                     this.x = Math.random() * width;
                     this.y = Math.random() * height;
                     this.z = Math.random() * 0.8 + 0.2;
                     this.radius = Math.random() * 1.8 + 0.8;
-                    this.vx = (Math.random() - 0.5) * 0.35;
-                    this.vy = (Math.random() - 0.5) * 0.35;
+                    this.vx = (Math.random() - 0.5) * 0.3;
+                    this.vy = (Math.random() - 0.5) * 0.3;
                     this.color = Math.random() > 0.5 ? 'rgba(168, 85, 247, ' : 'rgba(6, 182, 212, ';
                     this.alpha = Math.random() * 0.35 + 0.1;
                 }
                 update() {
-                    this.x += this.vx * this.z + (mousePos.x * 0.04 * this.z);
-                    this.y += this.vy * this.z + (mousePos.y * 0.04 * this.z);
-
+                    this.x += this.vx * this.z + (mousePos.x * 0.03 * this.z);
+                    this.y += this.vy * this.z + (mousePos.y * 0.03 * this.z);
                     if (this.x < 0) this.x = width;
                     if (this.x > width) this.x = 0;
                     if (this.y < 0) this.y = height;
@@ -1254,26 +1362,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     ctx.beginPath();
                     ctx.arc(this.x, this.y, this.radius * this.z, 0, Math.PI * 2);
                     ctx.fillStyle = this.color + (this.alpha * this.z) + ')';
-                    ctx.shadowColor = this.color + '0.7)';
-                    ctx.shadowBlur = 6 * this.z;
                     ctx.fill();
-                    ctx.shadowBlur = 0;
                 }
             }
 
-            for (let i = 0; i < 30; i++) {
-                particles.push(new Particle());
-            }
+            for (let i = 0; i < 30; i++) particles.push(new Particle());
 
             const renderParticles = () => {
                 ctx.clearRect(0, 0, width, height);
                 mousePos.x += (mousePos.targetX - mousePos.x) * 0.05;
                 mousePos.y += (mousePos.targetY - mousePos.y) * 0.05;
-
-                particles.forEach(p => {
-                    p.update();
-                    p.draw();
-                });
+                particles.forEach(p => { p.update(); p.draw(); });
                 requestAnimationFrame(renderParticles);
             };
             renderParticles();
@@ -1288,151 +1387,122 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // --------------------------------------------------
-        // 2. REAL-TIME MOUSE 3D TILT & PARALLAX TRACKER
+        // 2. CONTINUOUS 3D ORBIT MATHEMATICS ENGINE
         // --------------------------------------------------
-        let hoveredIndex = null;
+        let globalAngle = 0;
+        let currentActiveId = null;
 
-        if (!prefersReducedMotion) {
-            cards.forEach((card, idx) => {
-                card.addEventListener('mousemove', (e) => {
-                    hoveredIndex = idx;
-                    const rect = card.getBoundingClientRect();
-                    const cardWidth = rect.width;
-                    const cardHeight = rect.height;
+        // Camera tilt state for mouse movement
+        let mouseXPercent = 0, mouseYPercent = 0;
+        let camRotX = 0, camRotY = 0;
 
-                    const mouseX = (e.clientX - rect.left - cardWidth / 2) / (cardWidth / 2);
-                    const mouseY = (e.clientY - rect.top - cardHeight / 2) / (cardHeight / 2);
-
-                    // Clamp to max ±7deg rotation
-                    const rotateX = Math.max(-7, Math.min(7, -mouseY * 7));
-                    const rotateY = Math.max(-7, Math.min(7, mouseX * 7));
-
-                    const spotX = e.clientX - rect.left;
-                    const spotY = e.clientY - rect.top;
-                    card.style.setProperty('--mouse-x', `${spotX}px`);
-                    card.style.setProperty('--mouse-y', `${spotY}px`);
-
-                    if (window.gsap) {
-                        gsap.to(card, {
-                            rotateX: rotateX,
-                            rotateY: rotateY,
-                            scale3d: 1.03,
-                            transformPerspective: 1500,
-                            duration: 0.35,
-                            ease: "power2.out"
-                        });
-                    } else {
-                        card.style.transform = `perspective(1500px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03, 1.03, 1.03)`;
-                    }
-                });
-
-                card.addEventListener('mouseleave', () => {
-                    hoveredIndex = null;
-                    if (window.gsap) {
-                        gsap.to(card, {
-                            rotateX: 0,
-                            rotateY: 0,
-                            scale3d: 1,
-                            duration: 0.6,
-                            ease: "power3.out"
-                        });
-                    } else {
-                        card.style.transform = `perspective(1500px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-                    }
-                });
+        if (section) {
+            section.addEventListener('mousemove', (e) => {
+                const rect = section.getBoundingClientRect();
+                mouseXPercent = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+                mouseYPercent = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+            });
+            section.addEventListener('mouseleave', () => {
+                mouseXPercent = 0;
+                mouseYPercent = 0;
             });
         }
 
-        // --------------------------------------------------
-        // 3. LIVE SEQUENTIAL ROTATION & SPOTLIGHT TIMELINE
-        // --------------------------------------------------
-        const presets = [
-            { rotateX: -2, rotateY: 5, translateY: -8, scale: 1.03 },
-            { rotateX: 2, rotateY: -5, translateY: -8, scale: 1.03 },
-            { rotateX: -2, rotateY: 4, translateY: -8, scale: 1.03 }
-        ];
+        // Handle active tech information update
+        const updateActiveTechInfo = (tech) => {
+            if (currentActiveId === tech.id) return;
+            currentActiveId = tech.id;
 
-        let activeCardIndex = 0;
-
-        const animateCardContentStagger = (card) => {
-            const iconWrapper = card.querySelector('.icon-wrapper-3d');
-            const divider = card.querySelector('.card-divider-3d');
-            const items = card.querySelectorAll('.skill-item-3d');
-            const bars = card.querySelectorAll('.skill-progress-3d');
-
-            if (window.gsap && !prefersReducedMotion) {
-                gsap.fromTo(iconWrapper, 
-                    { scale: 1, rotateZ: 0 },
-                    { scale: 1.12, rotateZ: 8, duration: 0.6, ease: "back.out(1.7)" }
-                );
-                gsap.fromTo(divider, 
-                    { scaleX: 0.7 },
-                    { scaleX: 1, duration: 0.6, ease: "power2.out" }
-                );
-            }
-
-            bars.forEach((bar, i) => {
-                const targetWidth = bar.getAttribute('data-progress') || '85';
+            if (centerCardContent) {
+                centerCardContent.classList.add('animating-out');
                 setTimeout(() => {
-                    bar.style.width = targetWidth + '%';
-                }, 150 + (i * 120));
-            });
+                    if (centerBadge) centerBadge.textContent = tech.category;
+                    if (centerName) centerName.textContent = tech.name;
+                    if (centerDesc) centerDesc.textContent = tech.description;
+
+                    if (centerLight) {
+                        centerLight.style.background = `radial-gradient(circle, ${tech.glow} 0%, transparent 70%)`;
+                    }
+
+                    centerCardContent.classList.remove('animating-out');
+                    centerCardContent.classList.add('animating-in');
+                    setTimeout(() => {
+                        centerCardContent.classList.remove('animating-in');
+                    }, 350);
+                }, 200);
+            }
         };
 
-        const triggerCardSpotlight = (index) => {
-            if (hoveredIndex !== null || prefersReducedMotion) return;
+        // Main 3D Orbit Loop
+        const numTechs = technologies.length;
+        const speed = 0.0035; // Continuous single-direction orbit
 
-            cards.forEach((card, idx) => {
-                const preset = presets[idx] || presets[0];
+        const animateOrbit = () => {
+            if (!prefersReducedMotion) {
+                globalAngle += speed;
+            }
 
-                if (idx === index) {
-                    card.classList.add('active-3d-card');
-                    animateCardContentStagger(card);
+            // Smooth camera parallax
+            const targetCamRotX = -mouseYPercent * 5;
+            const targetCamRotY = mouseXPercent * 6;
+            camRotX += (targetCamRotX - camRotX) * 0.05;
+            camRotY += (targetCamRotY - camRotY) * 0.05;
 
-                    if (window.gsap) {
-                        gsap.to(card, {
-                            rotateX: preset.rotateX,
-                            rotateY: preset.rotateY,
-                            y: preset.translateY,
-                            scale3d: preset.scale,
-                            duration: 1.5,
-                            ease: "power3.inOut"
-                        });
-                    } else {
-                        card.style.transform = `perspective(1500px) rotateX(${preset.rotateX}deg) rotateY(${preset.rotateY}deg) translateY(${preset.translateY}px) scale3d(${preset.scale}, ${preset.scale}, ${preset.scale})`;
-                    }
+            ecosystem.style.transform = `perspective(1200px) rotateX(${camRotX}deg) rotateY(${camRotY}deg)`;
+
+            // Responsive Radii
+            const isMobile = window.innerWidth <= 768;
+            const Rx = isMobile ? 220 : 420;
+            const Ry = isMobile ? 110 : 175;
+            const Rz = isMobile ? 150 : 230;
+
+            let maxZ = -Infinity;
+            let activeIndex = 0;
+
+            nodeEls.forEach((node, idx) => {
+                const angle = globalAngle + (idx / numTechs) * 2 * Math.PI;
+
+                const x = Rx * Math.sin(angle);
+                const y = Ry * Math.cos(angle);
+                const z = Rz * Math.cos(angle);
+
+                // Track max Z (closest to camera at front center)
+                if (z > maxZ) {
+                    maxZ = z;
+                    activeIndex = idx;
+                }
+
+                // Normalized depth zNorm in [0, 1]
+                const zNorm = (z + Rz) / (2 * Rz);
+                const scale = 0.65 + 0.55 * zNorm;
+                const opacity = 0.35 + 0.65 * zNorm;
+                const brightness = 0.7 + 0.4 * zNorm;
+                const zIndex = Math.round(100 + 100 * zNorm);
+
+                node.style.transform = `translate3d(${x}px, ${y}px, ${z}px) scale(${scale})`;
+                node.style.opacity = opacity.toFixed(2);
+                node.style.filter = `brightness(${brightness.toFixed(2)})`;
+                node.style.zIndex = zIndex;
+            });
+
+            // Mark active node and update center display
+            nodeEls.forEach((node, idx) => {
+                if (idx === activeIndex) {
+                    node.classList.add('active-orbit-node');
                 } else {
-                    card.classList.remove('active-3d-card');
-                    const iconWrapper = card.querySelector('.icon-wrapper-3d');
-                    if (window.gsap) {
-                        gsap.to(iconWrapper, { scale: 1, rotateZ: 0, duration: 0.5 });
-                        gsap.to(card, {
-                            rotateX: 0,
-                            rotateY: 0,
-                            y: 0,
-                            scale3d: 1,
-                            duration: 1.0,
-                            ease: "power3.out"
-                        });
-                    } else {
-                        card.style.transform = `perspective(1500px) rotateX(0deg) rotateY(0deg) translateY(0px) scale3d(1, 1, 1)`;
-                    }
+                    node.classList.remove('active-orbit-node');
                 }
             });
+
+            updateActiveTechInfo(technologies[activeIndex]);
+
+            requestAnimationFrame(animateOrbit);
         };
 
-        triggerCardSpotlight(0);
-
-        // 1.5s active + 0.5s delay = 2000ms loop cycle
-        setInterval(() => {
-            if (hoveredIndex === null && !prefersReducedMotion) {
-                activeCardIndex = (activeCardIndex + 1) % cards.length;
-                triggerCardSpotlight(activeCardIndex);
-            }
-        }, 2200);
+        animateOrbit();
 
         // --------------------------------------------------
-        // 4. GSAP SCROLLTRIGGER ENTRANCE ANIMATION
+        // 3. GSAP SCROLLTRIGGER ENTRANCE ASSEMBLY
         // --------------------------------------------------
         if (window.gsap && window.ScrollTrigger && !prefersReducedMotion) {
             gsap.registerPlugin(ScrollTrigger);
@@ -1440,53 +1510,21 @@ document.addEventListener('DOMContentLoaded', () => {
             gsap.fromTo('.tech-section-header', 
                 { opacity: 0, y: 40 },
                 {
-                    opacity: 1,
-                    y: 0,
-                    duration: 1,
-                    ease: 'power3.out',
-                    scrollTrigger: {
-                        trigger: '#about',
-                        start: 'top 80%',
-                        toggleActions: 'play none none reverse'
-                    }
+                    opacity: 1, y: 0, duration: 1, ease: 'power3.out',
+                    scrollTrigger: { trigger: '#about', start: 'top 80%' }
                 }
             );
 
-            // Per-card scroll entrance angles (Card 1: 12deg, Card 2: -12deg, Card 3: 8deg)
-            const entranceAngles = [12, -12, 8];
-            cards.forEach((card, i) => {
-                gsap.fromTo(card,
-                    { opacity: 0, scale: 0.92, rotateX: entranceAngles[i] },
-                    {
-                        opacity: 1,
-                        scale: 1,
-                        rotateX: 0,
-                        duration: 1.2,
-                        delay: i * 0.15,
-                        ease: 'power3.out',
-                        scrollTrigger: {
-                            trigger: '.skills-wrapper-3d',
-                            start: 'top 85%',
-                            onEnter: () => {
-                                if (window.lucide) lucide.createIcons();
-                            }
-                        }
-                    }
-                );
-            });
-        } else {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        triggerCardSpotlight(0);
-                    }
-                });
-            }, { threshold: 0.2 });
-
-            observer.observe(cardsGrid);
+            gsap.fromTo(ecosystem,
+                { opacity: 0, scale: 0.85, rotateX: 10 },
+                {
+                    opacity: 1, scale: 1, rotateX: 0, duration: 1.3, ease: 'power3.out',
+                    scrollTrigger: { trigger: '.orbit-ecosystem-3d', start: 'top 85%' }
+                }
+            );
         }
     };
 
-    init3DTechStack();
+    init3DTechOrbit();
 
 });
