@@ -82,11 +82,11 @@ body.cursor-hover .custom-cursor-ring {
     transition: width 0.1s linear;
 }
 
-/* Dark Theme Variables (Default) */
+/* Dark Theme Variables (Light Black Palette) */
 html[data-theme="dark"] {
-    --bg-primary: #070913;
-    --bg-secondary: #0c0f1d;
-    --bg-tertiary: #161b30;
+    --bg-primary: #121214;
+    --bg-secondary: #18181c;
+    --bg-tertiary: #222228;
     
     --text-primary: #f3f4f6;
     --text-secondary: #a0aec0;
@@ -99,12 +99,12 @@ html[data-theme="dark"] {
     --accent-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #14b8a6 100%);
     --accent-gradient-glow: rgba(99, 102, 241, 0.15);
     
-    --border-color: rgba(255, 255, 255, 0.05);
-    --border-hover: rgba(255, 255, 255, 0.12);
+    --border-color: rgba(255, 255, 255, 0.08);
+    --border-hover: rgba(255, 255, 255, 0.16);
     
-    --glass-bg: rgba(12, 15, 29, 0.7);
-    --glass-border: rgba(255, 255, 255, 0.06);
-    --glass-shadow: rgba(0, 0, 0, 0.4);
+    --glass-bg: rgba(24, 24, 28, 0.85);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-shadow: rgba(0, 0, 0, 0.5);
     
     --glow-opacity: 0.6;
 }
@@ -1299,7 +1299,7 @@ html[data-theme="light"] .theme-toggle .moon-icon {
     width: 320px;
     padding: 32px 28px;
     border-radius: 24px;
-    background: rgba(12, 15, 26, 0.9);
+    background: rgba(22, 22, 28, 0.92);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
     border: 1px solid rgba(255, 255, 255, 0.12);
@@ -3917,7 +3917,7 @@ html[data-theme="light"] .empty-project-box {
 ==================================================== */
 .digital-journey-footer {
     padding: 60px 0 40px 0;
-    background: radial-gradient(circle at 50% 0%, rgba(168, 85, 247, 0.08) 0%, rgba(8, 10, 20, 0.95) 70%);
+    background: radial-gradient(circle at 50% 0%, rgba(168, 85, 247, 0.08) 0%, rgba(18, 18, 22, 0.98) 70%);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     position: relative;
     overflow: hidden;
