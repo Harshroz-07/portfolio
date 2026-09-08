@@ -10,7 +10,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
         rel="stylesheet">
     <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
@@ -297,36 +297,42 @@
             </div>
 
             <div class="container tech-orbit-container">
-                <div class="section-header tech-section-header">
-                    <span class="section-tag tech-tag-badge">01 // CONTINUOUS 3D TECH ORBIT</span>
-                    <h2 class="section-title tech-title">My Tech Stack &amp; <span class="gradient-text tech-gradient-text">Ecosystem</span></h2>
-                </div>
-
-                <!-- 3D Orbital Ecosystem Canvas/Track -->
-                <div class="orbit-ecosystem-3d" id="orbitEcosystem">
-
-                    <!-- Elliptical Orbit Path SVG -->
-                    <div class="orbit-ring-wrapper">
-                        <svg class="orbit-ring-svg" viewBox="0 0 1000 500" preserveAspectRatio="none">
-                            <ellipse cx="500" cy="250" rx="430" ry="175" class="orbit-ellipse-path" />
-                            <ellipse cx="500" cy="250" rx="430" ry="175" class="orbit-ellipse-glow" />
-                        </svg>
+                <div class="orbit-split-layout">
+                    
+                    <!-- Left Side: Serif Display Heading (Matches Reference Image!) -->
+                    <div class="orbit-left-header">
+                        <span class="section-tag tech-tag-badge">01 // TECHNICAL EXPERTISE</span>
+                        <h2 class="orbit-main-heading">I'm Good At<span class="heading-dots">...</span></h2>
                     </div>
 
-                    <!-- Center Fixed Information Display Card -->
-                    <div class="orbit-center-card" id="orbitCenterCard">
-                        <div class="center-card-glass"></div>
-                        <div class="center-card-content" id="centerCardContent">
-                            <span class="center-tech-badge" id="centerTechCategory">Frontend</span>
-                            <h3 class="center-tech-name" id="centerTechName">React</h3>
-                            <div class="center-tech-divider"></div>
-                            <p class="center-tech-desc" id="centerTechDesc">Building dynamic and scalable user interfaces with component-based architecture.</p>
+                    <!-- Right/Center Side: 3D Orbital Ecosystem Track -->
+                    <div class="orbit-ecosystem-3d" id="orbitEcosystem">
+
+                        <!-- Elliptical Orbit Path SVG -->
+                        <div class="orbit-ring-wrapper">
+                            <svg class="orbit-ring-svg" viewBox="0 0 800 500" preserveAspectRatio="none">
+                                <ellipse cx="400" cy="250" rx="340" ry="180" class="orbit-ellipse-path" />
+                                <ellipse cx="400" cy="250" rx="340" ry="180" class="orbit-ellipse-glow" />
+                            </svg>
                         </div>
-                    </div>
 
-                    <!-- Orbiting Technology Logos Container -->
-                    <div class="orbit-logos-track" id="orbitLogosTrack">
-                        <!-- Dynamically populated and positioned by 3D Orbit Engine -->
+                        <!-- Center Active Technology Information Display -->
+                        <div class="orbit-center-card" id="orbitCenterCard">
+                            <div class="center-card-content" id="centerCardContent">
+                                <h3 class="center-tech-name" id="centerTechName">Next.js</h3>
+                                <div class="center-tech-line"></div>
+                                <div class="center-tech-category-wrapper">
+                                    <em class="center-tech-category" id="centerTechCategory">Fullstack</em>
+                                </div>
+                                <p class="center-tech-desc" id="centerTechDesc">Building production-ready fullstack applications with server-side rendering and modern routing.</p>
+                            </div>
+                        </div>
+
+                        <!-- Orbiting Technology Logos Track Container -->
+                        <div class="orbit-logos-track" id="orbitLogosTrack">
+                            <!-- Dynamically rendered and 3D positioned by Orbit Engine -->
+                        </div>
+
                     </div>
 
                 </div>
