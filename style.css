@@ -1172,23 +1172,23 @@ html[data-theme="light"] .theme-toggle .moon-icon {
     inset: 0;
     width: 100%;
     height: 100%;
-    opacity: 0.85;
+    opacity: 0.75;
 }
 
 .tech-ambient-glow {
     position: absolute;
-    width: 600px;
-    height: 600px;
+    width: 650px;
+    height: 650px;
     border-radius: 50%;
-    filter: blur(140px);
+    filter: blur(150px);
     pointer-events: none;
-    opacity: 0.18;
+    opacity: 0.16;
 }
 
 .glow-purple {
     top: -15%;
     left: 5%;
-    background: radial-gradient(circle, #8b5cf6 0%, transparent 70%);
+    background: radial-gradient(circle, #a855f7 0%, transparent 70%);
 }
 
 .glow-cyan {
@@ -1204,7 +1204,7 @@ html[data-theme="light"] .theme-toggle .moon-icon {
 
 .tech-section-header {
     text-align: center;
-    margin-bottom: 60px;
+    margin-bottom: 64px;
 }
 
 .tech-tag-badge {
@@ -1233,7 +1233,7 @@ html[data-theme="light"] .theme-toggle .moon-icon {
 }
 
 .tech-gradient-text {
-    background: linear-gradient(135deg, #a855f7 0%, #38bdf8 50%, #c084fc 100%);
+    background: linear-gradient(135deg, #a855f7 0%, #ec4899 40%, #38bdf8 70%, #c084fc 100%);
     background-size: 200% 200%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -1247,7 +1247,7 @@ html[data-theme="light"] .theme-toggle .moon-icon {
 }
 
 .skills-wrapper-3d {
-    perspective: 1200px;
+    perspective: 1500px;
     perspective-origin: 50% 50%;
 }
 
@@ -1261,7 +1261,7 @@ html[data-theme="light"] .theme-toggle .moon-icon {
 .tech-card-3d {
     position: relative;
     border-radius: 24px;
-    background: rgba(15, 23, 42, 0.65);
+    background: rgba(15, 18, 32, 0.75);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -1273,12 +1273,32 @@ html[data-theme="light"] .theme-toggle .moon-icon {
     cursor: pointer;
 }
 
+.tech-card-3d[data-card-index="0"] { animation: floatCard1 5.2s ease-in-out infinite; }
+.tech-card-3d[data-card-index="1"] { animation: floatCard2 6.1s ease-in-out infinite; }
+.tech-card-3d[data-card-index="2"] { animation: floatCard3 5.7s ease-in-out infinite; }
+
 .tech-card-3d.active-3d-card,
 .tech-card-3d:hover {
+    animation-play-state: paused;
     border-color: rgba(168, 85, 247, 0.55);
     box-shadow: 0 30px 60px rgba(139, 92, 246, 0.3), 0 0 35px rgba(6, 182, 212, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.25);
-    background: rgba(17, 24, 39, 0.85);
+    background: rgba(18, 23, 42, 0.88);
     z-index: 10;
+}
+
+@keyframes floatCard1 {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-6px); }
+}
+
+@keyframes floatCard2 {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-7px); }
+}
+
+@keyframes floatCard3 {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
 }
 
 .card-spotlight {
@@ -1301,7 +1321,7 @@ html[data-theme="light"] .theme-toggle .moon-icon {
     inset: -1px;
     border-radius: 25px;
     padding: 1px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(168, 85, 247, 0.3), rgba(6, 182, 212, 0.3), rgba(255, 255, 255, 0.05));
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(168, 85, 247, 0.35), rgba(236, 72, 153, 0.35), rgba(6, 182, 212, 0.35), rgba(255, 255, 255, 0.05));
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
@@ -1343,6 +1363,7 @@ html[data-theme="light"] .theme-toggle .moon-icon {
     justify-content: center;
     color: #c084fc;
     box-shadow: 0 10px 22px rgba(139, 92, 246, 0.2);
+    transform: translateZ(35px);
     transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s ease, background 0.4s ease, color 0.4s ease;
 }
 
@@ -1353,7 +1374,7 @@ html[data-theme="light"] .theme-toggle .moon-icon {
 
 .tech-card-3d.active-3d-card .icon-wrapper-3d,
 .tech-card-3d:hover .icon-wrapper-3d {
-    transform: scale(1.12) rotate(8deg) translateZ(10px);
+    transform: scale(1.12) rotate(8deg) translateZ(45px);
     background: linear-gradient(135deg, rgba(168, 85, 247, 0.35), rgba(6, 182, 212, 0.35));
     box-shadow: 0 14px 28px rgba(168, 85, 247, 0.4);
     color: #ffffff;
@@ -1365,12 +1386,13 @@ html[data-theme="light"] .theme-toggle .moon-icon {
     color: #f8fafc;
     margin: 0;
     letter-spacing: -0.01em;
+    transform: translateZ(25px);
 }
 
 .card-divider-3d {
     height: 2px;
     width: 100%;
-    background: linear-gradient(90deg, rgba(168, 85, 247, 0.6), rgba(6, 182, 212, 0.6), transparent);
+    background: linear-gradient(90deg, rgba(168, 85, 247, 0.6), rgba(236, 72, 153, 0.6), rgba(6, 182, 212, 0.6), transparent);
     margin-bottom: 26px;
     transform-origin: left;
     transform: translateZ(15px) scaleX(0.85);
@@ -1409,15 +1431,6 @@ html[data-theme="light"] .theme-toggle .moon-icon {
     letter-spacing: 0.01em;
 }
 
-.skill-percentage-3d {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: #c084fc;
-    font-family: 'JetBrains Mono', monospace;
-    letter-spacing: 0.5px;
-    opacity: 0.9;
-}
-
 .skill-bar-3d {
     width: 100%;
     height: 7px;
@@ -1432,9 +1445,38 @@ html[data-theme="light"] .theme-toggle .moon-icon {
     height: 100%;
     width: 0%;
     border-radius: 999px;
-    background: linear-gradient(90deg, #8b5cf6 0%, #c084fc 50%, #06b6d4 100%);
+    background: linear-gradient(90deg, #a855f7 0%, #ec4899 35%, #3b82f6 70%, #06b6d4 100%);
     box-shadow: 0 0 14px rgba(168, 85, 247, 0.6);
+    position: relative;
     transition: width 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.skill-progress-3d::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 25px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+    animation: barShimmer 2.2s infinite ease-in-out;
+}
+
+@keyframes barShimmer {
+    0% { transform: translateX(-100%); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translateX(100%); opacity: 0; }
+}
+
+/* Reduced Motion Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .tech-card-3d {
+        animation: none !important;
+        transform: none !important;
+    }
+    .skill-progress-3d::after {
+        animation: none !important;
+    }
 }
 
 /* Responsive adjustments for 3D Tech Stack */

@@ -1207,10 +1207,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!cardsGrid || !cards.length) return;
 
+        // Accessibility: Check reduced motion preference
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
         // --------------------------------------------------
         // 1. FLOATING 3D PARTICLES CANVAS BACKGROUND
         // --------------------------------------------------
-        if (canvas) {
+        if (canvas && !prefersReducedMotion) {
             const ctx = canvas.getContext('2d');
             let particles = [];
             let width = 0, height = 0;
@@ -1232,15 +1235,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     this.x = Math.random() * width;
                     this.y = Math.random() * height;
                     this.z = Math.random() * 0.8 + 0.2;
-                    this.radius = Math.random() * 2 + 1;
-                    this.vx = (Math.random() - 0.5) * 0.4;
-                    this.vy = (Math.random() - 0.5) * 0.4;
+                    this.radius = Math.random() * 1.8 + 0.8;
+                    this.vx = (Math.random() - 0.5) * 0.35;
+                    this.vy = (Math.random() - 0.5) * 0.35;
                     this.color = Math.random() > 0.5 ? 'rgba(168, 85, 247, ' : 'rgba(6, 182, 212, ';
-                    this.alpha = Math.random() * 0.4 + 0.1;
+                    this.alpha = Math.random() * 0.35 + 0.1;
                 }
                 update() {
-                    this.x += this.vx * this.z + (mousePos.x * 0.05 * this.z);
-                    this.y += this.vy * this.z + (mousePos.y * 0.05 * this.z);
+                    this.x += this.vx * this.z + (mousePos.x * 0.04 * this.z);
+                    this.y += this.vy * this.z + (mousePos.y * 0.04 * this.z);
 
                     if (this.x < 0) this.x = width;
                     if (this.x > width) this.x = 0;
@@ -1251,14 +1254,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     ctx.beginPath();
                     ctx.arc(this.x, this.y, this.radius * this.z, 0, Math.PI * 2);
                     ctx.fillStyle = this.color + (this.alpha * this.z) + ')';
-                    ctx.shadowColor = this.color + '0.8)';
-                    ctx.shadowBlur = 8 * this.z;
+                    ctx.shadowColor = this.color + '0.7)';
+                    ctx.shadowBlur = 6 * this.z;
                     ctx.fill();
                     ctx.shadowBlur = 0;
                 }
             }
 
-            for (let i = 0; i < 35; i++) {
+            for (let i = 0; i < 30; i++) {
                 particles.push(new Particle());
             }
 
@@ -1278,8 +1281,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (section) {
                 section.addEventListener('mousemove', (e) => {
                     const rect = section.getBoundingClientRect();
-                    mousePos.targetX = (e.clientX - rect.left - rect.width / 2) * 0.05;
-                    mousePos.targetY = (e.clientY - rect.top - rect.height / 2) * 0.05;
+                    mousePos.targetX = (e.clientX - rect.left - rect.width / 2) * 0.04;
+                    mousePos.targetY = (e.clientY - rect.top - rect.height / 2) * 0.04;
                 });
             }
         }
@@ -1289,84 +1292,102 @@ document.addEventListener('DOMContentLoaded', () => {
         // --------------------------------------------------
         let hoveredIndex = null;
 
-        cards.forEach((card, idx) => {
-            card.addEventListener('mousemove', (e) => {
-                hoveredIndex = idx;
-                const rect = card.getBoundingClientRect();
-                const cardWidth = rect.width;
-                const cardHeight = rect.height;
+        if (!prefersReducedMotion) {
+            cards.forEach((card, idx) => {
+                card.addEventListener('mousemove', (e) => {
+                    hoveredIndex = idx;
+                    const rect = card.getBoundingClientRect();
+                    const cardWidth = rect.width;
+                    const cardHeight = rect.height;
 
-                const mouseX = (e.clientX - rect.left - cardWidth / 2) / (cardWidth / 2);
-                const mouseY = (e.clientY - rect.top - cardHeight / 2) / (cardHeight / 2);
+                    const mouseX = (e.clientX - rect.left - cardWidth / 2) / (cardWidth / 2);
+                    const mouseY = (e.clientY - rect.top - cardHeight / 2) / (cardHeight / 2);
 
-                const rotateX = -mouseY * 8;
-                const rotateY = mouseX * 8;
+                    // Clamp to max ±7deg rotation
+                    const rotateX = Math.max(-7, Math.min(7, -mouseY * 7));
+                    const rotateY = Math.max(-7, Math.min(7, mouseX * 7));
 
-                const spotX = e.clientX - rect.left;
-                const spotY = e.clientY - rect.top;
-                card.style.setProperty('--mouse-x', `${spotX}px`);
-                card.style.setProperty('--mouse-y', `${spotY}px`);
+                    const spotX = e.clientX - rect.left;
+                    const spotY = e.clientY - rect.top;
+                    card.style.setProperty('--mouse-x', `${spotX}px`);
+                    card.style.setProperty('--mouse-y', `${spotY}px`);
 
-                if (window.gsap) {
-                    gsap.to(card, {
-                        rotateX: rotateX,
-                        rotateY: rotateY,
-                        scale3d: 1.03,
-                        transformPerspective: 1200,
-                        duration: 0.35,
-                        ease: "power2.out"
-                    });
-                } else {
-                    card.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03, 1.03, 1.03)`;
-                }
+                    if (window.gsap) {
+                        gsap.to(card, {
+                            rotateX: rotateX,
+                            rotateY: rotateY,
+                            scale3d: 1.03,
+                            transformPerspective: 1500,
+                            duration: 0.35,
+                            ease: "power2.out"
+                        });
+                    } else {
+                        card.style.transform = `perspective(1500px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03, 1.03, 1.03)`;
+                    }
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    hoveredIndex = null;
+                    if (window.gsap) {
+                        gsap.to(card, {
+                            rotateX: 0,
+                            rotateY: 0,
+                            scale3d: 1,
+                            duration: 0.6,
+                            ease: "power3.out"
+                        });
+                    } else {
+                        card.style.transform = `perspective(1500px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+                    }
+                });
             });
-
-            card.addEventListener('mouseleave', () => {
-                hoveredIndex = null;
-                if (window.gsap) {
-                    gsap.to(card, {
-                        rotateX: 0,
-                        rotateY: 0,
-                        scale3d: 1,
-                        duration: 0.6,
-                        ease: "power3.out"
-                    });
-                } else {
-                    card.style.transform = `perspective(1200px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-                }
-            });
-        });
+        }
 
         // --------------------------------------------------
         // 3. LIVE SEQUENTIAL ROTATION & SPOTLIGHT TIMELINE
         // --------------------------------------------------
         const presets = [
-            { rotateX: -4, rotateY: 7, translateY: -8, scale: 1.03 },
-            { rotateX: 4, rotateY: -7, translateY: -8, scale: 1.03 },
-            { rotateX: -3, rotateY: 6, translateY: -8, scale: 1.03 }
+            { rotateX: -2, rotateY: 5, translateY: -8, scale: 1.03 },
+            { rotateX: 2, rotateY: -5, translateY: -8, scale: 1.03 },
+            { rotateX: -2, rotateY: 4, translateY: -8, scale: 1.03 }
         ];
 
         let activeCardIndex = 0;
 
-        const animateProgressBars = (card) => {
+        const animateCardContentStagger = (card) => {
+            const iconWrapper = card.querySelector('.icon-wrapper-3d');
+            const divider = card.querySelector('.card-divider-3d');
+            const items = card.querySelectorAll('.skill-item-3d');
             const bars = card.querySelectorAll('.skill-progress-3d');
+
+            if (window.gsap && !prefersReducedMotion) {
+                gsap.fromTo(iconWrapper, 
+                    { scale: 1, rotateZ: 0 },
+                    { scale: 1.12, rotateZ: 8, duration: 0.6, ease: "back.out(1.7)" }
+                );
+                gsap.fromTo(divider, 
+                    { scaleX: 0.7 },
+                    { scaleX: 1, duration: 0.6, ease: "power2.out" }
+                );
+            }
+
             bars.forEach((bar, i) => {
                 const targetWidth = bar.getAttribute('data-progress') || '85';
                 setTimeout(() => {
                     bar.style.width = targetWidth + '%';
-                }, i * 100);
+                }, 150 + (i * 120));
             });
         };
 
         const triggerCardSpotlight = (index) => {
-            if (hoveredIndex !== null) return;
+            if (hoveredIndex !== null || prefersReducedMotion) return;
 
             cards.forEach((card, idx) => {
                 const preset = presets[idx] || presets[0];
 
                 if (idx === index) {
                     card.classList.add('active-3d-card');
-                    animateProgressBars(card);
+                    animateCardContentStagger(card);
 
                     if (window.gsap) {
                         gsap.to(card, {
@@ -1374,25 +1395,27 @@ document.addEventListener('DOMContentLoaded', () => {
                             rotateY: preset.rotateY,
                             y: preset.translateY,
                             scale3d: preset.scale,
-                            duration: 1.8,
+                            duration: 1.5,
                             ease: "power3.inOut"
                         });
                     } else {
-                        card.style.transform = `perspective(1200px) rotateX(${preset.rotateX}deg) rotateY(${preset.rotateY}deg) translateY(${preset.translateY}px) scale3d(${preset.scale}, ${preset.scale}, ${preset.scale})`;
+                        card.style.transform = `perspective(1500px) rotateX(${preset.rotateX}deg) rotateY(${preset.rotateY}deg) translateY(${preset.translateY}px) scale3d(${preset.scale}, ${preset.scale}, ${preset.scale})`;
                     }
                 } else {
                     card.classList.remove('active-3d-card');
+                    const iconWrapper = card.querySelector('.icon-wrapper-3d');
                     if (window.gsap) {
+                        gsap.to(iconWrapper, { scale: 1, rotateZ: 0, duration: 0.5 });
                         gsap.to(card, {
                             rotateX: 0,
                             rotateY: 0,
                             y: 0,
                             scale3d: 1,
-                            duration: 1.2,
+                            duration: 1.0,
                             ease: "power3.out"
                         });
                     } else {
-                        card.style.transform = `perspective(1200px) rotateX(0deg) rotateY(0deg) translateY(0px) scale3d(1, 1, 1)`;
+                        card.style.transform = `perspective(1500px) rotateX(0deg) rotateY(0deg) translateY(0px) scale3d(1, 1, 1)`;
                     }
                 }
             });
@@ -1400,25 +1423,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
         triggerCardSpotlight(0);
 
+        // 1.5s active + 0.5s delay = 2000ms loop cycle
         setInterval(() => {
-            if (hoveredIndex === null) {
+            if (hoveredIndex === null && !prefersReducedMotion) {
                 activeCardIndex = (activeCardIndex + 1) % cards.length;
                 triggerCardSpotlight(activeCardIndex);
             }
-        }, 2800);
+        }, 2200);
 
         // --------------------------------------------------
         // 4. GSAP SCROLLTRIGGER ENTRANCE ANIMATION
         // --------------------------------------------------
-        if (window.gsap && window.ScrollTrigger) {
+        if (window.gsap && window.ScrollTrigger && !prefersReducedMotion) {
             gsap.registerPlugin(ScrollTrigger);
 
             gsap.fromTo('.tech-section-header', 
-                { opacity: 0, y: 50, filter: 'blur(10px)' },
+                { opacity: 0, y: 40 },
                 {
                     opacity: 1,
                     y: 0,
-                    filter: 'blur(0px)',
                     duration: 1,
                     ease: 'power3.out',
                     scrollTrigger: {
@@ -1429,24 +1452,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             );
 
-            gsap.fromTo(cards,
-                { opacity: 0, y: 70, rotateX: -15 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    rotateX: 0,
-                    duration: 1.1,
-                    stagger: 0.2,
-                    ease: 'power3.out',
-                    scrollTrigger: {
-                        trigger: '.skills-wrapper-3d',
-                        start: 'top 85%',
-                        onEnter: () => {
-                            if (window.lucide) lucide.createIcons();
+            // Per-card scroll entrance angles (Card 1: 12deg, Card 2: -12deg, Card 3: 8deg)
+            const entranceAngles = [12, -12, 8];
+            cards.forEach((card, i) => {
+                gsap.fromTo(card,
+                    { opacity: 0, scale: 0.92, rotateX: entranceAngles[i] },
+                    {
+                        opacity: 1,
+                        scale: 1,
+                        rotateX: 0,
+                        duration: 1.2,
+                        delay: i * 0.15,
+                        ease: 'power3.out',
+                        scrollTrigger: {
+                            trigger: '.skills-wrapper-3d',
+                            start: 'top 85%',
+                            onEnter: () => {
+                                if (window.lucide) lucide.createIcons();
+                            }
                         }
                     }
-                }
-            );
+                );
+            });
         } else {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
