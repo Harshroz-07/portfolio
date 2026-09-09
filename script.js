@@ -1500,11 +1500,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
             ecosystem.style.transform = `perspective(1200px) rotateX(${camRotX}deg) rotateY(${camRotY}deg)`;
 
-            // Responsive Radii
-            const isMobile = window.innerWidth <= 768;
-            const Rx = isMobile ? 220 : 420;
-            const Ry = isMobile ? 110 : 175;
-            const Rz = isMobile ? 150 : 230;
+            // Multi-breakpoint fluid responsive radii for mobile, tablet, laptop, and desktop
+            const w = window.innerWidth;
+            let Rx, Ry, Rz;
+            if (w <= 480) {
+                Rx = Math.min(135, w * 0.36);
+                Ry = 70;
+                Rz = 85;
+            } else if (w <= 768) {
+                Rx = Math.min(185, w * 0.36);
+                Ry = 95;
+                Rz = 120;
+            } else if (w <= 1024) {
+                Rx = Math.min(270, w * 0.34);
+                Ry = 125;
+                Rz = 160;
+            } else {
+                Rx = 400;
+                Ry = 165;
+                Rz = 220;
+            }
 
             let maxZ = -Infinity;
             let activeIndex = 0;
@@ -1612,11 +1627,29 @@ document.addEventListener('DOMContentLoaded', () => {
             canvas.height = height * dpr;
             ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-            const isMobile = width <= 850;
-            centerX = isMobile ? width * 0.5 : width * 0.63;
-            centerY = isMobile ? height * 0.35 : height * 0.50;
-            radiusX = isMobile ? width * 0.38 : Math.min(width * 0.28, 290);
-            radiusY = isMobile ? height * 0.20 : Math.min(height * 0.36, 135);
+            // 4-tier responsive geometry for mobile, tablet, laptop, and desktop
+            if (width <= 480) {
+                centerX = width * 0.5;
+                centerY = height * 0.28;
+                radiusX = width * 0.35;
+                radiusY = height * 0.15;
+            } else if (width <= 768) {
+                centerX = width * 0.5;
+                centerY = height * 0.30;
+                radiusX = width * 0.37;
+                radiusY = height * 0.17;
+            } else if (width <= 1024) {
+                // Tablet: Keep HUD card on left, orbit on right without collision
+                centerX = width * 0.67;
+                centerY = height * 0.50;
+                radiusX = Math.min(width * 0.23, 210);
+                radiusY = Math.min(height * 0.32, 115);
+            } else {
+                centerX = width * 0.63;
+                centerY = height * 0.50;
+                radiusX = Math.min(width * 0.28, 290);
+                radiusY = Math.min(height * 0.36, 135);
+            }
         };
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
@@ -1749,7 +1782,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     activePinCoords = { x, y };
                 }
 
-                const baseScale = isActive ? 1.34 : (0.78 + 0.30 * depthNorm);
+                const isSmall = width <= 480;
+                const baseScale = isActive 
+                    ? (isSmall ? 1.15 : 1.34) 
+                    : ((isSmall ? 0.68 : 0.78) + (isSmall ? 0.22 : 0.30) * depthNorm);
                 const opacity = isActive ? 1.0 : (0.55 + 0.45 * depthNorm);
                 const zIndex = isActive ? 60 : Math.round(10 + 25 * depthNorm);
 
@@ -1761,7 +1797,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             // 5. Connect HUD Card to Active Station with subtle holographic tracer
-            if (activePinCoords && hudCard && width > 850) {
+            if (activePinCoords && hudCard && width > 768) {
                 const hudRect = hudCard.getBoundingClientRect();
                 const viewRect = viewport.getBoundingClientRect();
                 const hudEndX = (hudRect.right - viewRect.left) - 10;
