@@ -414,6 +414,21 @@ document.addEventListener('DOMContentLoaded', () => {
             tags: ["JavaScript", "HTML5", "CSS3", "Admin Portal", "REST API"],
             liveLink: "http://localhost:8080",
             repoLink: "https://github.com/Harshroz-07/portfolio"
+        },
+        project4: {
+            title: "Airbnb Clone",
+            category: "Full-Stack Next.js Application",
+            img: "assets/airbnb_clone.png",
+            desc: "Airbnb Clone is a full-featured vacation rental marketplace web application built with Next.js App Router and TypeScript. It features interactive property listings, dynamic category filters, search capabilities, responsive guest booking workflows, and high-performance server-side rendering.",
+            bullets: [
+                "Architected modern responsive marketplace using Next.js App Router, React Server Components, and TypeScript.",
+                "Implemented category-based property filtering (beachfront, luxury villas, cabins, trending) with smooth transitions.",
+                "Engineered responsive property showcase cards with interactive detail views, amenity highlights, and pricing breakdowns.",
+                "Deployed live on Vercel with optimized SSR/ISR rendering, SEO metadata, and mobile-friendly touch layouts."
+            ],
+            tags: ["Next.js", "TypeScript", "Tailwind CSS", "React.js", "Vercel", "SSR"],
+            liveLink: "https://airbnb-phi-nine.vercel.app",
+            repoLink: "https://github.com/Harshroz-07/airbnb"
         }
     };
 
@@ -489,6 +504,14 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') closeModal();
     });
+
+    // Airbnb Clone Direct Live Preview on Touch/Click
+    const airbnbCard = document.getElementById('airbnbProjectCard');
+    if (airbnbCard) {
+        airbnbCard.addEventListener('click', (e) => {
+            window.open('https://airbnb-phi-nine.vercel.app/', '_blank', 'noopener,noreferrer');
+        });
+    }
 
     /* ==========================================
        9. TIMELINE SCROLL PATH ANIMATION
@@ -1554,25 +1577,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* ====================================================
        CORE CONCEPT — “MY DIGITAL JOURNEY” 3D DESTINATION PATH
+       Clockwise Step-by-Step Rotary Orbit Engine
     ==================================================== */
     const initDigitalJourneyFooter = () => {
         const viewport = document.getElementById('journey3dViewport');
         const canvas = document.getElementById('journeyPathCanvas');
         const nodesTrack = document.getElementById('journeyNodesTrack');
+        const hudCard = document.getElementById('journeyHudCard');
+        const hudStepCounter = document.getElementById('hudStepCounter');
         const hudBadge = document.getElementById('hudStationBadge');
         const hudTitle = document.getElementById('hudStationTitle');
         const hudDesc = document.getElementById('hudStationDesc');
         const hudWarpBtn = document.getElementById('hudWarpBtn');
+        const hudPrevStepBtn = document.getElementById('hudPrevStepBtn');
+        const hudNextStepBtn = document.getElementById('hudNextStepBtn');
+        const hudPlayPauseBtn = document.getElementById('hudPlayPauseBtn');
+        const hudPlayIcon = document.getElementById('hudPlayIcon');
+        const hudPauseIcon = document.getElementById('hudPauseIcon');
         const destBtns = document.querySelectorAll('.journey-dest-btn');
 
         if (!canvas || !viewport) return;
 
         const ctx = canvas.getContext('2d');
         let width = 0, height = 0;
+        let centerX = 0, centerY = 0;
+        let radiusX = 0, radiusY = 0;
 
         const resizeCanvas = () => {
-            width = canvas.width = viewport.offsetWidth;
-            height = canvas.height = viewport.offsetHeight;
+            const dpr = window.devicePixelRatio || 1;
+            width = viewport.offsetWidth;
+            height = viewport.offsetHeight;
+
+            canvas.width = width * dpr;
+            canvas.height = height * dpr;
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+            const isMobile = width <= 850;
+            centerX = isMobile ? width * 0.5 : width * 0.63;
+            centerY = isMobile ? height * 0.35 : height * 0.50;
+            radiusX = isMobile ? width * 0.38 : Math.min(width * 0.28, 290);
+            radiusY = isMobile ? height * 0.20 : Math.min(height * 0.36, 135);
         };
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
@@ -1589,10 +1633,19 @@ document.addEventListener('DOMContentLoaded', () => {
             { id: "8", name: "Contact Portal", badge: "STATION 09 // 📩 CONTACT PORTAL", icon: "📩", target: "#contact", desc: "Wormhole portal to connect, initiate projects, and collaborate." }
         ];
 
+        const numStations = stations.length;
+        const STEP_ANGLE = (2 * Math.PI) / numStations;
+        const STEP_DURATION = 3200; // Time spent at each step (ms)
+
         let activeStationIndex = 0;
+        let currentAngle = 0;
+        let targetAngle = 0;
+        let isPaused = false;
+        let autoStepTimer = null;
+        let isHovered = false;
         const nodeElements = [];
 
-        // Generate Node Pins along 3D Perspective Curve
+        // Generate Node Pins along 3D Perspective Orbit
         if (nodesTrack) {
             nodesTrack.innerHTML = '';
             stations.forEach((st, idx) => {
@@ -1600,10 +1653,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 pin.className = `journey-node-pin ${idx === 0 ? 'active' : ''}`;
                 pin.setAttribute('data-index', idx);
                 pin.innerHTML = st.icon;
-                pin.title = st.name;
+                pin.title = `${st.name} (Station 0${idx + 1})`;
 
                 pin.addEventListener('click', () => {
-                    setActiveStation(idx);
+                    goToStation(idx, true);
                 });
 
                 nodesTrack.appendChild(pin);
@@ -1611,102 +1664,270 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Calculate 3D Curve Coordinates along S-curve
-        const getPointOnCurve = (t) => {
-            // S-curve from bottom-left to top-right in 3D perspective
-            const x = width * (0.08 + 0.84 * t);
-            const y = height * (0.75 - 0.5 * Math.sin(t * Math.PI));
-            const z = 0.5 + 0.5 * Math.sin(t * Math.PI); // Depth factor
-            return { x, y, z };
-        };
-
-        // Energy pulses traveling along the road
-        let pulses = [];
-        for (let i = 0; i < 20; i++) {
+        // Energy pulses streaming clockwise around the 3D ellipse
+        const pulses = [];
+        for (let i = 0; i < 24; i++) {
             pulses.push({
-                t: Math.random(),
-                speed: 0.002 + Math.random() * 0.002,
+                angle: (i / 24) * Math.PI * 2,
+                speed: 0.003 + Math.random() * 0.003,
                 size: Math.random() * 3 + 2,
                 color: Math.random() > 0.5 ? '#c084fc' : '#38bdf8'
             });
         }
 
-        // Main 3D Highway Canvas Loop
+        // Main 3D Rotary Orbit Canvas Render Loop
         const renderPath = () => {
             ctx.clearRect(0, 0, width, height);
 
-            // Draw glowing 3D cyber road curve
+            // Smoothly interpolate angle toward targetAngle (buttery spring lerp)
+            currentAngle += (targetAngle - currentAngle) * 0.085;
+
+            // 1. Draw glowing 3D cyber elliptical track
+            ctx.save();
             ctx.beginPath();
-            const steps = 100;
-            for (let i = 0; i <= steps; i++) {
-                const t = i / steps;
-                const pt = getPointOnCurve(t);
-                if (i === 0) ctx.moveTo(pt.x, pt.y);
-                else ctx.lineTo(pt.x, pt.y);
-            }
-            ctx.strokeStyle = 'rgba(192, 132, 252, 0.4)';
+            ctx.ellipse(centerX, centerY, radiusX, radiusY, 0, 0, Math.PI * 2);
+            ctx.strokeStyle = 'rgba(192, 132, 252, 0.25)';
             ctx.lineWidth = 4;
+            ctx.shadowColor = 'rgba(168, 85, 247, 0.4)';
+            ctx.shadowBlur = 12;
             ctx.stroke();
 
-            // Inner cyan beam
-            ctx.strokeStyle = 'rgba(56, 189, 248, 0.8)';
-            ctx.lineWidth = 1.5;
+            // Inner cyan track
+            ctx.beginPath();
+            ctx.ellipse(centerX, centerY, radiusX, radiusY, 0, 0, Math.PI * 2);
+            ctx.strokeStyle = 'rgba(56, 189, 248, 0.75)';
+            ctx.lineWidth = 1.6;
+            ctx.shadowBlur = 0;
             ctx.stroke();
 
-            // Render Traveling Energy Pulses
-            pulses.forEach(p => {
-                p.t = (p.t + p.speed) % 1;
-                const pt = getPointOnCurve(p.t);
+            // 2. Cyber orbit tick marks (rotating clockwise with the track)
+            const tickCount = 36;
+            for (let i = 0; i < tickCount; i++) {
+                const a = currentAngle + (i / tickCount) * Math.PI * 2;
+                const innerX = centerX + (radiusX - 5) * Math.cos(a);
+                const innerY = centerY + (radiusY - 5) * Math.sin(a);
+                const outerX = centerX + (radiusX + 5) * Math.cos(a);
+                const outerY = centerY + (radiusY + 5) * Math.sin(a);
 
                 ctx.beginPath();
-                ctx.arc(pt.x, pt.y, p.size * pt.z, 0, Math.PI * 2);
+                ctx.moveTo(innerX, innerY);
+                ctx.lineTo(outerX, outerY);
+                ctx.strokeStyle = i % 4 === 0 ? 'rgba(56, 189, 248, 0.6)' : 'rgba(255, 255, 255, 0.15)';
+                ctx.lineWidth = i % 4 === 0 ? 1.5 : 1;
+                ctx.stroke();
+            }
+
+            // 3. Render Clockwise Traveling Energy Pulses
+            pulses.forEach(p => {
+                p.angle = (p.angle + p.speed) % (Math.PI * 2);
+                const px = centerX + radiusX * Math.cos(p.angle);
+                const py = centerY + radiusY * Math.sin(p.angle);
+                const pz = 0.5 + 0.5 * Math.sin(p.angle);
+
+                ctx.beginPath();
+                ctx.arc(px, py, p.size * (0.8 + 0.4 * pz), 0, Math.PI * 2);
                 ctx.fillStyle = p.color;
                 ctx.shadowColor = p.color;
-                ctx.shadowBlur = 10;
+                ctx.shadowBlur = 8;
                 ctx.fill();
-                ctx.shadowBlur = 0;
+            });
+            ctx.restore();
+
+            // 4. Update Node Pins on Ellipse in Clockwise Order
+            let activePinCoords = null;
+            nodeElements.forEach((pin, idx) => {
+                // Clockwise angle offset: Station 0 starts at top apex (-Math.PI/2)
+                const nodeAngle = currentAngle + idx * STEP_ANGLE - Math.PI / 2;
+                const x = centerX + radiusX * Math.cos(nodeAngle);
+                const y = centerY + radiusY * Math.sin(nodeAngle);
+                const z = Math.sin(nodeAngle); // depth factor
+
+                const depthNorm = (z + 1) / 2; // [0, 1]
+                const isActive = (idx === activeStationIndex);
+
+                if (isActive) {
+                    activePinCoords = { x, y };
+                }
+
+                const baseScale = isActive ? 1.34 : (0.78 + 0.30 * depthNorm);
+                const opacity = isActive ? 1.0 : (0.55 + 0.45 * depthNorm);
+                const zIndex = isActive ? 60 : Math.round(10 + 25 * depthNorm);
+
+                pin.style.left = `${x}px`;
+                pin.style.top = `${y}px`;
+                pin.style.transform = `translate(-50%, -50%) scale(${baseScale})`;
+                pin.style.opacity = opacity.toFixed(2);
+                pin.style.zIndex = zIndex;
             });
 
-            // Position HTML Node Pins over 3D coordinates
-            nodeElements.forEach((pin, idx) => {
-                const t = idx / (stations.length - 1);
-                const pt = getPointOnCurve(t);
-                pin.style.left = `${pt.x}px`;
-                pin.style.top = `${pt.y}px`;
-            });
+            // 5. Connect HUD Card to Active Station with subtle holographic tracer
+            if (activePinCoords && hudCard && width > 850) {
+                const hudRect = hudCard.getBoundingClientRect();
+                const viewRect = viewport.getBoundingClientRect();
+                const hudEndX = (hudRect.right - viewRect.left) - 10;
+                const hudEndY = (hudRect.top + hudRect.bottom) / 2 - viewRect.top;
+
+                ctx.save();
+                ctx.beginPath();
+                ctx.moveTo(hudEndX, hudEndY);
+                ctx.quadraticCurveTo((hudEndX + activePinCoords.x) / 2, hudEndY, activePinCoords.x, activePinCoords.y);
+                ctx.strokeStyle = 'rgba(192, 132, 252, 0.35)';
+                ctx.lineWidth = 1.5;
+                ctx.setLineDash([4, 4]);
+                ctx.stroke();
+
+                // Subtle focal radar ring under active node
+                ctx.beginPath();
+                ctx.arc(activePinCoords.x, activePinCoords.y, 28, 0, Math.PI * 2);
+                ctx.strokeStyle = 'rgba(56, 189, 248, 0.4)';
+                ctx.lineWidth = 1.2;
+                ctx.setLineDash([]);
+                ctx.stroke();
+                ctx.restore();
+            }
 
             requestAnimationFrame(renderPath);
         };
         renderPath();
 
-        // Update active station HUD & triggers
-        const setActiveStation = (index) => {
-            activeStationIndex = index;
+        // Update active station HUD & UI elements
+        const updateActiveStationUI = (index) => {
             const st = stations[index];
 
-            // Update pins
+            // Update node pin active classes
             nodeElements.forEach((pin, i) => {
-                if (i === index) pin.classList.add('active');
-                else pin.classList.remove('active');
+                pin.classList.toggle('active', i === index);
             });
 
-            // Update station buttons
+            // Update bottom station button active classes
             destBtns.forEach((btn, i) => {
-                if (i === index) btn.classList.add('active');
-                else btn.classList.remove('active');
+                btn.classList.toggle('active', i === index);
             });
 
-            // Update HUD card content
-            if (hudBadge) hudBadge.textContent = st.badge;
-            if (hudTitle) hudTitle.textContent = st.name;
-            if (hudDesc) hudDesc.textContent = st.desc;
+            // Update active background panel in sync with the 3-stage journey
+            const bgItems = document.querySelectorAll('.journey-bg-item');
+            const activeBgIndex = Math.min(2, Math.floor(index / 3)); // 0, 1, or 2
+            bgItems.forEach((item, i) => {
+                item.classList.toggle('active', i === activeBgIndex);
+            });
+
+            // Holographic HUD Card smooth text update
+            if (hudCard) {
+                hudCard.classList.add('step-changing');
+                setTimeout(() => {
+                    if (hudStepCounter) hudStepCounter.textContent = `STEP 0${index + 1} // 09`;
+                    if (hudBadge) hudBadge.textContent = st.badge;
+                    if (hudTitle) hudTitle.textContent = st.name;
+                    if (hudDesc) hudDesc.textContent = st.desc;
+                    hudCard.classList.remove('step-changing');
+                }, 160);
+            }
         };
 
-        // Station button clicks
+        // Go to specific station with clockwise/shortest step calculation
+        const goToStation = (newIndex, clockwise = true) => {
+            if (newIndex < 0) newIndex = numStations - 1;
+            if (newIndex >= numStations) newIndex = 0;
+
+            const prevIndex = activeStationIndex;
+            activeStationIndex = newIndex;
+
+            if (clockwise) {
+                let steps = (newIndex - prevIndex + numStations) % numStations;
+                if (steps === 0) steps = 1;
+                targetAngle += steps * STEP_ANGLE;
+            } else {
+                let steps = (prevIndex - newIndex + numStations) % numStations;
+                if (steps === 0) steps = 1;
+                targetAngle -= steps * STEP_ANGLE;
+            }
+
+            updateActiveStationUI(activeStationIndex);
+            resetAutoStepTimer();
+        };
+
+        // Step Clockwise (One by One)
+        const stepClockwise = () => {
+            const nextIdx = (activeStationIndex + 1) % numStations;
+            goToStation(nextIdx, true);
+        };
+
+        // Step Counter-Clockwise
+        const stepCounterClockwise = () => {
+            const prevIdx = (activeStationIndex - 1 + numStations) % numStations;
+            goToStation(prevIdx, false);
+        };
+
+        // Auto-step timer management
+        const startAutoStepTimer = () => {
+            clearTimeout(autoStepTimer);
+            if (isPaused || isHovered) return;
+            autoStepTimer = setTimeout(() => {
+                if (!isPaused && !isHovered) {
+                    stepClockwise();
+                }
+            }, STEP_DURATION);
+        };
+
+        const resetAutoStepTimer = () => {
+            clearTimeout(autoStepTimer);
+            startAutoStepTimer();
+        };
+
+        // Toggle Pause/Play
+        const togglePlayPause = () => {
+            isPaused = !isPaused;
+            if (hudPlayIcon && hudPauseIcon) {
+                if (isPaused) {
+                    hudPlayIcon.classList.remove('hidden');
+                    hudPauseIcon.classList.add('hidden');
+                    clearTimeout(autoStepTimer);
+                } else {
+                    hudPlayIcon.classList.add('hidden');
+                    hudPauseIcon.classList.remove('hidden');
+                    resetAutoStepTimer();
+                }
+            }
+        };
+
+        // Event listeners for Step controls
+        if (hudNextStepBtn) {
+            hudNextStepBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                stepClockwise();
+            });
+        }
+
+        if (hudPrevStepBtn) {
+            hudPrevStepBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                stepCounterClockwise();
+            });
+        }
+
+        if (hudPlayPauseBtn) {
+            hudPlayPauseBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                togglePlayPause();
+            });
+        }
+
+        // Pause on hover over viewport so user can easily read and click
+        viewport.addEventListener('mouseenter', () => {
+            isHovered = true;
+            clearTimeout(autoStepTimer);
+        });
+
+        viewport.addEventListener('mouseleave', () => {
+            isHovered = false;
+            resetAutoStepTimer();
+        });
+
+        // Station button clicks in bottom grid
         destBtns.forEach((btn) => {
             btn.addEventListener('click', () => {
                 const idx = parseInt(btn.getAttribute('data-station'), 10);
-                setActiveStation(idx);
+                goToStation(idx, true);
             });
         });
 
@@ -1722,6 +1943,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         }
+
+        // Initialize state & start automatic step-by-step clockwise rotation
+        updateActiveStationUI(0);
+        resetAutoStepTimer();
     };
 
     init3DTechOrbit();

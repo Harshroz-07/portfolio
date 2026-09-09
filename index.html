@@ -457,6 +457,40 @@
                         </div>
                     </div>
 
+                    <!-- Project 4: Airbnb Clone -->
+                    <div class="project-card airbnb-clone-card" id="airbnbProjectCard" data-category="web" style="cursor: pointer;">
+                        <div class="project-img-wrapper">
+                            <img src="assets/airbnb_clone.png" alt="Airbnb Clone Vacation Rental Platform" class="project-img">
+                            <div class="project-overlay">
+                                <a href="https://airbnb-phi-nine.vercel.app/" target="_blank" rel="noopener" class="btn-detail-trigger btn-live-preview" style="text-decoration: none;">
+                                    <span>Live Preview</span>
+                                    <i data-lucide="external-link"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="project-info">
+                            <div class="project-meta">
+                                <span class="project-cat">Full-Stack Next.js App</span>
+                                <div class="project-links">
+                                    <a href="https://airbnb-phi-nine.vercel.app/" class="proj-link" aria-label="Live Demo"
+                                        target="_blank" rel="noopener"><i data-lucide="external-link"></i></a>
+                                </div>
+                            </div>
+                            <h3 class="project-card-title">
+                                <a href="https://airbnb-phi-nine.vercel.app/" target="_blank" rel="noopener" style="color: inherit; text-decoration: none;">Airbnb Clone</a>
+                            </h3>
+                            <p class="project-card-desc">Full-stack vacation rental marketplace featuring dynamic property listings, category filters, reservation workflows, and responsive Next.js App Router architecture.</p>
+                            <div class="project-tags">
+                                <span class="tag">Next.js</span>
+                                <span class="tag">TypeScript</span>
+                                <span class="tag">Tailwind CSS</span>
+                                <span class="tag">React</span>
+                                <span class="tag">Vercel</span>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -676,6 +710,23 @@
 
                 <!-- 3D Destination Path Viewport & Interactive Cyber Highway -->
                 <div class="journey-3d-viewport" id="journey3dViewport">
+                    <!-- Cinematic 3-Image Background Panorama Layer -->
+                    <div class="journey-bg-layer" id="journeyBgLayer">
+                        <div class="journey-bg-panels">
+                            <div class="journey-bg-item panel-left active" data-bg-index="0">
+                                <img src="assets/journey_bg_perspective.jpg" alt="Perspective" class="journey-bg-img img-perspective">
+                            </div>
+                            <div class="journey-bg-item panel-center" data-bg-index="1">
+                                <img src="assets/journey_bg_nodesire.jpg" alt="No Desire To Fit In" class="journey-bg-img img-nodesire">
+                            </div>
+                            <div class="journey-bg-item panel-right" data-bg-index="2">
+                                <img src="assets/journey_bg_scorsese.jpg" alt="Visionary Director" class="journey-bg-img img-scorsese">
+                            </div>
+                        </div>
+                        <!-- Cinematic Multi-Layer Dark Vignette & Color Grading Overlay -->
+                        <div class="journey-bg-overlay"></div>
+                    </div>
+
                     <canvas id="journeyPathCanvas"></canvas>
 
                     <!-- Interactive Station Nodes Overlay along the 3D road -->
@@ -685,12 +736,30 @@
 
                     <!-- Holographic HUD Card for Active Destination -->
                     <div class="journey-hud-card" id="journeyHudCard">
+                        <div class="hud-top-meta">
+                            <span class="hud-step-badge" id="hudStepCounter">STEP 01 // 09</span>
+                            <span class="hud-mode-badge"><span class="pulse-dot"></span> CLOCKWISE ORBIT</span>
+                        </div>
                         <div class="hud-badge" id="hudStationBadge">STATION 01 // 🚀 LAUNCH STATION</div>
                         <h3 class="hud-title" id="hudStationTitle">Launch Station</h3>
                         <p class="hud-desc" id="hudStationDesc">Starting point of my digital journey. Developer intro, bio, and mission parameters.</p>
-                        <button class="btn btn-primary btn-sm" id="hudWarpBtn">
-                            <i data-lucide="zap"></i> WARP TO DESTINATION
-                        </button>
+                        <div class="hud-footer-controls">
+                            <button class="btn btn-primary btn-sm" id="hudWarpBtn">
+                                <i data-lucide="zap"></i> WARP TO DESTINATION
+                            </button>
+                            <div class="hud-step-nav">
+                                <button class="hud-step-arrow" id="hudPrevStepBtn" aria-label="Previous Station" title="Previous Station (Counter-clockwise)">
+                                    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+                                </button>
+                                <button class="hud-step-arrow" id="hudPlayPauseBtn" aria-label="Pause or Play Rotation" title="Toggle Auto-Rotation">
+                                    <svg id="hudPlayIcon" class="ctrl-icon hidden" viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><polygon points="6,4 20,12 6,20"/></svg>
+                                    <svg id="hudPauseIcon" class="ctrl-icon" viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><rect x="6" y="4" width="3.5" height="16"/><rect x="14.5" y="4" width="3.5" height="16"/></svg>
+                                </button>
+                                <button class="hud-step-arrow" id="hudNextStepBtn" aria-label="Next Station" title="Next Station (Clockwise)">
+                                    <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

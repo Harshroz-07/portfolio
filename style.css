@@ -1616,6 +1616,27 @@ html[data-theme="light"] .theme-toggle .moon-icon {
     background: var(--text-primary);
 }
 
+.airbnb-clone-card {
+    cursor: pointer;
+}
+
+.airbnb-clone-card:hover {
+    border-color: rgba(56, 189, 248, 0.6);
+    box-shadow: 0 16px 40px rgba(56, 189, 248, 0.22);
+}
+
+.airbnb-clone-card .btn-live-preview {
+    background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 18px rgba(14, 165, 233, 0.45);
+}
+
+.airbnb-clone-card .btn-live-preview:hover {
+    background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+    color: #ffffff;
+    transform: translateY(-2px) scale(1.05);
+}
+
 .project-info {
     padding: 24px;
     display: flex;
@@ -3970,15 +3991,144 @@ html[data-theme="light"] .empty-project-box {
 .journey-3d-viewport {
     position: relative;
     width: 100%;
-    height: 380px;
+    height: 420px;
     border-radius: 24px;
-    background: rgba(10, 14, 28, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 0 40px rgba(168, 85, 247, 0.08);
+    background: #080b14;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75), inset 0 0 50px rgba(168, 85, 247, 0.08);
     overflow: hidden;
     margin-bottom: 30px;
+}
+
+/* Cinematic 3-Image Background Panorama Layer */
+.journey-bg-layer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
+    border-radius: inherit;
+}
+
+.journey-bg-panels {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    transition: opacity 0.5s ease;
+}
+
+.journey-bg-item {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    opacity: 0.7;
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease;
+}
+
+.journey-bg-item.panel-left {
+    flex: 1;
+}
+
+.journey-bg-item.panel-center {
+    flex: 1.05;
+}
+
+.journey-bg-item.panel-right {
+    flex: 1.15;
+}
+
+.journey-bg-item.active {
+    opacity: 0.95;
+    transform: scale(1.02);
+}
+
+.journey-bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    user-select: none;
+    pointer-events: none;
+    transition: filter 0.6s ease, transform 0.6s ease;
+}
+
+/* Custom fine-tuning for each picture's subject & framing */
+.img-perspective {
+    object-position: center 25%;
+    filter: grayscale(75%) contrast(120%) brightness(0.68);
+}
+
+.img-nodesire {
+    object-position: center 20%;
+    filter: contrast(125%) brightness(0.62) saturate(1.1);
+}
+
+.img-scorsese {
+    object-position: center 15%;
+    filter: grayscale(100%) contrast(130%) brightness(0.72);
+}
+
+/* Subtle edge-feathering between the 3 pictures */
+.journey-bg-item.panel-left::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60px;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(8, 11, 20, 0.9));
+    z-index: 2;
+}
+
+.journey-bg-item.panel-center::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 100%;
+    background: linear-gradient(to left, transparent, rgba(8, 11, 20, 0.9));
+    z-index: 2;
+}
+
+.journey-bg-item.panel-center::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60px;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(8, 11, 20, 0.9));
+    z-index: 2;
+}
+
+.journey-bg-item.panel-right::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 100%;
+    background: linear-gradient(to left, transparent, rgba(8, 11, 20, 0.9));
+    z-index: 2;
+}
+
+/* Multi-layer dark cinematic overlay & color grading */
+.journey-bg-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+    background: 
+        radial-gradient(ellipse at 65% 50%, rgba(168, 85, 247, 0.15) 0%, transparent 65%),
+        linear-gradient(180deg, rgba(6, 8, 16, 0.82) 0%, rgba(8, 11, 22, 0.52) 40%, rgba(6, 8, 16, 0.94) 100%),
+        linear-gradient(90deg, rgba(6, 8, 16, 0.92) 0%, rgba(8, 11, 22, 0.4) 45%, rgba(6, 8, 16, 0.78) 100%);
+    backdrop-filter: blur(1.5px);
+    -webkit-backdrop-filter: blur(1.5px);
 }
 
 #journeyPathCanvas {
@@ -3988,6 +4138,7 @@ html[data-theme="light"] .empty-project-box {
     width: 100%;
     height: 100%;
     display: block;
+    z-index: 4;
 }
 
 /* Nodes Overlay */
@@ -3998,50 +4149,120 @@ html[data-theme="light"] .empty-project-box {
     width: 100%;
     height: 100%;
     pointer-events: none;
+    z-index: 10;
 }
 
 .journey-node-pin {
     position: absolute;
-    width: 44px;
-    height: 44px;
-    margin-left: -22px;
-    margin-top: -22px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
-    background: rgba(18, 24, 48, 0.9);
-    border: 2px solid rgba(255, 255, 255, 0.25);
+    background: rgba(18, 24, 48, 0.94);
+    border: 2px solid rgba(255, 255, 255, 0.22);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.1rem;
+    font-size: 1.25rem;
     color: #ffffff;
     cursor: pointer;
     pointer-events: auto;
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    user-select: none;
+    will-change: transform, opacity, left, top;
 }
 
-.journey-node-pin:hover,
+.journey-node-pin:hover {
+    border-color: #38bdf8;
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.6);
+}
+
 .journey-node-pin.active {
-    transform: scale(1.3) translateZ(10px);
     border-color: #c084fc;
-    box-shadow: 0 0 25px rgba(192, 132, 252, 0.8), 0 0 50px rgba(56, 189, 248, 0.4);
+    background: rgba(30, 24, 60, 0.96);
+    box-shadow: 0 0 25px rgba(192, 132, 252, 0.9), 0 0 45px rgba(56, 189, 248, 0.45);
+}
+
+.journey-node-pin.active::after {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    border: 2px solid rgba(192, 132, 252, 0.6);
+    animation: nodePulse 2s infinite ease-out;
+    pointer-events: none;
+}
+
+@keyframes nodePulse {
+    0% { transform: scale(0.9); opacity: 0.9; }
+    100% { transform: scale(1.55); opacity: 0; }
 }
 
 /* Holographic HUD Overlay Card */
 .journey-hud-card {
     position: absolute;
-    bottom: 20px;
-    left: 20px;
-    width: 320px;
-    padding: 20px 22px;
-    border-radius: 18px;
-    background: rgba(12, 16, 32, 0.92);
+    top: 50%;
+    transform: translateY(-50%);
+    left: 28px;
+    width: 325px;
+    padding: 22px 24px;
+    border-radius: 20px;
+    background: rgba(12, 16, 32, 0.94);
     border: 1px solid rgba(192, 132, 252, 0.35);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 30px rgba(168, 85, 247, 0.2);
-    transition: opacity 0.35s ease, transform 0.35s ease;
-    z-index: 10;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    z-index: 20;
+}
+
+.journey-hud-card.step-changing {
+    opacity: 0.35;
+    transform: translateY(-50%) translateX(-6px);
+}
+
+.hud-top-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.hud-step-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #c084fc;
+    letter-spacing: 2px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: rgba(192, 132, 252, 0.12);
+    border: 1px solid rgba(192, 132, 252, 0.25);
+}
+
+.hud-mode-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    font-weight: 600;
+    color: #38bdf8;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.hud-mode-badge .pulse-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #38bdf8;
+    box-shadow: 0 0 8px #38bdf8;
+    animation: blinkDot 1.5s infinite;
+}
+
+@keyframes blinkDot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.3; transform: scale(0.8); }
 }
 
 .hud-badge {
@@ -4067,6 +4288,49 @@ html[data-theme="light"] .empty-project-box {
     color: #94a3b8;
     line-height: 1.45;
     margin: 0 0 14px 0;
+}
+
+.hud-footer-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.hud-step-nav {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.hud-step-arrow {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    color: #cbd5e1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.hud-step-arrow:hover {
+    background: rgba(192, 132, 252, 0.25);
+    border-color: #c084fc;
+    color: #ffffff;
+    transform: scale(1.08);
+}
+
+.hud-step-arrow:active {
+    transform: scale(0.95);
+}
+
+.hud-step-arrow .ctrl-icon.hidden {
+    display: none;
 }
 
 /* Destinations Buttons Grid */
@@ -4118,18 +4382,43 @@ html[data-theme="light"] .empty-project-box {
     box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 850px) {
     .journey-title {
         font-size: 2rem;
     }
     .journey-3d-viewport {
-        height: 320px;
+        height: 500px;
+    }
+    .journey-bg-panels {
+        display: block;
+    }
+    .journey-bg-item {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transform: scale(1.04);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .journey-bg-item.active {
+        opacity: 0.85;
+        transform: scale(1);
+    }
+    .journey-bg-item::before,
+    .journey-bg-item::after {
+        display: none;
     }
     .journey-hud-card {
-        width: 260px;
+        width: calc(100% - 32px);
+        left: 16px;
+        bottom: 16px;
+        top: auto;
+        transform: none;
         padding: 16px 18px;
-        bottom: 12px;
-        left: 12px;
+    }
+    .journey-hud-card.step-changing {
+        transform: translateY(4px);
     }
     .hud-title {
         font-size: 1.25rem;
